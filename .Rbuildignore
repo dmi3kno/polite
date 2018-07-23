@@ -1,2 +1,4 @@
 ^polite\.Rproj$
 ^\.Rproj\.user$
+^README\.Rmd$
+^data-raw$

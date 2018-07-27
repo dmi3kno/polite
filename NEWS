@@ -1,0 +1,15 @@
+polite v0.0.0.9001 (Release date: 2018-07-27)
+==============
+
+Changes:
+
+* Implemented bow(), nod() and scrape()
+* Added documentation and examples
+* Updated README to include examples
+
+polite v0.0.0.9000 (Release date: 2018-07-23)
+==============
+
+Changes:
+
+* Polite is born!

@@ -4,12 +4,14 @@
 \alias{nod}
 \title{Agree modification of session path with the host}
 \usage{
-nod(bow, path)
+nod(bow, path, verbose = FALSE)
 }
 \arguments{
 \item{bow}{object of class \code{polite}, \code{session} created by \code{polite::bow()}}
 
 \item{path}{string value of path/url to follow. The function accepts both path (string part of url followin domain name) or a full url.}
+
+\item{verbose}{TRUE/FALSE}
 }
 \value{
 object of class \code{polite}, \code{session} with modified url

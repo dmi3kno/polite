@@ -5,7 +5,7 @@
 \title{Inroduce yourself to the host}
 \usage{
 bow(url, user_agent = "polite R package - https://github.com/dmi3kno/polite",
-  force = FALSE, ...)
+  force = FALSE, verbose = FALSE, ...)
 }
 \arguments{
 \item{url}{url}
@@ -13,6 +13,8 @@ bow(url, user_agent = "polite R package - https://github.com/dmi3kno/polite",
 \item{user_agent}{character value passed to user_agent string}
 
 \item{force}{refresh all memoised functions. Clears up all robotstxt and scrape cache. Default is FALSE.}
+
+\item{verbose}{TRUE/FALSE}
 
 \item{...}{other curl parameters wrapped into httr::config function}
 }

@@ -20,4 +20,5 @@ Imports:
     stats,
     urltools
 Suggests: 
-    rvest
+    rvest,
+    testthat

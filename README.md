@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# polite
+# polite <img src="man/figures/logo.png" align="right" />
 
 The goal of `polite` is to promote responsible web etiquette.
 

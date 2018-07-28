@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 )
 Sys.setenv("HTTP_PROXY"="");Sys.setenv("HTTPS_PROXY"="")
 ```
-# polite
+# polite <img src="man/figures/logo.png" align="right" />
 
 The goal of `polite` is to promote responsible web etiquette. 
 

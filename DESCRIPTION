@@ -1,5 +1,5 @@
 Package: polite
-Version: 0.0.0.9001
+Version: 0.0.0.9002
 Title: Be nice on the web
 Description: Be responsible when scraping data from APIs or websites. Remember to itroduce yourself, ask for permission and stay well mannered while you do what you came for. 
 Authors@R: person("Dmytro", "Perepolkin", email = "dperepolkin@gmail.com", role = c("aut", "cre"))
@@ -12,6 +12,7 @@ BugReports: https://github.com/dmi3kno/polite/issues
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 6.0.1
 Imports: 
+    crayon,
     httr,
     magrittr,
     memoise,

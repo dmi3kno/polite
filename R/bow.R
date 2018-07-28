@@ -16,6 +16,7 @@
 #'  session <- bow(host)
 #'  session
 #' }
+#' @rdname bow
 #' @importFrom urltools domain path suffix_extract url_parse
 #' @importFrom robotstxt robotstxt
 #' @importFrom httr handle config add_headers
@@ -71,3 +72,22 @@ bow <- function(url,
   self
 }
 
+#' @param x object of class `polite session`
+#' @param ... other parameters passed to methods
+#' @importFrom crayon yellow bold blue green red
+#' @export
+print.polite <- function(x, ...) {
+  cat(yellow$bold("<polite session> "), x$url, "\n", sep = "")
+  cat(blue("    ", "User-agent: "), x$user_agent, "\n", sep = "")
+  cat(blue("    ", "robots.txt: "), nrow(x$robotstxt$permissions), " rules are defined for ",length(x$robotstxt$bots), " bots\n", sep = "")
+  if(is_scrapable(x)){
+    cat(green(" ", "The path is scrapable for this user-agent\n"), sep="")
+  } else {
+    cat(red(" ", "The path is not scrapable for this user-agent\n"), sep="")
+  }
+}
+
+#' @param x object of class `polite session`
+#' @rdname bow
+#' @export
+is.polite <- function(x) inherits(x, "polite")

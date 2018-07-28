@@ -2,10 +2,13 @@
 % Please edit documentation in R/bow.R
 \name{bow}
 \alias{bow}
+\alias{is.polite}
 \title{Inroduce yourself to the host}
 \usage{
 bow(url, user_agent = "polite R package - https://github.com/dmi3kno/polite",
   force = FALSE, verbose = FALSE, ...)
+
+is.polite(x)
 }
 \arguments{
 \item{url}{url}
@@ -17,6 +20,8 @@ bow(url, user_agent = "polite R package - https://github.com/dmi3kno/polite",
 \item{verbose}{TRUE/FALSE}
 
 \item{...}{other curl parameters wrapped into httr::config function}
+
+\item{x}{object of class \code{polite session}}
 }
 \value{
 object of class \code{polite}, \code{session}

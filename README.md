@@ -21,16 +21,16 @@ host and ask for permission to scrape (by inquiring against host’s
 robots.txt file), while `scrape` is the main function for retrieving
 data from the remote server. Once the connection is established, there’s
 no need to `bow` again. Rather, in order to adjust a scraping url the
-user can simply `nod` to the new path, which updates the session’s url
-making sure that the new location can be clarified against robots.txt
+user can simply `nod` to the new path, which updates the session’s url,
+making sure that the new location can be negotiated against robots.txt
 
-The idea of `polite session` is **seeking permission, taking slowly and
-never asking twice**.
+The three pillars of `polite session` are **seeking permission, taking
+slowly and never asking twice**.
 
 The package builds on awesome toolkit for defining and managing http
 session (`httr` and `rvest`), declaring useragent string and
-investigating site policies (`robotstxt`), while utilizing rate-limiting
-and reponse caching (`ratelimitr` amd `memoise`).
+investigating site policies (`robotstxt`), utilizing rate-limiting and
+reponse caching (`ratelimitr` amd `memoise`).
 
 ## Installation
 
@@ -44,12 +44,12 @@ devtools::install_github("dmi3kno/polite")
 
 ## Basic Example
 
-This is a basic example which shows you how to retrive list of semi-soft
-cheeses from www.cheese.com. Here we authenticate a session and then
+This is a basic example which shows how to retrive the list of semi-soft
+cheeses from www.cheese.com. Here, we authenticate a session and then
 scrape the page with specified parameters. Behind the scenes `polite`
-inquires downloads `robots.txt`, checks the url and useragent string
-against it, caches call to robots.txt and to the web page and performs
-rate limiting.
+retrieves `robots.txt`, checks the url and useragent string against it,
+caches the call to robots.txt and to the web page and enforces rate
+limiting.
 
 ``` r
 library(polite)
@@ -71,28 +71,30 @@ head(result)
 ## Extended Example
 
 You can build your own functions that incorporate `bow`, `scrape` (and,
-if required, `nod`). here we will extend our inquiry into cheeses and
+if required, `nod`). Here we will extend our inquiry into cheeses and
 will download all cheese names and url’s to their information pages.
-Lets retrieve number of pages per letter in alphabetical list, keeping
-number of results per page to 100 to minimize number of requests.
+Lets retrieve number of pages per letter in the alphabetical list,
+keeping the number of results per page to 100 to minimize number of web
+requests.
 
 ``` r
 library(polite)
 library(rvest)
 library(tidyverse)
-#> -- Attaching packages ----------------------------------------------------------- tidyverse 1.2.1 --
+#> -- Attaching packages ---------------------------------------------------------------------------------------------------- tidyverse 1.2.1 --
 #> v ggplot2 3.0.0     v purrr   0.2.5
 #> v tibble  1.4.2     v dplyr   0.7.6
 #> v tidyr   0.8.1     v stringr 1.3.1
 #> v readr   1.1.1     v forcats 0.3.0
-#> -- Conflicts -------------------------------------------------------------- tidyverse_conflicts() --
-#> x purrr::%||%()           masks polite::%||%()
+#> -- Conflicts ------------------------------------------------------------------------------------------------------- tidyverse_conflicts() --
 #> x dplyr::filter()         masks stats::filter()
 #> x readr::guess_encoding() masks rvest::guess_encoding()
 #> x dplyr::lag()            masks stats::lag()
 #> x purrr::pluck()          masks rvest::pluck()
 
 session <- bow("https://www.cheese.com/alphabetical")
+#> No encoding supplied: defaulting to UTF-8.
+#> No encoding supplied: defaulting to UTF-8.
 responses <- map(letters, ~scrape(session, params = paste0("per_page=100&i=",.x)) )
 results <- map(responses, ~html_nodes(.x, "#id_page") %>% 
                           html_text() %>% 
@@ -122,10 +124,10 @@ pages_df
 
 Now that we know how many pages to retrieve from each letter page, lets
 rotate over letter pages and retrieve cheese names and underlying links
-to pages. We will need to write a helper function. Our session is still
-valid and we dont need to `nod` again, because we will not be modifying
-a page url (note that the field `url` is missing from `scrape`
-function).
+to cheese details. We will need to write a helper function. Our session
+is still valid and we dont need to `nod` again, because we will not be
+modifying a page url, only its parameters (note that the field `url` is
+missing from `scrape` function).
 
 ``` r
 get_cheese_page <- function(letter, pages){
@@ -153,5 +155,7 @@ df
 #> # ... with 1,820 more rows
 ```
 
-\[1\] Wiktionary (2018), The free dictionary, retrieved from
+Package logo is uses elements of free image by
+[pngtree.com](https://pngtree.com) \[1\] Wiktionary (2018), The free
+dictionary, retrieved from
 <https://en.wiktionary.org/wiki/bow_and_scrape>

@@ -11,7 +11,6 @@ knitr::opts_chunk$set(
   fig.path = "man/figures/README-",
   out.width = "100%"
 )
-Sys.setenv("HTTP_PROXY"="");Sys.setenv("HTTPS_PROXY"="")
 ```
 # polite <img src="man/figures/logo.png" align="right" />
 
@@ -25,11 +24,11 @@ The goal of `polite` is to promote responsible web etiquette.
 >                                             Source: _Wiktionary, The free dictionary_
 >
 
-The package's two main functions `bow` and `scrape` define and realize web harvesting session. `bow` is used to introduce the client to the host and ask for permission to scrape (by inquiring against host's robots.txt file), while `scrape` is the main function for retrieving data from the remote server. Once the connection is established, there's no need to `bow` again. Rather, in order to adjust a scraping url the user can simply `nod` to the new path, which updates the session's url making sure that the new location can be clarified against robots.txt
+The package's two main functions `bow` and `scrape` define and realize web harvesting session. `bow` is used to introduce the client to the host and ask for permission to scrape (by inquiring against host's robots.txt file), while `scrape` is the main function for retrieving data from the remote server. Once the connection is established, there's no need to `bow` again. Rather, in order to adjust a scraping url the user can simply `nod` to the new path, which updates the session's url, making sure that the new location can be negotiated against robots.txt
 
-The idea of `polite session` is **seeking permission, taking slowly and never asking twice**.
+The three pillars of `polite session` are **seeking permission, taking slowly and never asking twice**.
 
-The package builds on awesome toolkit for defining and managing http session (`httr` and `rvest`), declaring useragent string and investigating site policies (`robotstxt`), while utilizing rate-limiting and reponse caching (`ratelimitr` amd `memoise`).
+The package builds on awesome toolkit for defining and managing http session (`httr` and `rvest`), declaring useragent string and investigating site policies (`robotstxt`), utilizing rate-limiting and reponse caching (`ratelimitr` amd `memoise`).
 
 ## Installation
 
@@ -43,7 +42,7 @@ devtools::install_github("dmi3kno/polite")
 ## Basic Example
 
 
-This is a basic example which shows you how to retrive list of semi-soft cheeses from www.cheese.com. Here we authenticate a session and then scrape the page with specified parameters. Behind the scenes `polite` inquires downloads `robots.txt`, checks the url and useragent string against it, caches call to robots.txt and to the web page and performs rate limiting.
+This is a basic example which shows how to retrive the list of semi-soft cheeses from www.cheese.com. Here, we authenticate a session and then scrape the page with specified parameters. Behind the scenes `polite` retrieves `robots.txt`, checks the url and useragent string against it, caches the call to robots.txt and to the web page and enforces rate limiting.
 
 ```{r example}
 library(polite)
@@ -58,7 +57,7 @@ head(result)
 
 ## Extended Example
 
-You can build your own functions that incorporate `bow`, `scrape` (and, if required, `nod`). here we will extend our inquiry into cheeses and will download all cheese names and url's to their information pages. Lets retrieve number of pages per letter in alphabetical list, keeping number of results per page to 100 to minimize number of requests.
+You can build your own functions that incorporate `bow`, `scrape` (and, if required, `nod`). Here we will extend our inquiry into cheeses and will download all cheese names and url's to their information pages. Lets retrieve number of pages per letter in the alphabetical list, keeping the number of results per page to 100 to minimize number of web requests.
 
 ```{r}
 library(polite)
@@ -79,7 +78,7 @@ pages_df <- tibble(letter = rep.int(letters, times=unlist(results)),
 pages_df
 ```
 
-Now that we know how many pages to retrieve from each letter page, lets rotate over letter pages and retrieve cheese names and underlying links to pages. We will need to write a helper function. Our session is still valid and we dont need to `nod` again, because we will not be modifying a page url (note that the field `url` is missing from `scrape` function).
+Now that we know how many pages to retrieve from each letter page, lets rotate over letter pages and retrieve cheese names and underlying links to cheese details. We will need to write a helper function. Our session is still valid and we dont need to `nod` again, because we will not be modifying a page url, only its parameters (note that the field `url` is missing from `scrape` function).
 
 ```{r}
 get_cheese_page <- function(letter, pages){
@@ -94,7 +93,5 @@ df
 ```
 
 
-
-
-
+Package logo is uses elements of free image by [pngtree.com](https://pngtree.com)
 [1] Wiktionary (2018), The free dictionary, retrieved from https://en.wiktionary.org/wiki/bow_and_scrape

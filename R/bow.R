@@ -20,7 +20,8 @@
 #' @rdname bow
 #' @importFrom urltools domain path suffix_extract url_parse
 #' @importFrom robotstxt robotstxt
-#' @importFrom httr handle config add_headers
+#' @importFrom httr handle config add_headers GET
+#' @importFrom ratelimitr limit_rate rate
 #' @importFrom memoise forget
 #' @importFrom stats na.omit
 #' @export
@@ -29,6 +30,15 @@ bow <- function(url,
                 delay = 5,
                 force = FALSE, verbose=FALSE,
                 ...){
+
+  httr_get <- function(url, config, handle){
+    httr::GET(
+      url = url,
+      config = config,
+      handle = handle
+    )
+  }
+
   stopifnot(is.character(user_agent), length(user_agent) == 1) # write meaningful error ref Lionel talk
   stopifnot(is.character(url), length(url) == 1) # write meaningful error ref Lionel talk
 
@@ -41,16 +51,16 @@ bow <- function(url,
   url_subdomain <- paste(na.omit(c(url_df$subdomain[1],
                       url_df$domain[1],
                       url_df$suffix[1])), collapse=".")
-  rt <- robotstxt::robotstxt(domain = url_subdomain,
+  rt <- suppressMessages(robotstxt::robotstxt(domain = url_subdomain,
                             user_agent = user_agent,
-                            warn=verbose, force = force)
+                            warn=verbose, force = force))
   # asking again if sub-domain does not specify permissions
   if(!nrow(rt$permissions)){
     url_domain <- paste(stats::na.omit(
       c(url_df$domain[1], url_df$suffix[1])),
       collapse=".")
-    rt <- robotstxt::robotstxt(domain = url_domain,
-                               user_agent = user_agent)
+    rt <- suppressMessages(robotstxt::robotstxt(domain = url_domain,
+                               user_agent = user_agent))
   }
 
   delay_df <- rt$crawl_delay
@@ -75,6 +85,11 @@ bow <- function(url,
     ),
     class = c("polite", "session")
   )
+
+  # bow method for scraping. Setting limit as well
+  self$httr_get_ltd <- ratelimitr::limit_rate(httr_get,
+            ratelimitr::rate(n = 1, period = self$delay))
+
 
   if(verbose && !is_scrapable(self))
     warning("Psst!...It's not a good idea to scrape here!", call. = FALSE)

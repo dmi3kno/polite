@@ -1,22 +1,8 @@
-#' @importFrom httr http_error GET add_headers warn_for_status content
-#' @importFrom ratelimitr rate limit_rate
+#' @importFrom httr http_error add_headers warn_for_status content
 m_scrape <- function(bow, params=NULL, accept="html", verbose=FALSE) { # nolint
 
-  httr_get <- function(bow){
-    httr::GET(
-      url = bow$url,
-      config = bow$config,
-      handle = bow$handle
-    )
-  }
-
-  httr_get_ltd <- ratelimitr::limit_rate(
-    httr_get,
-    ratelimitr::rate(n = 1, period = bow$delay)
-  )
-
   if(!inherits(bow, "polite"))
-    stop("Please, be polite: bow and scrape!")
+    stop("Please, be polite: bow then scrape!")
 
 
   if(!is.null(params))
@@ -24,7 +10,7 @@ m_scrape <- function(bow, params=NULL, accept="html", verbose=FALSE) { # nolint
 
   url_parsed <- urltools::url_parse(bow$url)
 
-    if(!bow$robotstxt$check(path=url_parsed$path[1], bot=bow$user_agent)){
+  if(!bow$robotstxt$check(path=url_parsed$path[1], bot=bow$user_agent)){
     message("No scraping allowed here!")
     return(NULL)
   }
@@ -37,7 +23,7 @@ m_scrape <- function(bow, params=NULL, accept="html", verbose=FALSE) { # nolint
 
   bow$config <- c(bow$config, accept_type)
 
-  response <- httr_get_ltd(bow)
+  response <- bow$httr_get_ltd(bow$url, bow$config, bow$handle)
   max_attempts <- 3
 
   att_msg <- c(rep("",max_attempts-1),
@@ -50,7 +36,7 @@ m_scrape <- function(bow, params=NULL, accept="html", verbose=FALSE) { # nolint
       message(paste0("Attempt number ", try_number,".", att_msg[[try_number]]))
 
     Sys.sleep(2^try_number)
-    response <- httr_get_ltd(bow)
+    response <- bow$httr_get_ltd(bow$url, bow$config, bow$handle)
   }
 
   status_warn_msg <- paste("fetch data from", bow$url)

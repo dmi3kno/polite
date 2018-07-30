@@ -1,3 +1,8 @@
+# polite 0.0.0.9004 (Release date: 2018-07-30)
+
+* rate-limited `GET` function is now a method instantiated inside `bow` to allow for setting persistent `delay` argument
+* messages (but not warnings) from robotstxt are suppressed for cleaner console
+
 # polite 0.0.0.9003 (Release date: 2018-07-30)
 
 * Argument for setting up crawl delay has been renamed from `period` to `delay` and moved from `scrape` to `bow`.

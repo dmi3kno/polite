@@ -1,6 +1,6 @@
 #' @importFrom httr http_error GET add_headers warn_for_status content
 #' @importFrom ratelimitr rate limit_rate
-m_scrape <- function(bow, params=NULL, accept="html", period=1, verbose=FALSE) { # nolint
+m_scrape <- function(bow, params=NULL, accept="html", verbose=FALSE) { # nolint
 
   httr_get <- function(bow){
     httr::GET(
@@ -12,7 +12,7 @@ m_scrape <- function(bow, params=NULL, accept="html", period=1, verbose=FALSE) {
 
   httr_get_ltd <- ratelimitr::limit_rate(
     httr_get,
-    ratelimitr::rate(n = 1, period = period)
+    ratelimitr::rate(n = 1, period = bow$delay)
   )
 
   if(!inherits(bow, "polite"))
@@ -67,7 +67,6 @@ m_scrape <- function(bow, params=NULL, accept="html", period=1, verbose=FALSE) {
 #' @param bow host introduction object of class `polite`, `session` created by `bow()` or `nod()`
 #' @param params character vector of parameters to be appended to url in the format "parameter=value"
 #' @param accept character value of expected data type to be returned by host (e.g. "html", "json", "xml", "csv", "txt", etc)
-#' @param period time-out between requests in seconds. Can not be less than 1
 #' @param verbose extra feedback from the function. Defaults to FALSE
 #'
 #' @return Onbject of class `httr::response` which can be further processed by functions in `rvest` package

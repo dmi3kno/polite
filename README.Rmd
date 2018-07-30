@@ -94,4 +94,5 @@ df
 
 
 Package logo is uses elements of free image by [pngtree.com](https://pngtree.com)
+
 [1] Wiktionary (2018), The free dictionary, retrieved from https://en.wiktionary.org/wiki/bow_and_scrape

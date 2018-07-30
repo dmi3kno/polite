@@ -2,6 +2,7 @@
 #'
 #' @param url url
 #' @param user_agent character value passed to user_agent string
+#' @param delay desired delay between scraping attempts. Final value will be the maximum of desired and mandated delay, as stipulated by robots.txt for relevant user agent
 #' @param force refresh all memoised functions. Clears up all robotstxt and scrape cache. Default is FALSE.
 #' @param verbose TRUE/FALSE
 #' @param ... other curl parameters wrapped into httr::config function
@@ -25,6 +26,7 @@
 #' @export
 bow <- function(url,
                 user_agent = "polite R package - https://github.com/dmi3kno/polite",
+                delay = 5,
                 force = FALSE, verbose=FALSE,
                 ...){
   stopifnot(is.character(user_agent), length(user_agent) == 1) # write meaningful error ref Lionel talk
@@ -42,13 +44,20 @@ bow <- function(url,
   rt <- robotstxt::robotstxt(domain = url_subdomain,
                             user_agent = user_agent,
                             warn=verbose, force = force)
+  # asking again if sub-domain does not specify permissions
   if(!nrow(rt$permissions)){
-    url_domain <- paste(stats::na.omit(c(url_df$domain[1],
-                                  url_df$suffix[1])), collapse=".")
+    url_domain <- paste(stats::na.omit(
+      c(url_df$domain[1], url_df$suffix[1])),
+      collapse=".")
     rt <- robotstxt::robotstxt(domain = url_domain,
                                user_agent = user_agent)
   }
 
+  delay_df <- rt$crawl_delay
+  delay_rt <- as.numeric(delay_df[with(delay_df, useragent==user_agent), "value"]) %||%
+    as.numeric(delay_df[with(delay_df, useragent=="*"), "value"]) %||% 0
+
+  # define object
   self <- structure(
     list(
       handle   = httr::handle(url),
@@ -61,13 +70,21 @@ bow <- function(url,
       html     = new.env(parent = emptyenv(), hash = FALSE),
       user_agent = user_agent,
       domain   =  url_subdomain,
-      robotstxt= rt
+      robotstxt= rt,
+      delay  = max(delay_rt, delay)
     ),
     class = c("polite", "session")
   )
 
   if(verbose && !is_scrapable(self))
     warning("Psst!...It's not a good idea to scrape here!", call. = FALSE)
+
+  if(self$delay<5)
+    if(grepl("polite|dmi3kno", self$user_agent)){
+      stop(red("You can not scrape this fast. Please, reconsider delay period."), call. = FALSE)
+    } else{
+      warning("This is a little too fast. Are you sure you want to risk being banned?", call. = FALSE)
+    }
 
   self
 }
@@ -80,6 +97,7 @@ print.polite <- function(x, ...) {
   cat(yellow$bold("<polite session> "), x$url, "\n", sep = "")
   cat(blue("    ", "User-agent: "), x$user_agent, "\n", sep = "")
   cat(blue("    ", "robots.txt: "), nrow(x$robotstxt$permissions), " rules are defined for ",length(x$robotstxt$bots), " bots\n", sep = "")
+  cat(blue("   ", "Crawl delay: "), x$delay," sec\n", sep = "")
   if(is_scrapable(x)){
     cat(green(" ", "The path is scrapable for this user-agent\n"), sep="")
   } else {

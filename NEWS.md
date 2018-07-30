@@ -1,3 +1,8 @@
+# polite 0.0.0.9003 (Release date: 2018-07-30)
+
+* Argument for setting up crawl delay has been renamed from `period` to `delay` and moved from `scrape` to `bow`.
+* Print method and warning messages reflect `delay` argument set for the session.
+
 # polite 0.0.0.9002 (Release date: 2018-07-29)
 
 * Added a `NEWS.md` file to track changes to the package.

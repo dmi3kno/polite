@@ -6,7 +6,7 @@
 \title{Inroduce yourself to the host}
 \usage{
 bow(url, user_agent = "polite R package - https://github.com/dmi3kno/polite",
-  force = FALSE, verbose = FALSE, ...)
+  delay = 5, force = FALSE, verbose = FALSE, ...)
 
 is.polite(x)
 }
@@ -14,6 +14,8 @@ is.polite(x)
 \item{url}{url}
 
 \item{user_agent}{character value passed to user_agent string}
+
+\item{delay}{desired delay between scraping attempts. Final value will be the maximum of desired and mandated delay, as stipulated by robots.txt for relevant user agent}
 
 \item{force}{refresh all memoised functions. Clears up all robotstxt and scrape cache. Default is FALSE.}
 

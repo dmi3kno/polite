@@ -4,7 +4,7 @@
 \alias{scrape}
 \title{Scrape the content of authorized page/API}
 \usage{
-scrape(bow, params = NULL, accept = "html", period = 1, verbose = FALSE)
+scrape(bow, params = NULL, accept = "html", verbose = FALSE)
 }
 \arguments{
 \item{bow}{host introduction object of class \code{polite}, \code{session} created by \code{bow()} or \code{nod()}}
@@ -12,8 +12,6 @@ scrape(bow, params = NULL, accept = "html", period = 1, verbose = FALSE)
 \item{params}{character vector of parameters to be appended to url in the format "parameter=value"}
 
 \item{accept}{character value of expected data type to be returned by host (e.g. "html", "json", "xml", "csv", "txt", etc)}
-
-\item{period}{time-out between requests in seconds. Can not be less than 1}
 
 \item{verbose}{extra feedback from the function. Defaults to FALSE}
 }

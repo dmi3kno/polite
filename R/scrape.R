@@ -39,9 +39,10 @@ m_scrape <- function(bow, params=NULL, accept="html", verbose=FALSE) { # nolint
     response <- bow$httr_get_ltd(bow$url, bow$config, bow$handle)
   }
 
-  status_warn_msg <- paste("fetch data from", bow$url)
-  httr::warn_for_status(response, status_warn_msg)
-
+  if(httr::http_error(response)){
+    warning(httr::http_status(response)$message, " ", bow$url, call. = FALSE)
+    return(NULL)
+  }
 
   res <- httr::content(response, type = response$headers$`content-type`)
   res

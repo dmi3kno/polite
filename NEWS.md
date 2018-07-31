@@ -2,6 +2,7 @@
 
 * rate-limited `GET` function is now a method instantiated inside `bow` to allow for setting persistent `delay` argument
 * messages (but not warnings) from robotstxt are suppressed for cleaner console
+* added `content` parameter to `scrape()` for overriding default data type and encoding
 
 # polite 0.0.0.9003 (Release date: 2018-07-30)
 

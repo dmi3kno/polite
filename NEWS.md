@@ -1,3 +1,7 @@
+# polite 0.0.0.9005 (Release date: 2018-08-10)
+
+* added html_attrs_dfr() - function for tidying html_attrs()
+
 # polite 0.0.0.9004 (Release date: 2018-07-30)
 
 * rate-limited `GET` function is now a method instantiated inside `bow` to allow for setting persistent `delay` argument

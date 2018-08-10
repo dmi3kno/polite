@@ -6,7 +6,7 @@
 #' @rdname nullcoalesce
 #' @keywords internal
 #' @usage lhs \%||\% rhs
-"%||%" <- function(lhs, rhs) {
+`%||%` <- function(lhs, rhs) {
   if (!is.null(lhs) && length(lhs) > 0) lhs else rhs
 }
 

@@ -1,6 +1,7 @@
 # polite 0.0.0.9005 (Release date: 2018-08-10)
 
 * added html_attrs_dfr() - function for tidying html_attrs()
+* added polite download function called rip()
 
 # polite 0.0.0.9004 (Release date: 2018-07-30)
 

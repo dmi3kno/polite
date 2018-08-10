@@ -24,6 +24,7 @@
 #' @importFrom ratelimitr limit_rate rate
 #' @importFrom memoise forget
 #' @importFrom stats na.omit
+#' @importFrom utils download.file
 #' @export
 bow <- function(url,
                 user_agent = "polite R package - https://github.com/dmi3kno/polite",
@@ -88,6 +89,9 @@ bow <- function(url,
 
   # bow method for scraping. Setting limit as well
   self$httr_get_ltd <- ratelimitr::limit_rate(httr_get,
+            ratelimitr::rate(n = 1, period = self$delay))
+
+  self$download_file_ltd <- ratelimitr::limit_rate(utils::download.file,
             ratelimitr::rate(n = 1, period = self$delay))
 
 

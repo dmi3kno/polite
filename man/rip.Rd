@@ -4,11 +4,13 @@
 \alias{rip}
 \title{Polite file download}
 \usage{
-rip(bow, suffix = NULL, sep = "__", path = "downloads",
-  overwrite = FALSE, mode = "wb", ...)
+rip(bow, new_filename = NULL, suffix = NULL, sep = "__",
+  path = "downloads", overwrite = FALSE, mode = "wb", ...)
 }
 \arguments{
 \item{bow}{host introduction object of class polite, session created by bow() or nod}
+
+\item{new_filename}{optional new file name to use when saving the file}
 
 \item{suffix}{optional characters added to file name}
 

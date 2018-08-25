@@ -10,7 +10,7 @@ ByteCompile: true
 URL: https://github.com/dmi3kno/polite
 BugReports: https://github.com/dmi3kno/polite/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
 Imports: 
     crayon,
     here,

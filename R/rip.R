@@ -25,7 +25,9 @@ rip <- function(bow, new_filename=NULL, suffix=NULL, sep="__", path="downloads",
   if(!dir.exists(here::here(path)))
     dir.create(here::here(path))
 
-  new_filename <- new_filename %||% paste0(tools::file_path_sans_ext(basename(url)), sep, suffix, ".", tools::file_ext(basename(url)), sep="")
+  if(!is.null(suffix))  suffix <- paste0(sep, suffix)
+
+  new_filename <- new_filename %||% paste0(tools::file_path_sans_ext(basename(url)), suffix, ".", tools::file_ext(basename(url)), sep="")
 
   if(file.exists(here::here(path, new_filename)) && !overwrite){
     warning("File already exists", call. = FALSE)

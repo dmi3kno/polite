@@ -5,7 +5,8 @@
 \alias{is.polite}
 \title{Inroduce yourself to the host}
 \usage{
-bow(url, user_agent = "polite R package - https://github.com/dmi3kno/polite",
+bow(url,
+  user_agent = "polite R package - https://github.com/dmi3kno/polite",
   delay = 5, force = FALSE, verbose = FALSE, ...)
 
 is.polite(x)

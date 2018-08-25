@@ -24,7 +24,7 @@ nod <- function(bow, path, verbose=FALSE){
   # if user supplied url instead of path
   if(grepl("://|www\\.", path)){
     if(urltools::domain(path)!=bow$domain)
-      bow <- bow(url = url, user_agent = bow$user_agent, delay=bow$delay, bow$config)
+      bow <- bow(url = path, user_agent = bow$user_agent, delay=bow$delay, bow$config)
     path <- urltools::path(path)
   }
   parsed_url <- urltools::url_parse(bow$url)

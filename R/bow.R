@@ -1,4 +1,4 @@
-#' Inroduce yourself to the host
+#' Introduce yourself to the host
 #'
 #' @param url url
 #' @param user_agent character value passed to user_agent string

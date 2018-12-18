@@ -2,27 +2,27 @@
 % Please edit documentation in R/html.R
 \name{html_attrs_dfr}
 \alias{html_attrs_dfr}
-\title{Convert collection of html nodes into dataframe}
+\title{Convert collection of html nodes into data frame}
 \usage{
 html_attrs_dfr(x, attrs = NULL, trim = FALSE,
   defaults = NA_character_, add_text = TRUE)
 }
 \arguments{
-\item{x}{xml_nodeset object, containing text and attributes of interest}
+\item{x}{\code{xml_nodeset} object, containing text and attributes of interest}
 
-\item{attrs}{character vector of attribute names. If missing, all attributes will be used.}
+\item{attrs}{character vector of attribute names. If missing, all attributes will be used}
 
-\item{trim}{if TRUE will trim leading and trailing spaces.}
+\item{trim}{if \code{TRUE}, will trim leading and trailing spaces}
 
-\item{defaults}{character vector of default values to be passed to rvest::html_attr(). Recycled to match length of attrs}
+\item{defaults}{character vector of default values to be passed to \code{rvest::html_attr()}. Recycled to match length of \code{attrs}}
 
-\item{add_text}{if TRUE node content will be added as .text column (using rvest::html_text)}
+\item{add_text}{if \code{TRUE}, node content will be added as \code{.text} column (using \code{rvest::html_text})}
 }
 \value{
-data frame one row per xml node, consisting of html_text column with text and additional columns with attributes
+data frame with one row per xml node, consisting of an html_text column with text and additional columns with attributes
 }
 \description{
-Convert collection of html nodes into dataframe
+Convert collection of html nodes into data frame
 }
 \examples{
 library(polite)

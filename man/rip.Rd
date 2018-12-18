@@ -8,24 +8,24 @@ rip(bow, new_filename = NULL, suffix = NULL, sep = "__",
   path = "downloads", overwrite = FALSE, mode = "wb", ...)
 }
 \arguments{
-\item{bow}{host introduction object of class polite, session created by bow() or nod}
+\item{bow}{host introduction object of class \code{polite}, \code{session} created by \code{bow()} or \code{nod()}}
 
 \item{new_filename}{optional new file name to use when saving the file}
 
 \item{suffix}{optional characters added to file name}
 
-\item{sep}{separator between file name and suffix. Default "__"}
+\item{sep}{separator between file name and suffix. Default \code{__}}
 
-\item{path}{path where file should be saved. Defults to folder named "downloads" created in the working directory}
+\item{path}{path where file should be saved. Defaults to folder named \code{downloads} created in the working directory}
 
-\item{overwrite}{if TRUE will overwrite file on disk}
+\item{overwrite}{if \code{TRUE} will overwrite file on disk}
 
-\item{mode}{character. The mode with which to write the file. Useful values are "w", "wb" (binary), "a" (append) and "ab". Not used for methods "wget" and "curl".}
+\item{mode}{character. The mode with which to write the file. Useful values are \code{w}, \code{wb} (binary), \code{a} (append) and \code{ab}. Not used for methods \code{wget} and \code{curl}.}
 
-\item{...}{other parameters passed to download.file}
+\item{...}{other parameters passed to \code{download.file}}
 }
 \value{
-Full path to file indicated by url saved on disk
+Full path to file indicated by URL saved on disk
 }
 \description{
 Polite file download

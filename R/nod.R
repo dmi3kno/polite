@@ -1,9 +1,9 @@
 #' Agree modification of session path with the host
 #'
 #' @param bow object of class `polite`, `session` created by `polite::bow()`
-#' @param path string value of path/url to follow. The function accepts both path (string part of url followin domain name) or a full url.
-#' @param verbose TRUE/FALSE
-#' @return object of class `polite`, `session` with modified url
+#' @param path string value of path/URL to follow. The function accepts either a path (string part of URL following domain name) or a full URL
+#' @param verbose `TRUE`/`FALSE`
+#' @return object of class `polite`, `session` with modified URL
 #'
 #' @examples
 #' \dontrun{
@@ -19,9 +19,9 @@
 nod <- function(bow, path, verbose=FALSE){
 
   if(!inherits(bow, "polite"))
-    stop("Please, bow before you nod")
+    stop("Please bow before you nod")
 
-  # if user supplied url instead of path
+  # if user supplied URL instead of path
   if(grepl("://|www\\.", path)){
     if(urltools::domain(path)!=bow$domain)
       bow <- bow(url = path, user_agent = bow$user_agent, delay=bow$delay, bow$config)

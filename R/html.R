@@ -1,12 +1,12 @@
-#' Convert collection of html nodes into dataframe
+#' Convert collection of html nodes into data frame
 #'
-#' @param x xml_nodeset object, containing text and attributes of interest
-#' @param attrs character vector of attribute names. If missing, all attributes will be used.
-#' @param trim if TRUE will trim leading and trailing spaces.
-#' @param defaults character vector of default values to be passed to rvest::html_attr(). Recycled to match length of attrs
-#' @param add_text if TRUE node content will be added as .text column (using rvest::html_text)
+#' @param x `xml_nodeset` object, containing text and attributes of interest
+#' @param attrs character vector of attribute names. If missing, all attributes will be used
+#' @param trim if `TRUE`, will trim leading and trailing spaces
+#' @param defaults character vector of default values to be passed to `rvest::html_attr()`. Recycled to match length of `attrs`
+#' @param add_text if `TRUE`, node content will be added as `.text` column (using `rvest::html_text`)
 #'
-#' @return data frame one row per xml node, consisting of html_text column with text and additional columns with attributes
+#' @return data frame with one row per xml node, consisting of an html_text column with text and additional columns with attributes
 #' @export
 #'
 #' @examples

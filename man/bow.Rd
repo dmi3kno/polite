@@ -3,7 +3,7 @@
 \name{bow}
 \alias{bow}
 \alias{is.polite}
-\title{Inroduce yourself to the host}
+\title{Introduce yourself to the host}
 \usage{
 bow(url,
   user_agent = "polite R package - https://github.com/dmi3kno/polite",
@@ -12,25 +12,25 @@ bow(url,
 is.polite(x)
 }
 \arguments{
-\item{url}{url}
+\item{url}{URL}
 
-\item{user_agent}{character value passed to user_agent string}
+\item{user_agent}{character value passed to user agent string}
 
-\item{delay}{desired delay between scraping attempts. Final value will be the maximum of desired and mandated delay, as stipulated by robots.txt for relevant user agent}
+\item{delay}{desired delay between scraping attempts. Final value will be the maximum of desired and mandated delay, as stipulated by \code{robots.txt} for relevant user agent}
 
-\item{force}{refresh all memoised functions. Clears up all robotstxt and scrape cache. Default is FALSE.}
+\item{force}{refresh all memoised functions. Clears up \code{robotstxt} and \code{scrape} caches. Default is \code{FALSE}}
 
 \item{verbose}{TRUE/FALSE}
 
-\item{...}{other curl parameters wrapped into httr::config function}
+\item{...}{other curl parameters wrapped into \code{httr::config} function}
 
-\item{x}{object of class \code{polite session}}
+\item{x}{object of class \code{polite}, \code{session}}
 }
 \value{
 object of class \code{polite}, \code{session}
 }
 \description{
-Inroduce yourself to the host
+Introduce yourself to the host
 }
 \examples{
 \dontrun{

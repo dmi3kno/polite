@@ -10,17 +10,17 @@ scrape(bow, params = NULL, accept = "html", content = NULL,
 \arguments{
 \item{bow}{host introduction object of class \code{polite}, \code{session} created by \code{bow()} or \code{nod()}}
 
-\item{params}{character vector of parameters to be appended to url in the format "parameter=value"}
+\item{params}{character vector of parameters to be appended to URL in the format \code{parameter=value}}
 
-\item{accept}{character value of expected data type to be returned by host (e.g. "html", "json", "xml", "csv", "txt", etc)}
+\item{accept}{character value of expected data type to be returned by host (e.g. \code{html}, \code{json}, \code{xml}, \code{csv}, \code{txt}, etc.)}
 
 \item{content}{MIME type (aka internet media type) used to override the content type returned by the server.
-See http://en.wikipedia.org/wiki/Internet_media_type for a list of common types. You can add \code{charset} parameter to override server's default encoding.}
+See http://en.wikipedia.org/wiki/Internet_media_type for a list of common types. You can add the \code{charset} parameter to override the server's default encoding}
 
-\item{verbose}{extra feedback from the function. Defaults to FALSE}
+\item{verbose}{extra feedback from the function. Defaults to \code{FALSE}}
 }
 \value{
-Onbject of class \code{httr::response} which can be further processed by functions in \code{rvest} package
+Object of class \code{httr::response} which can be further processed by functions in \code{rvest} package
 }
 \description{
 Scrape the content of authorized page/API

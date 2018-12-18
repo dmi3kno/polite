@@ -1,11 +1,11 @@
 #' Introduce yourself to the host
 #'
-#' @param url url
-#' @param user_agent character value passed to user_agent string
-#' @param delay desired delay between scraping attempts. Final value will be the maximum of desired and mandated delay, as stipulated by robots.txt for relevant user agent
-#' @param force refresh all memoised functions. Clears up all robotstxt and scrape cache. Default is FALSE.
+#' @param url URL
+#' @param user_agent character value passed to user agent string
+#' @param delay desired delay between scraping attempts. Final value will be the maximum of desired and mandated delay, as stipulated by `robots.txt` for relevant user agent
+#' @param force refresh all memoised functions. Clears up `robotstxt` and `scrape` caches. Default is `FALSE`
 #' @param verbose TRUE/FALSE
-#' @param ... other curl parameters wrapped into httr::config function
+#' @param ... other curl parameters wrapped into `httr::config` function
 #'
 #' @return object of class `polite`, `session`
 #'
@@ -100,7 +100,7 @@ bow <- function(url,
 
   if(self$delay<5)
     if(grepl("polite|dmi3kno", self$user_agent)){
-      stop(red("You can not scrape this fast. Please, reconsider delay period."), call. = FALSE)
+      stop(red("You cannot scrape this fast. Please reconsider delay period."), call. = FALSE)
     } else{
       warning("This is a little too fast. Are you sure you want to risk being banned?", call. = FALSE)
     }
@@ -108,7 +108,9 @@ bow <- function(url,
   self
 }
 
-#' @param x object of class `polite session`
+#' Print host introduction object
+#'
+#' @param x object of class `polite`, `session`
 #' @param ... other parameters passed to methods
 #' @importFrom crayon yellow bold blue green red
 #' @export
@@ -124,7 +126,7 @@ print.polite <- function(x, ...) {
   }
 }
 
-#' @param x object of class `polite session`
+#' @param x object of class `polite`, `session`
 #' @rdname bow
 #' @export
 is.polite <- function(x) inherits(x, "polite")

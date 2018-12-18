@@ -1,15 +1,15 @@
 #' Polite file download
 #'
-#' @param bow host introduction object of class polite, session created by bow() or nod
+#' @param bow host introduction object of class `polite`, `session` created by `bow()` or `nod()`
 #' @param new_filename optional new file name to use when saving the file
 #' @param suffix optional characters added to file name
-#' @param sep separator between file name and suffix. Default "__"
-#' @param path path where file should be saved. Defults to folder named "downloads" created in the working directory
-#' @param overwrite if TRUE will overwrite file on disk
-#' @param mode character. The mode with which to write the file. Useful values are "w", "wb" (binary), "a" (append) and "ab". Not used for methods "wget" and "curl".
-#' @param ... other parameters passed to download.file
+#' @param sep separator between file name and suffix. Default `__`
+#' @param path path where file should be saved. Defaults to folder named `downloads` created in the working directory
+#' @param overwrite if `TRUE` will overwrite file on disk
+#' @param mode character. The mode with which to write the file. Useful values are `w`, `wb` (binary), `a` (append) and `ab`. Not used for methods `wget` and `curl`.
+#' @param ... other parameters passed to `download.file`
 #'
-#' @return Full path to file indicated by url saved on disk
+#' @return Full path to file indicated by URL saved on disk
 #' @export
 #'
 #' @examples

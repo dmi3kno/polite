@@ -9,12 +9,12 @@ nod(bow, path, verbose = FALSE)
 \arguments{
 \item{bow}{object of class \code{polite}, \code{session} created by \code{polite::bow()}}
 
-\item{path}{string value of path/url to follow. The function accepts both path (string part of url followin domain name) or a full url.}
+\item{path}{string value of path/URL to follow. The function accepts either a path (string part of URL following domain name) or a full URL}
 
-\item{verbose}{TRUE/FALSE}
+\item{verbose}{\code{TRUE}/\code{FALSE}}
 }
 \value{
-object of class \code{polite}, \code{session} with modified url
+object of class \code{polite}, \code{session} with modified URL
 }
 \description{
 Agree modification of session path with the host

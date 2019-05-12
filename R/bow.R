@@ -21,7 +21,7 @@
 #' @importFrom urltools domain path suffix_extract url_parse
 #' @importFrom robotstxt robotstxt
 #' @importFrom httr handle config add_headers GET
-#' @importFrom ratelimitr limit_rate rate
+#' @importFrom ratelimitr limit_rate rate get_rates
 #' @importFrom memoise forget
 #' @importFrom stats na.omit
 #' @importFrom utils download.file
@@ -32,14 +32,6 @@ bow <- function(url,
                 force = FALSE, verbose=FALSE,
                 ...){
 
-  httr_get <- function(url, config, handle){
-    httr::GET(
-      url = url,
-      config = config,
-      handle = handle
-    )
-  }
-
   stopifnot(is.character(user_agent), length(user_agent) == 1) # write meaningful error ref Lionel talk
   stopifnot(is.character(url), length(url) == 1) # write meaningful error ref Lionel talk
 
@@ -49,19 +41,19 @@ bow <- function(url,
   url_parsed[is.na(url_parsed$path), "path"] <- "/"
 
   url_df <- urltools::suffix_extract(url_parsed$domain)
-  url_subdomain <- paste(na.omit(c(url_df$subdomain[1],
-                      url_df$domain[1],
-                      url_df$suffix[1])), collapse=".")
+  url_subdomain <- paste(stats::na.omit(c(url_df$subdomain[1],
+                                          url_df$domain[1],
+                                          url_df$suffix[1])), collapse=".")
   rt <- suppressMessages(robotstxt::robotstxt(domain = url_subdomain,
                             user_agent = user_agent,
                             warn=verbose, force = force))
   # asking again if sub-domain does not specify permissions
   if(!nrow(rt$permissions)){
-    url_domain <- paste(stats::na.omit(
-      c(url_df$domain[1], url_df$suffix[1])),
-      collapse=".")
+    url_domain <- paste(stats::na.omit(c(url_df$domain[1],
+                                         url_df$suffix[1])), collapse=".")
     rt <- suppressMessages(robotstxt::robotstxt(domain = url_domain,
-                               user_agent = user_agent))
+                               user_agent = user_agent,
+                               warn=verbose, force = force))
   }
 
   delay_df <- rt$crawl_delay
@@ -87,25 +79,55 @@ bow <- function(url,
     class = c("polite", "session")
   )
 
-  # bow method for scraping. Setting limit as well
-  self$httr_get_ltd <- ratelimitr::limit_rate(httr_get,
-            ratelimitr::rate(n = 1, period = self$delay))
-
-  self$download_file_ltd <- ratelimitr::limit_rate(utils::download.file,
-            ratelimitr::rate(n = 1, period = self$delay))
-
-
   if(verbose && !is_scrapable(self))
     warning("Psst!...It's not a good idea to scrape here!", call. = FALSE)
 
   if(self$delay<5)
     if(grepl("polite|dmi3kno", self$user_agent)){
       stop(red("You cannot scrape this fast. Please reconsider delay period."), call. = FALSE)
-    } else{
-      warning("This is a little too fast. Are you sure you want to risk being banned?", call. = FALSE)
+    warning("This is a little too fast. Are you sure you want to risk being banned?", call. = FALSE)
     }
 
+  # set new rate limits
+  if(self$delay != ratelimitr::get_rates(httr_get_ltd)[[1]]["period"]){
+    set_scrape_delay(self$delay)
+  }
+
+  if(self$delay != ratelimitr::get_rates(download_file_ltd)[[1]]["period"]){
+    set_rip_delay(self$delay)
+  }
+
   self
+}
+
+
+#' Reset scraping/ripping rate limit
+#'
+#' @param delay Delay between subsequent requests. Default for package is 5 sec.
+#' It can be set lower only under the condition of specifying a custom user-agent string.
+#'
+#' @return Updates rate-limit property of `scrape` and `rip` functions, respectively.
+#'
+#' @examples
+#' \dontrun{
+#'  library(polite)
+#'
+#'  host <- "https://www.cheese.com"
+#'  session <- bow(host)
+#'  session
+#' }
+#' @rdname set_delay
+#' @importFrom ratelimitr UPDATE_RATE rate
+#' @export
+set_scrape_delay <- function(delay){
+  ratelimitr::UPDATE_RATE(httr_get_ltd,ratelimitr::rate(n=1, period = delay))
+}
+
+#' @rdname set_delay
+#' @importFrom ratelimitr UPDATE_RATE rate
+#' @export
+set_rip_delay <- function(delay){
+  ratelimitr::UPDATE_RATE(download_file_ltd,ratelimitr::rate(n=1, period = delay))
 }
 
 #' Print host introduction object

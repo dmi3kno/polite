@@ -34,7 +34,7 @@ rip <- function(bow, new_filename=NULL, suffix=NULL, sep="__", path="downloads",
     return(here::here(path, new_filename))
     }
 
-  bow$download_file_ltd(url, here::here(path, new_filename), mode=mode, ...)
+  download_file_ltd(url, here::here(path, new_filename), mode=mode, ...)
 
   return(here::here(path, new_filename))
 }

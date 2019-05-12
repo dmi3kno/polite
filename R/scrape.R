@@ -10,20 +10,20 @@ m_scrape <- function(bow, params=NULL, accept="html", content=NULL, verbose=FALS
 
   url_parsed <- urltools::url_parse(bow$url)
 
-  if(!bow$robotstxt$check(path=url_parsed$path[1], bot=bow$user_agent)){
+  if(!is_scrapable(bow)){
     message("No scraping allowed here!")
     return(NULL)
   }
 
-  if(substr(accept,1,1)=="." || grepl("/", accept)){
-    accept_type <- httr::accept(accept)
-  } else{
-    accept_type <- httr::accept(paste0(".", accept))
+  if(substr(accept,1,1)!="." && !grepl("/", accept)){
+    accept <- paste0(".", accept)
   }
+
+  accept_type <- httr::accept(accept)
 
   bow$config <- c(bow$config, accept_type)
 
-  response <- bow$httr_get_ltd(bow$url, bow$config, bow$handle)
+  response <- httr_get_ltd(bow$url, bow$config, bow$handle)
   max_attempts <- 3
 
   att_msg <- c(rep("",max_attempts-1),
@@ -36,7 +36,7 @@ m_scrape <- function(bow, params=NULL, accept="html", content=NULL, verbose=FALS
       message(paste0("Attempt number ", try_number,".", att_msg[[try_number]]))
 
     Sys.sleep(2^try_number)
-    response <- bow$httr_get_ltd(bow$url, bow$config, bow$handle)
+    response <- httr_get_ltd(bow$url, bow$config, bow$handle)
   }
 
   if(httr::http_error(response)){

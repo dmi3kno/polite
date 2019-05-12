@@ -1,7 +1,12 @@
+# polite 0.0.0.9006 (Release date: 2018-08-10)
+
+* added `set_scrape_delay()` and `set_rip_delay()` to adjust default scraping rate limit
+* took `httr_rate_ltd()` out of `bow()` (closing [#9](https://github.com/dmi3kno/polite/issues/9))
+
 # polite 0.0.0.9005 (Release date: 2018-08-10)
 
-* added html_attrs_dfr() - function for tidying html_attrs()
-* added polite download function called rip()
+* added `html_attrs_dfr()` - function for tidying html_attrs()
+* added polite download function called `rip()`
 
 # polite 0.0.0.9004 (Release date: 2018-07-30)
 

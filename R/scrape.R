@@ -11,7 +11,7 @@ m_scrape <- function(bow, params=NULL, accept="html", content=NULL, verbose=FALS
   url_parsed <- urltools::url_parse(bow$url)
 
   if(!is_scrapable(bow)){
-    message("No scraping allowed here!")
+    warning("No scraping allowed here!", call. = FALSE)
     return(NULL)
   }
 
@@ -20,7 +20,6 @@ m_scrape <- function(bow, params=NULL, accept="html", content=NULL, verbose=FALS
   }
 
   accept_type <- httr::accept(accept)
-
   bow$config <- c(bow$config, accept_type)
 
   response <- httr_get_ltd(bow$url, bow$config, bow$handle)

@@ -44,16 +44,16 @@ bow <- function(url,
   url_subdomain <- paste(stats::na.omit(c(url_df$subdomain[1],
                                           url_df$domain[1],
                                           url_df$suffix[1])), collapse=".")
-  rt <- suppressMessages(robotstxt::robotstxt(domain = url_subdomain,
+  rt <- robotstxt::robotstxt(domain = url_subdomain,
                             user_agent = user_agent,
-                            warn=verbose, force = force))
+                            warn=verbose, force = force)
   # asking again if sub-domain does not specify permissions
   if(!nrow(rt$permissions)){
     url_domain <- paste(stats::na.omit(c(url_df$domain[1],
                                          url_df$suffix[1])), collapse=".")
-    rt <- suppressMessages(robotstxt::robotstxt(domain = url_domain,
+    rt <- robotstxt::robotstxt(domain = url_domain,
                                user_agent = user_agent,
-                               warn=verbose, force = force))
+                               warn=verbose, force = force)
   }
 
   delay_df <- rt$crawl_delay

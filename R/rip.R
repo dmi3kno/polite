@@ -22,19 +22,24 @@
 #' @importFrom tools file_path_sans_ext file_ext
 rip <- function(bow, new_filename=NULL, suffix=NULL, sep="__", path="downloads", overwrite=FALSE, mode="wb", ...){
   url <- bow$url
+  base_name <- basename(url)
+
   if(!dir.exists(here::here(path)))
     dir.create(here::here(path))
 
   if(!is.null(suffix))  suffix <- paste0(sep, suffix)
 
-  new_filename <- new_filename %||% paste0(tools::file_path_sans_ext(basename(url)), suffix, ".", tools::file_ext(basename(url)), sep="")
+  new_filename <- new_filename %||%
+    paste0(tools::file_path_sans_ext(base_name), suffix, ".", tools::file_ext(base_name))
 
-  if(file.exists(here::here(path, new_filename)) && !overwrite){
+  new_filepath <- here::here(path, new_filename)
+
+  if(file.exists(new_filepath) && !overwrite){
     warning("File already exists", call. = FALSE)
-    return(here::here(path, new_filename))
+    return(new_filepath)
     }
 
-  download_file_ltd(url, here::here(path, new_filename), mode=mode, ...)
+  download_file_ltd(url, new_filepath, mode=mode, ...)
 
-  return(here::here(path, new_filename))
+  return(new_filepath)
 }

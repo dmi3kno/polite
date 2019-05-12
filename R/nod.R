@@ -19,7 +19,7 @@
 nod <- function(bow, path, verbose=FALSE){
 
   if(!inherits(bow, "polite"))
-    stop("Please bow before you nod")
+    stop("Please bow before you nod", call. = FALSE)
 
   # if user supplied URL instead of path
   if(grepl("://|www\\.", path)){

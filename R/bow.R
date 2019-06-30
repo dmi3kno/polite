@@ -18,9 +18,8 @@
 #'  session
 #' }
 #' @rdname bow
-#' @importFrom urltools domain path suffix_extract url_parse
 #' @importFrom robotstxt robotstxt
-#' @importFrom httr handle config add_headers GET
+#' @importFrom httr parse_url handle config add_headers GET
 #' @importFrom ratelimitr limit_rate rate get_rates
 #' @importFrom memoise forget
 #' @importFrom stats na.omit
@@ -37,24 +36,11 @@ bow <- function(url,
 
   if(force) memoise::forget(scrape)
 
-  url_parsed <- urltools::url_parse(url)
-  url_parsed[is.na(url_parsed$path), "path"] <- "/"
-
-  url_df <- urltools::suffix_extract(url_parsed$domain)
-  url_subdomain <- paste(stats::na.omit(c(url_df$subdomain[1],
-                                          url_df$domain[1],
-                                          url_df$suffix[1])), collapse=".")
+  url_parsed <- httr::parse_url(url)
+  url_subdomain <- paste0(url_parsed$scheme, "://", url_parsed$hostname)
   rt <- robotstxt::robotstxt(domain = url_subdomain,
                             user_agent = user_agent,
                             warn=verbose, force = force)
-  # asking again if sub-domain does not specify permissions
-  if(!nrow(rt$permissions)){
-    url_domain <- paste(stats::na.omit(c(url_df$domain[1],
-                                         url_df$suffix[1])), collapse=".")
-    rt <- robotstxt::robotstxt(domain = url_domain,
-                               user_agent = user_agent,
-                               warn=verbose, force = force)
-  }
 
   delay_df <- rt$crawl_delay
   delay_rt <- as.numeric(delay_df[with(delay_df, useragent==user_agent), "value"]) %||%

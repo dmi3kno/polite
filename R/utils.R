@@ -22,9 +22,10 @@
 #' @usage lhs \%>\% rhs
 NULL
 
-#' @importFrom urltools path
+#' @importFrom httr parse_url
 is_scrapable <- function(bow){
-  bow$robotstxt$check(path=urltools::path(bow$url), bot=bow$user_agent)
+  url_parsed <- httr::parse_url(bow$url)
+  bow$robotstxt$check(path=url_parsed$path, bot=bow$user_agent)
 }
 
 #' @importFrom httr GET

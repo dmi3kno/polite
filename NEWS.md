@@ -1,3 +1,9 @@
+# polite 0.0.0.9007 (Release date: 2019-06-30)
+
+* the `param` argument of `scrape()` is now softly deprecated. New argument `query` is introduced. (closing [#16](https://github.com/dmi3kno/polite/issues/16))
+* dependency on `urltools` is removed in favor of native functions in `httr`
+* new `usethis`-like function `use_manners()` for producing own polite scraping infrastructure is included
+
 # polite 0.0.0.9006 (Release date: 2018-08-10)
 
 * added `set_scrape_delay()` and `set_rip_delay()` to adjust default scraping rate limit

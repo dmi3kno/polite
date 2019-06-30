@@ -1,0 +1,24 @@
+destination: docs
+reference:
+  - title: "bow and scrape"
+    desc: >
+      Functions implementing main principles of polite web scraping
+    contents:
+      - bow
+      - nod
+      - scrape
+      - rip
+      - starts_with("is.")
+      - starts_with("print")
+  - title: "Service functions for polite session"
+    desc: "Reset scraping delays"
+    contents:
+      - starts_with("set_")
+  - title: "Show your own manners"
+    desc: "`usethis`-like function for implementing your own polite scraping"
+    contents:
+      - starts_with("use_")
+  - title: "`rvest` companions"
+    desc: "Axillary functions for manipulating html attributes"
+    contents:
+      - starts_with("html_attrs")

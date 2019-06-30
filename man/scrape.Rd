@@ -4,13 +4,15 @@
 \alias{scrape}
 \title{Scrape the content of authorized page/API}
 \usage{
-scrape(bow, params = NULL, accept = "html", content = NULL,
-  verbose = FALSE)
+scrape(bow, query = NULL, params = NULL, accept = "html",
+  content = NULL, verbose = FALSE)
 }
 \arguments{
 \item{bow}{host introduction object of class \code{polite}, \code{session} created by \code{bow()} or \code{nod()}}
 
-\item{params}{character vector of parameters to be appended to URL in the format \code{parameter=value}}
+\item{query}{named list of parameters to be appended to URL in the format \code{list(param1=valA, param2=valB)}}
+
+\item{params}{deprecated. Use \code{query} argument above.}
 
 \item{accept}{character value of expected data type to be returned by host (e.g. \code{html}, \code{json}, \code{xml}, \code{csv}, \code{txt}, etc.)}
 

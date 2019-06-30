@@ -13,6 +13,11 @@ knitr::opts_chunk$set(
 )
 ```
 # polite <img src="man/figures/logo.png" align="right" />
+<!-- badges: start -->
+  [![Travis build status](https://travis-ci.org/dmi3kno/polite.svg?branch=master)](https://travis-ci.org/dmi3kno/polite)
+  [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/dmi3kno/polite?branch=master&svg=true)](https://ci.appveyor.com/project/dmi3kno/polite)
+<!-- badges: end -->
+
 
 The goal of `polite` is to promote responsible web etiquette. 
 
@@ -44,12 +49,12 @@ devtools::install_github("dmi3kno/polite")
 
 This is a basic example which shows how to retrive the list of semi-soft cheeses from www.cheese.com. Here, we authenticate a session and then scrape the page with specified parameters. Behind the scenes `polite` retrieves `robots.txt`, checks the URL and user agent string against it, caches the call to `robots.txt` and to the web page and enforces rate limiting.
 
-```{r example}
+```{r example, message=FALSE, warning=FALSE}
 library(polite)
 library(rvest)
 
 session <- bow("https://www.cheese.com/by_type", force = TRUE)
-result <- scrape(session, params="t=semi-soft&per_page=100") %>%
+result <- scrape(session, query=list(t="semi-soft",per_page=100)) %>%
   html_node("#main-body") %>% 
   html_nodes("h3") %>% 
   html_text()
@@ -60,20 +65,22 @@ head(result)
 
 You can build your own functions that incorporate `bow`, `scrape` (and, if required, `nod`). Here we will extend our inquiry into cheeses and will download all cheese names and URLs to their information pages. Let's retrieve the number of pages per letter in the alphabetical list, keeping the number of results per page to 100 to minimize number of web requests.
 
-```{r}
+```{r, warning=FALSE, message=FALSE, error=FALSE}
 library(polite)
 library(rvest)
 library(tidyverse)
 
 session <- bow("https://www.cheese.com/alphabetical")
-responses <- map(letters, ~scrape(session, params = paste0("per_page=100&i=",.x)) )
-results <- map(responses, ~html_nodes(.x, "#id_page") %>% 
-                          html_text() %>% 
-                          strsplit("\\s") %>% 
-                          unlist() %>%
-                          `%||%`(1) %>% 
-                          as.numeric() %>% 
-                          max(na.rm = TRUE) )
+
+# this is only to illustrate the example.
+letters <- letters[1:5] # delete this line to scrape all letters
+
+responses <- map(letters, ~scrape(session, query = list(per_page=100,i=.x)) )
+results <- map(responses, ~html_nodes(.x, "#id_page li") %>% 
+                           html_text(trim = TRUE) %>% 
+                           as.numeric() %>%
+                           tail(1) ) %>% 
+           map(~pluck(.x, 1, .default=1))
 pages_df <- tibble(letter = rep.int(letters, times=unlist(results)),
                    pages = unlist(map(results, ~seq.int(from=1, to=.x))))
 pages_df
@@ -83,7 +90,7 @@ Now that we know how many pages to retrieve from each letter page, let's rotate 
 
 ```{r}
 get_cheese_page <- function(letter, pages){
- lnks <- scrape(session, params=paste0("per_page=100&i=",letter,"&page=",pages)) %>% 
+ lnks <- scrape(session, query=list(per_page=100,i=letter,page=pages)) %>% 
     html_nodes("h3 a")
  tibble(name=lnks %>% html_text(),
         link=lnks %>% html_attr("href"))

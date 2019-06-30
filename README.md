@@ -87,7 +87,8 @@ of web requests.
 ``` r
 library(polite)
 library(rvest)
-library(tidyverse)
+library(dplyr)
+library(purrr)
 
 session <- bow("https://www.cheese.com/alphabetical")
 

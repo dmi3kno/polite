@@ -68,7 +68,8 @@ You can build your own functions that incorporate `bow`, `scrape` (and, if requi
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
 library(polite)
 library(rvest)
-library(tidyverse)
+library(dplyr)
+library(purrr)
 
 session <- bow("https://www.cheese.com/alphabetical")
 

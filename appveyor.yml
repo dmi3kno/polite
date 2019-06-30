@@ -17,8 +17,8 @@ environment:
   NOT_CRAN: true
   # env vars that may need to be set, at least temporarily, from time to time
   # see https://github.com/krlmlr/r-appveyor#readme for details
-  # USE_RTOOLS: true
-  # R_REMOTES_STANDALONE: true
+  USE_RTOOLS: true
+  R_REMOTES_STANDALONE: true
 
 # Adapt as necessary starting from here
 

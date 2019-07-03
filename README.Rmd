@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
   [![Travis build status](https://travis-ci.org/dmi3kno/polite.svg?branch=master)](https://travis-ci.org/dmi3kno/polite)
   [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/dmi3kno/polite?branch=master&svg=true)](https://ci.appveyor.com/project/dmi3kno/polite)
+[![Codecov test coverage](https://codecov.io/gh/dmi3kno/polite/branch/master/graph/badge.svg)](https://codecov.io/gh/dmi3kno/polite?branch=master)
 <!-- badges: end -->
 
 
@@ -68,13 +69,12 @@ You can build your own functions that incorporate `bow`, `scrape` (and, if requi
 ```{r, warning=FALSE, message=FALSE, error=FALSE}
 library(polite)
 library(rvest)
-library(dplyr)
 library(purrr)
 
 session <- bow("https://www.cheese.com/alphabetical")
 
 # this is only to illustrate the example.
-letters <- letters[1:5] # delete this line to scrape all letters
+letters <- letters[1:3] # delete this line to scrape all letters
 
 responses <- map(letters, ~scrape(session, query = list(per_page=100,i=.x)) )
 results <- map(responses, ~html_nodes(.x, "#id_page li") %>% 
@@ -82,9 +82,10 @@ results <- map(responses, ~html_nodes(.x, "#id_page li") %>%
                            as.numeric() %>%
                            tail(1) ) %>% 
            map(~pluck(.x, 1, .default=1))
-pages_df <- tibble(letter = rep.int(letters, times=unlist(results)),
-                   pages = unlist(map(results, ~seq.int(from=1, to=.x))))
-pages_df
+pages_df <- data.frame(letter = rep.int(letters, times=unlist(results)),
+                       pages = unlist(map(results, ~seq.int(from=1, to=.x))), 
+                       stringsAsFactors = FALSE)
+head(pages_df, 10)
 ```
 
 Now that we know how many pages to retrieve from each letter page, let's rotate over letter pages and retrieve cheese names and underlying links to cheese details. We will need to write a helper function. Our session is still valid and we don't need to `nod` again, because we will not be modifying a page URL, only its parameters (note that the field `url` is missing from `scrape` function).
@@ -93,12 +94,13 @@ Now that we know how many pages to retrieve from each letter page, let's rotate 
 get_cheese_page <- function(letter, pages){
  lnks <- scrape(session, query=list(per_page=100,i=letter,page=pages)) %>% 
     html_nodes("h3 a")
- tibble(name=lnks %>% html_text(),
-        link=lnks %>% html_attr("href"))
+ data.frame(name=lnks %>% html_text(),
+           link=lnks %>% html_attr("href"),
+           stringsAsFactors = FALSE)
 }
 
 df <- pages_df %>% pmap_df(get_cheese_page)
-df
+head(df, 10)
 ```
 
 

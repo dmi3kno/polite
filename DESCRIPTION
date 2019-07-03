@@ -23,4 +23,5 @@ Imports:
     stats,
     usethis
 Suggests: 
-    testthat
+    testthat,
+    covr

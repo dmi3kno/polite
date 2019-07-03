@@ -70,6 +70,7 @@ You can build your own functions that incorporate `bow`, `scrape` (and, if requi
 library(polite)
 library(rvest)
 library(purrr)
+library(dplyr)
 
 session <- bow("https://www.cheese.com/alphabetical")
 
@@ -82,10 +83,9 @@ results <- map(responses, ~html_nodes(.x, "#id_page li") %>%
                            as.numeric() %>%
                            tail(1) ) %>% 
            map(~pluck(.x, 1, .default=1))
-pages_df <- data.frame(letter = rep.int(letters, times=unlist(results)),
-                       pages = unlist(map(results, ~seq.int(from=1, to=.x))), 
-                       stringsAsFactors = FALSE)
-head(pages_df, 10)
+pages_df <- tibble(letter = rep.int(letters, times=unlist(results)),
+                   pages = unlist(map(results, ~seq.int(from=1, to=.x))))
+pages_df
 ```
 
 Now that we know how many pages to retrieve from each letter page, let's rotate over letter pages and retrieve cheese names and underlying links to cheese details. We will need to write a helper function. Our session is still valid and we don't need to `nod` again, because we will not be modifying a page URL, only its parameters (note that the field `url` is missing from `scrape` function).
@@ -94,13 +94,12 @@ Now that we know how many pages to retrieve from each letter page, let's rotate 
 get_cheese_page <- function(letter, pages){
  lnks <- scrape(session, query=list(per_page=100,i=letter,page=pages)) %>% 
     html_nodes("h3 a")
- data.frame(name=lnks %>% html_text(),
-           link=lnks %>% html_attr("href"),
-           stringsAsFactors = FALSE)
+tibble(name=lnks %>% html_text(),
+       link=lnks %>% html_attr("href"))
 }
 
 df <- pages_df %>% pmap_df(get_cheese_page)
-head(df, 10)
+df
 ```
 
 

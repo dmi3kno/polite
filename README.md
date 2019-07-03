@@ -90,6 +90,7 @@ of web requests.
 library(polite)
 library(rvest)
 library(purrr)
+library(dplyr)
 
 session <- bow("https://www.cheese.com/alphabetical")
 
@@ -102,17 +103,18 @@ results <- map(responses, ~html_nodes(.x, "#id_page li") %>%
                            as.numeric() %>%
                            tail(1) ) %>% 
            map(~pluck(.x, 1, .default=1))
-pages_df <- data.frame(letter = rep.int(letters, times=unlist(results)),
-                       pages = unlist(map(results, ~seq.int(from=1, to=.x))), 
-                       stringsAsFactors = FALSE)
-head(pages_df, 10)
+pages_df <- tibble(letter = rep.int(letters, times=unlist(results)),
+                   pages = unlist(map(results, ~seq.int(from=1, to=.x))))
+pages_df
+#> # A tibble: 6 x 2
 #>   letter pages
-#> 1      a     1
-#> 2      b     1
-#> 3      b     2
-#> 4      c     1
-#> 5      c     2
-#> 6      c     3
+#>   <chr>  <int>
+#> 1 a          1
+#> 2 b          1
+#> 3 b          2
+#> 4 c          1
+#> 5 c          2
+#> 6 c          3
 ```
 
 Now that we know how many pages to retrieve from each letter page, let’s
@@ -126,24 +128,26 @@ missing from `scrape` function).
 get_cheese_page <- function(letter, pages){
  lnks <- scrape(session, query=list(per_page=100,i=letter,page=pages)) %>% 
     html_nodes("h3 a")
- data.frame(name=lnks %>% html_text(),
-           link=lnks %>% html_attr("href"),
-           stringsAsFactors = FALSE)
+tibble(name=lnks %>% html_text(),
+       link=lnks %>% html_attr("href"))
 }
 
 df <- pages_df %>% pmap_df(get_cheese_page)
-head(df, 10)
-#>                       name                      link
-#> 1         Abbaye de Belloc        /abbaye-de-belloc/
-#> 2         Abbaye de Belval        /abbaye-de-belval/
-#> 3        Abbaye de Citeaux       /abbaye-de-citeaux/
-#> 4       Abbaye de Timadeuc      /abbaye-de-timadeuc/
-#> 5  Abbaye du Mont des Cats /abbaye-du-mont-des-cats/
-#> 6             Abbot’s Gold             /abbots-gold/
-#> 7                  Abertam                 /abertam/
-#> 8                Abondance               /abondance/
-#> 9                 Acapella                /acapella/
-#> 10             Accasciato               /accasciato/
+df
+#> # A tibble: 515 x 2
+#>    name                    link                     
+#>    <chr>                   <chr>                    
+#>  1 Abbaye de Belloc        /abbaye-de-belloc/       
+#>  2 Abbaye de Belval        /abbaye-de-belval/       
+#>  3 Abbaye de Citeaux       /abbaye-de-citeaux/      
+#>  4 Abbaye de Timadeuc      /abbaye-de-timadeuc/     
+#>  5 Abbaye du Mont des Cats /abbaye-du-mont-des-cats/
+#>  6 Abbot’s Gold            /abbots-gold/            
+#>  7 Abertam                 /abertam/                
+#>  8 Abondance               /abondance/              
+#>  9 Acapella                /acapella/               
+#> 10 "Accasciato "           /accasciato/             
+#> # … with 505 more rows
 ```
 
 Package logo uses elements of a free image by

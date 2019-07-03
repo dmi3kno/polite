@@ -23,5 +23,6 @@ Imports:
     stats,
     usethis
 Suggests: 
+    dplyr,
     testthat,
     covr

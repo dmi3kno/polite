@@ -1,7 +1,7 @@
 Package: polite
 Version: 0.0.0.9007
 Title: Be Nice on the Web
-Description: Be responsible when scraping data from APIs or websites by following polite principles: introduce yourself, ask for permission, take slowly and never ask twice. 
+Description: Be responsible when scraping data from websites by following polite principles: introduce yourself, ask for permission, take slowly and never ask twice. 
 Authors@R: person("Dmytro", "Perepolkin", email = "dperepolkin@gmail.com", role = c("aut", "cre"), comment = structure("0000-0001-8558-6183", .Names = "ORCID"))
 License: MIT + file LICENSE
 Encoding: UTF-8

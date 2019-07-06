@@ -1,3 +1,7 @@
+# polite 0.1.0 (Release date: 2019-07-07)
+
+* submitted to CRAN
+
 # polite 0.0.0.9007 (Release date: 2019-06-30)
 
 * the `param` argument of `scrape()` is now softly deprecated. New argument `query` is introduced. (closing [#16](https://github.com/dmi3kno/polite/issues/16))

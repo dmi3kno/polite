@@ -10,4 +10,4 @@ deploy:
   skip_cleanup: true
 
 after_success:
-  -Rscript -e 'covr::codecov()'
+  - Rscript -e 'covr::codecov()'

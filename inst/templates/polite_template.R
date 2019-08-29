@@ -29,7 +29,7 @@ check_rtxt <-function(url, delay, user_agent, force, verbose){
   if(is_scrapable)
     Sys.sleep(rt$delay_rate)
   else
-    warning("robots.txt says this path is NOT scrapable for your user agent!")
+    warning("robots.txt says this path is NOT scrapable for your user agent!", call. = FALSE)
 
   is_scrapable
 }

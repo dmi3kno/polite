@@ -4,28 +4,25 @@
 \alias{rip}
 \title{Polite file download}
 \usage{
-rip(bow, new_filename = NULL, suffix = NULL, sep = "__",
-  path = "downloads", overwrite = FALSE, mode = "wb", ...)
+rip(bow, destfile = NULL, ..., mode = "wb", path = tempdir(),
+  overwrite = FALSE)
 }
 \arguments{
 \item{bow}{host introduction object of class \code{polite}, \code{session} created by \code{bow()} or \code{nod()}}
 
-\item{new_filename}{optional new file name to use when saving the file}
+\item{destfile}{optional new file name to use when saving the file. If missing, it will be guessed from `basename(url)``}
 
-\item{suffix}{optional characters added to file name}
-
-\item{sep}{separator between file name and suffix. Default \code{__}}
-
-\item{path}{path where file should be saved. Defaults to folder named \code{downloads} created in the working directory}
-
-\item{overwrite}{if \code{TRUE} will overwrite file on disk}
+\item{...}{other parameters passed to \code{download.file}}
 
 \item{mode}{character. The mode with which to write the file. Useful values are \code{w}, \code{wb} (binary), \code{a} (append) and \code{ab}. Not used for methods \code{wget} and \code{curl}.}
 
-\item{...}{other parameters passed to \code{download.file}}
+\item{path}{character. Path where to save the destfile. By default is temporary directory created with \code{tempdir()}
+Ignored if \code{destfile} contains path along with filename.}
+
+\item{overwrite}{if \code{TRUE} will overwrite file on disk}
 }
 \value{
-Full path to file indicated by URL saved on disk
+Full path to the locally saved file indicated by the user in \code{destfile} (and \code{path})
 }
 \description{
 Polite file download

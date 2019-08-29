@@ -70,7 +70,7 @@ bow <- function(url,
 
   if(self$delay<5)
     if(grepl("polite|dmi3kno", self$user_agent)){
-      stop(red("You cannot scrape this fast. Please reconsider delay period."), call. = FALSE)
+      stop("You cannot scrape this fast. Please reconsider delay period.", call. = FALSE)
     warning("This is a little too fast. Are you sure you want to risk being banned?", call. = FALSE)
     }
 
@@ -120,17 +120,16 @@ set_rip_delay <- function(delay){
 #'
 #' @param x object of class `polite`, `session`
 #' @param ... other parameters passed to methods
-#' @importFrom crayon yellow bold blue green red
 #' @export
 print.polite <- function(x, ...) {
-  cat(yellow$bold("<polite session> "), x$url, "\n", sep = "")
-  cat(blue("    ", "User-agent: "), x$user_agent, "\n", sep = "")
-  cat(blue("    ", "robots.txt: "), nrow(x$robotstxt$permissions), " rules are defined for ",length(x$robotstxt$bots), " bots\n", sep = "")
-  cat(blue("   ", "Crawl delay: "), x$delay," sec\n", sep = "")
+  cat(paste0("<polite session> ", x$url, "\n",
+             "    ", "User-agent: ", x$user_agent, "\n",
+             "    ", "robots.txt: ", nrow(x$robotstxt$permissions), " rules are defined for ",length(x$robotstxt$bots), " bots\n",
+             "   ", "Crawl delay: ", x$delay," sec\n"))
   if(is_scrapable(x)){
-    cat(green(" ", "The path is scrapable for this user-agent\n"), sep="")
+    cat(" ", "The path is scrapable for this user-agent\n")
   } else {
-    cat(red(" ", "The path is not scrapable for this user-agent\n"), sep="")
+    cat(" ", "The path is not scrapable for this user-agent\n")
   }
 }
 

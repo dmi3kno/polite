@@ -1,15 +1,14 @@
 #' Polite file download
 #'
 #' @param bow host introduction object of class `polite`, `session` created by `bow()` or `nod()`
-#' @param new_filename optional new file name to use when saving the file
-#' @param suffix optional characters added to file name
-#' @param sep separator between file name and suffix. Default `__`
-#' @param path path where file should be saved. Defaults to folder named `downloads` created in the working directory
-#' @param overwrite if `TRUE` will overwrite file on disk
-#' @param mode character. The mode with which to write the file. Useful values are `w`, `wb` (binary), `a` (append) and `ab`. Not used for methods `wget` and `curl`.
+#' @param destfile optional new file name to use when saving the file. If missing, it will be guessed from `basename(url)``
 #' @param ... other parameters passed to `download.file`
+#' @param mode character. The mode with which to write the file. Useful values are `w`, `wb` (binary), `a` (append) and `ab`. Not used for methods `wget` and `curl`.
+#' @param path character. Path where to save the destfile. By default is temporary directory created with `tempdir()`
+#' Ignored if `destfile` contains path along with filename.
+#' @param overwrite if `TRUE` will overwrite file on disk
 #'
-#' @return Full path to file indicated by URL saved on disk
+#' @return Full path to the locally saved file indicated by the user in `destfile` (and `path`)
 #' @export
 #'
 #' @examples
@@ -20,26 +19,26 @@
 #' }
 #' @importFrom here here
 #' @importFrom tools file_path_sans_ext file_ext
-rip <- function(bow, new_filename=NULL, suffix=NULL, sep="__", path="downloads", overwrite=FALSE, mode="wb", ...){
+rip <- function(bow, destfile=NULL, ..., mode="wb", path=tempdir(), overwrite=FALSE){
+
   url <- bow$url
-  base_name <- basename(url)
 
-  if(!dir.exists(here::here(path)))
-    dir.create(here::here(path))
+  if (is.null(destfile)) destfile <- basename(url)
 
-  if(!is.null(suffix))  suffix <- paste0(sep, suffix)
+  if(dirname(destfile)!=dirname(".")) path <- dirname(destfile)
 
-  new_filename <- new_filename %||%
-    paste0(tools::file_path_sans_ext(base_name), suffix, ".", tools::file_ext(base_name))
+  if(!dir.exists(path)) dir.create(path, recursive = TRUE)
 
-  new_filepath <- here::here(path, new_filename)
+  destfilepath <- file.path(path, destfile)
 
-  if(file.exists(new_filepath) && !overwrite){
+  if(file.exists(destfilepath) && !overwrite){
     warning("File already exists", call. = FALSE)
-    return(new_filepath)
+    return(destfilepath)
     }
 
-  download_file_ltd(url, new_filepath, mode=mode, ...)
+  download_file_ltd(url, destfilepath, mode=mode, ...)
 
-  return(new_filepath)
+  return(destfilepath)
 }
+
+

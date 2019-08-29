@@ -15,11 +15,13 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
@@ -37,12 +39,12 @@
 
 
 
+
 <meta property="og:title" content="Polite file download — rip" />
-
 <meta property="og:description" content="Polite file download" />
-
 <meta property="og:image" content="/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -91,7 +93,6 @@
   <a href="../news/index.html">Changelog</a>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
   <a href="https://github.com/dmi3kno/polite">
@@ -117,14 +118,12 @@
     </div>
 
     <div class="ref-description">
-    
     <p>Polite file download</p>
-    
     </div>
 
-    <pre class="usage"><span class='fu'>rip</span>(<span class='no'>bow</span>, <span class='kw'>new_filename</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>suffix</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='st'>"__"</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='st'>"downloads"</span>, <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"wb"</span>, <span class='no'>...</span>)</pre>
-    
+    <pre class="usage"><span class='fu'>rip</span>(<span class='no'>bow</span>, <span class='kw'>destfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"wb"</span>, <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>(),
+  <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -133,39 +132,31 @@
       <td><p>host introduction object of class <code>polite</code>, <code>session</code> created by <code><a href='bow.html'>bow()</a></code> or <code><a href='nod.html'>nod()</a></code></p></td>
     </tr>
     <tr>
-      <th>new_filename</th>
-      <td><p>optional new file name to use when saving the file</p></td>
+      <th>destfile</th>
+      <td><p>optional new file name to use when saving the file. If missing, it will be guessed from `basename(url)``</p></td>
     </tr>
     <tr>
-      <th>suffix</th>
-      <td><p>optional characters added to file name</p></td>
-    </tr>
-    <tr>
-      <th>sep</th>
-      <td><p>separator between file name and suffix. Default <code>__</code></p></td>
-    </tr>
-    <tr>
-      <th>path</th>
-      <td><p>path where file should be saved. Defaults to folder named <code>downloads</code> created in the working directory</p></td>
-    </tr>
-    <tr>
-      <th>overwrite</th>
-      <td><p>if <code>TRUE</code> will overwrite file on disk</p></td>
+      <th>...</th>
+      <td><p>other parameters passed to <code>download.file</code></p></td>
     </tr>
     <tr>
       <th>mode</th>
       <td><p>character. The mode with which to write the file. Useful values are <code>w</code>, <code>wb</code> (binary), <code>a</code> (append) and <code>ab</code>. Not used for methods <code>wget</code> and <code>curl</code>.</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>other parameters passed to <code>download.file</code></p></td>
+      <th>path</th>
+      <td><p>character. Path where to save the destfile. By default is temporary directory created with <code><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir()</a></code>
+Ignored if <code>destfile</code> contains path along with filename.</p></td>
+    </tr>
+    <tr>
+      <th>overwrite</th>
+      <td><p>if <code>TRUE</code> will overwrite file on disk</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>Full path to file indicated by URL saved on disk</p>
-    
+    <p>Full path to the locally saved file indicated by the user in <code>destfile</code> (and <code>path</code>)</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><span class='co'># NOT RUN {</span>
@@ -178,9 +169,7 @@
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 

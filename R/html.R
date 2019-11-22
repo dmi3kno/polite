@@ -10,12 +10,14 @@
 #' @export
 #'
 #' @examples
+#' \donttest{
 #' library(polite)
 #' library(rvest)
 #' bow("https://en.wikipedia.org/wiki/List_of_cognitive_biases") %>%
 #'   scrape() %>%
 #'   html_nodes("tr td:nth-child(1) a") %>%
 #'   html_attrs_dfr()
+#'   }
 #' @importFrom rvest html_text html_attrs html_attr
 #' @importFrom stats setNames
 html_attrs_dfr <- function(x, attrs=NULL, trim=FALSE, defaults=NA_character_, add_text=TRUE){

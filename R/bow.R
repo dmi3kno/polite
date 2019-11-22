@@ -10,7 +10,7 @@
 #' @return object of class `polite`, `session`
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'  library(polite)
 #'
 #'  host <- "https://www.cheese.com"
@@ -95,7 +95,7 @@ bow <- function(url,
 #' @return Updates rate-limit property of `scrape` and `rip` functions, respectively.
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'  library(polite)
 #'
 #'  host <- "https://www.cheese.com"

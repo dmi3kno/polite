@@ -33,7 +33,7 @@ object of class \code{polite}, \code{session}
 Introduce yourself to the host
 }
 \examples{
-\dontrun{
+\donttest{
  library(polite)
 
  host <- "https://www.cheese.com"

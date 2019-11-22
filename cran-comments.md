@@ -1,3 +1,19 @@
+# Resubmission 2
+CRAN team - 
+This is a second resubmission of a new package responding to feedback from Martina Schmirl on Resubmission 1 below.
+
+#> \dontrun{} should be only used if the example really cannot be executed
+#> (e.g. because of missing additional software, missing API keys, ...) by
+#> the user. That's why wrapping examples in \dontrun{} adds the comment
+#> ("# Not run:") as a warning for the user.
+#> Does not seem necessary, please replace with \donttest or explain. 
+
+Agreed. Provided more realistic examples and replaced \dontrun{} with \donttest{}
+
+Thank you for reviewing my submission!
+Regards,
+Dmytro
+
 # Resubmission 1
 
 CRAN team -

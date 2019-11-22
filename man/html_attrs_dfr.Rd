@@ -25,10 +25,12 @@ data frame with one row per xml node, consisting of an html_text column with tex
 Convert collection of html nodes into data frame
 }
 \examples{
+\donttest{
 library(polite)
 library(rvest)
 bow("https://en.wikipedia.org/wiki/List_of_cognitive_biases") \%>\%
   scrape() \%>\%
   html_nodes("tr td:nth-child(1) a") \%>\%
   html_attrs_dfr()
+  }
 }

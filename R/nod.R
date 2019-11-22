@@ -6,7 +6,7 @@
 #' @return object of class `polite`, `session` with modified URL
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'  library(polite)
 #'
 #'  host <- "https://www.cheese.com"

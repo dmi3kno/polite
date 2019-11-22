@@ -12,10 +12,10 @@
 #' @export
 #'
 #' @examples
-#' \dontrun{
-#' bow("www.mysite.com") %>%
-#'   nod("file.txt") %>%
-#'   rip()
+#' \donttest{
+#' bow("https://www.cheese.com/") %>%
+#'  nod("media/img/sub-page-slide2.jpg") %>%
+#'  rip()
 #' }
 #' @importFrom here here
 #' @importFrom tools file_path_sans_ext file_ext

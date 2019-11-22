@@ -20,7 +20,7 @@ object of class \code{polite}, \code{session} with modified URL
 Agree modification of session path with the host
 }
 \examples{
-\dontrun{
+\donttest{
  library(polite)
 
  host <- "https://www.cheese.com"

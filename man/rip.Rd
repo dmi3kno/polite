@@ -28,9 +28,9 @@ Full path to the locally saved file indicated by the user in \code{destfile} (an
 Polite file download
 }
 \examples{
-\dontrun{
-bow("www.mysite.com") \%>\%
-  nod("file.txt") \%>\%
-  rip()
+\donttest{
+bow("https://www.cheese.com/") \%>\%
+ nod("media/img/sub-page-slide2.jpg") \%>\%
+ rip()
 }
 }

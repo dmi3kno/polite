@@ -20,7 +20,7 @@ Updates rate-limit property of \code{scrape} and \code{rip} functions, respectiv
 Reset scraping/ripping rate limit
 }
 \examples{
-\dontrun{
+\donttest{
  library(polite)
 
  host <- "https://www.cheese.com"

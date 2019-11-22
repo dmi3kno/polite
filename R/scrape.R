@@ -82,7 +82,7 @@ m_scrape <- function(bow, query=NULL, params=NULL, accept="html", content=NULL, 
 #' @return Object of class `httr::response` which can be further processed by functions in `rvest` package
 #'
 #' @examples
-#' \dontrun{
+#' \donttest{
 #'  library(rvest)
 #'  biases <- bow("https://en.wikipedia.org/wiki/List_of_cognitive_biases") %>%
 #'    scrape(content="text/html; charset=UTF-8") %>%

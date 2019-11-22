@@ -91,7 +91,7 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 </blockquote>
 <p>The package’s two main functions <code>bow</code> and <code>scrape</code> define and realize a web harvesting session. <code>bow</code> is used to introduce the client to the host and ask for permission to scrape (by inquiring against the host’s <code>robots.txt</code> file), while <code>scrape</code> is the main function for retrieving data from the remote server. Once the connection is established, there’s no need to <code>bow</code> again. Rather, in order to adjust a scraping URL the user can simply <code>nod</code> to the new path, which updates the session’s URL, making sure that the new location can be negotiated against <code>robots.txt</code>.</p>
 <p>The three pillars of a <code>polite session</code> are <strong>seeking permission, taking slowly and never asking twice</strong>.</p>
-<p>The package builds on awesome toolkits for defining and managing http sessions (<code>httr</code> and <code>rvest</code>), declaring the user agent string and investigating site policies (<code>robotstxt</code>), and utilizing rate-limiting and response caching (<code>ratelimitr</code> and <code>memoise</code>).</p>
+<p>The package builds on awesome toolkits for defining and managing http sessions (<code>httr</code> and <code>rvest</code>), declaring the user agent string and investigating site policies (<code>robotstxt</code>), and utilizing rate-limiting and response caching (<code>ratelimitr</code> amd <code>memoise</code>).</p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
@@ -102,7 +102,7 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <div id="basic-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basic-example" class="anchor"></a>Basic Example</h2>
-<p>This is a basic example which shows how to retrieve the list of semi-soft cheeses from www.cheese.com. Here, we authenticate a session and then scrape the page with specified parameters. Behind the scenes <code>polite</code> retrieves <code>robots.txt</code>, checks the URL and user agent string against it, caches the call to <code>robots.txt</code> and to the web page and enforces rate limiting.</p>
+<p>This is a basic example which shows how to retrive the list of semi-soft cheeses from www.cheese.com. Here, we authenticate a session and then scrape the page with specified parameters. Behind the scenes <code>polite</code> retrieves <code>robots.txt</code>, checks the URL and user agent string against it, caches the call to <code>robots.txt</code> and to the web page and enforces rate limiting.</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(polite)</a>
 <a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rvest)</a>
 <a class="sourceLine" id="cb2-3" data-line-number="3"></a>

@@ -41,7 +41,7 @@ slowly and never asking twice**.
 The package builds on awesome toolkits for defining and managing http
 sessions (`httr` and `rvest`), declaring the user agent string and
 investigating site policies (`robotstxt`), and utilizing rate-limiting
-and response caching (`ratelimitr` amd `memoise`).
+and response caching (`ratelimitr` and `memoise`).
 
 ## Installation
 
@@ -55,12 +55,12 @@ devtools::install_github("dmi3kno/polite")
 
 ## Basic Example
 
-This is a basic example which shows how to retrive the list of semi-soft
-cheeses from www.cheese.com. Here, we authenticate a session and then
-scrape the page with specified parameters. Behind the scenes `polite`
-retrieves `robots.txt`, checks the URL and user agent string against it,
-caches the call to `robots.txt` and to the web page and enforces rate
-limiting.
+This is a basic example which shows how to retrieve the list of
+semi-soft cheeses from www.cheese.com. Here, we authenticate a session
+and then scrape the page with specified parameters. Behind the scenes
+`polite` retrieves `robots.txt`, checks the URL and user agent string
+against it, caches the call to `robots.txt` and to the web page and
+enforces rate limiting.
 
 ``` r
 library(polite)

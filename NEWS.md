@@ -2,7 +2,7 @@
 
 # polite 0.1.1 (Release date: 2019-11-22)
 
-* Re-submitted to CRAN
+* Released on CRAN. Initial release v0.1.1
 
 # polite 0.1.0 (Release date: 2019-07-07)
 

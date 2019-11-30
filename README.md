@@ -45,12 +45,18 @@ and response caching (`ratelimitr` and `memoise`).
 
 ## Installation
 
-You can install the development version of `polite` from
-[GitHub](https://github.com/) with:
+You can install `polite` from [CRAN](https://cran.r-project.org/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("dmi3kno/polite")
+install.packages("polite")
+```
+
+Development version of the package can be installed from
+[Github](https://www.github.com/dmi3kno/polite) with:
+
+``` r
+install.packages("remotes")
+remotes::install_github("polite")
 ```
 
 ## Basic Example

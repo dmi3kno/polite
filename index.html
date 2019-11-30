@@ -95,83 +95,85 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p>You can install the development version of <code>polite</code> from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="co"># install.packages("devtools")</span></a>
-<a class="sourceLine" id="cb1-2" data-line-number="2">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">"dmi3kno/polite"</span>)</a></code></pre></div>
+<p>You can install <code>polite</code> from <a href="https://cran.r-project.org/">CRAN</a> with:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"polite"</span>)</a></code></pre></div>
+<p>Development version of the package can be installed from <a href="https://www.github.com/dmi3kno/polite">Github</a> with:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)</a>
+<a class="sourceLine" id="cb2-2" data-line-number="2">remotes<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/remotes/man/install_github.html">install_github</a></span>(<span class="st">"polite"</span>)</a></code></pre></div>
 </div>
 <div id="basic-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basic-example" class="anchor"></a>Basic Example</h2>
 <p>This is a basic example which shows how to retrieve the list of semi-soft cheeses from www.cheese.com. Here, we authenticate a session and then scrape the page with specified parameters. Behind the scenes <code>polite</code> retrieves <code>robots.txt</code>, checks the URL and user agent string against it, caches the call to <code>robots.txt</code> and to the web page and enforces rate limiting.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(polite)</a>
-<a class="sourceLine" id="cb2-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rvest)</a>
-<a class="sourceLine" id="cb2-3" data-line-number="3"></a>
-<a class="sourceLine" id="cb2-4" data-line-number="4">session &lt;-<span class="st"> </span><span class="kw"><a href="reference/bow.html">bow</a></span>(<span class="st">"https://www.cheese.com/by_type"</span>, <span class="dt">force =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb2-5" data-line-number="5">result &lt;-<span class="st"> </span><span class="kw"><a href="reference/scrape.html">scrape</a></span>(session, <span class="dt">query=</span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">t=</span><span class="st">"semi-soft"</span>,<span class="dt">per_page=</span><span class="dv">100</span>)) <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb2-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_node</a></span>(<span class="st">"#main-body"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="st">"h3"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb2-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span>()</a>
-<a class="sourceLine" id="cb2-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result)</a>
-<a class="sourceLine" id="cb2-10" data-line-number="10"><span class="co">#&gt; [1] "3-Cheese Italian Blend"  "Abbaye de Citeaux"      </span></a>
-<a class="sourceLine" id="cb2-11" data-line-number="11"><span class="co">#&gt; [3] "Abbaye du Mont des Cats" "Adelost"                </span></a>
-<a class="sourceLine" id="cb2-12" data-line-number="12"><span class="co">#&gt; [5] "ADL Brick Cheese"        "Ailsa Craig"</span></a></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(polite)</a>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rvest)</a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"></a>
+<a class="sourceLine" id="cb3-4" data-line-number="4">session &lt;-<span class="st"> </span><span class="kw"><a href="reference/bow.html">bow</a></span>(<span class="st">"https://www.cheese.com/by_type"</span>, <span class="dt">force =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb3-5" data-line-number="5">result &lt;-<span class="st"> </span><span class="kw"><a href="reference/scrape.html">scrape</a></span>(session, <span class="dt">query=</span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">t=</span><span class="st">"semi-soft"</span>,<span class="dt">per_page=</span><span class="dv">100</span>)) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb3-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_node</a></span>(<span class="st">"#main-body"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-7" data-line-number="7"><span class="st">  </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="st">"h3"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span>()</a>
+<a class="sourceLine" id="cb3-9" data-line-number="9"><span class="kw"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(result)</a>
+<a class="sourceLine" id="cb3-10" data-line-number="10"><span class="co">#&gt; [1] "3-Cheese Italian Blend"  "Abbaye de Citeaux"      </span></a>
+<a class="sourceLine" id="cb3-11" data-line-number="11"><span class="co">#&gt; [3] "Abbaye du Mont des Cats" "Adelost"                </span></a>
+<a class="sourceLine" id="cb3-12" data-line-number="12"><span class="co">#&gt; [5] "ADL Brick Cheese"        "Ailsa Craig"</span></a></code></pre></div>
 </div>
 <div id="extended-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extended-example" class="anchor"></a>Extended Example</h2>
 <p>You can build your own functions that incorporate <code>bow</code>, <code>scrape</code> (and, if required, <code>nod</code>). Here we will extend our inquiry into cheeses and will download all cheese names and URLs to their information pages. Let’s retrieve the number of pages per letter in the alphabetical list, keeping the number of results per page to 100 to minimize number of web requests.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(polite)</a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rvest)</a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(purrr)</a>
-<a class="sourceLine" id="cb3-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
-<a class="sourceLine" id="cb3-5" data-line-number="5"></a>
-<a class="sourceLine" id="cb3-6" data-line-number="6">session &lt;-<span class="st"> </span><span class="kw"><a href="reference/bow.html">bow</a></span>(<span class="st">"https://www.cheese.com/alphabetical"</span>)</a>
-<a class="sourceLine" id="cb3-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb3-8" data-line-number="8"><span class="co"># this is only to illustrate the example.</span></a>
-<a class="sourceLine" id="cb3-9" data-line-number="9">letters &lt;-<span class="st"> </span>letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># delete this line to scrape all letters</span></a>
-<a class="sourceLine" id="cb3-10" data-line-number="10"></a>
-<a class="sourceLine" id="cb3-11" data-line-number="11">responses &lt;-<span class="st"> </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(letters, <span class="op">~</span><span class="kw"><a href="reference/scrape.html">scrape</a></span>(session, <span class="dt">query =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">per_page=</span><span class="dv">100</span>,<span class="dt">i=</span>.x)) )</a>
-<a class="sourceLine" id="cb3-12" data-line-number="12">results &lt;-<span class="st"> </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(responses, <span class="op">~</span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(.x, <span class="st">"#id_page li"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-13" data-line-number="13"><span class="st">                           </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span>(<span class="dt">trim =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-14" data-line-number="14"><span class="st">                           </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>() <span class="op">%&gt;%</span></a>
-<a class="sourceLine" id="cb3-15" data-line-number="15"><span class="st">                           </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="dv">1</span>) ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-16" data-line-number="16"><span class="st">           </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="op">~</span><span class="kw"><a href="https://rvest.tidyverse.org/reference/pluck.html">pluck</a></span>(.x, <span class="dv">1</span>, <span class="dt">.default=</span><span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb3-17" data-line-number="17">pages_df &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">letter =</span> <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep.int</a></span>(letters, <span class="dt">times=</span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(results)),</a>
-<a class="sourceLine" id="cb3-18" data-line-number="18">                   <span class="dt">pages =</span> <span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(results, <span class="op">~</span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq.int</a></span>(<span class="dt">from=</span><span class="dv">1</span>, <span class="dt">to=</span>.x))))</a>
-<a class="sourceLine" id="cb3-19" data-line-number="19">pages_df</a>
-<a class="sourceLine" id="cb3-20" data-line-number="20"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
-<a class="sourceLine" id="cb3-21" data-line-number="21"><span class="co">#&gt;   letter pages</span></a>
-<a class="sourceLine" id="cb3-22" data-line-number="22"><span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt;</span></a>
-<a class="sourceLine" id="cb3-23" data-line-number="23"><span class="co">#&gt; 1 a          1</span></a>
-<a class="sourceLine" id="cb3-24" data-line-number="24"><span class="co">#&gt; 2 b          1</span></a>
-<a class="sourceLine" id="cb3-25" data-line-number="25"><span class="co">#&gt; 3 b          2</span></a>
-<a class="sourceLine" id="cb3-26" data-line-number="26"><span class="co">#&gt; 4 c          1</span></a>
-<a class="sourceLine" id="cb3-27" data-line-number="27"><span class="co">#&gt; 5 c          2</span></a>
-<a class="sourceLine" id="cb3-28" data-line-number="28"><span class="co">#&gt; 6 c          3</span></a></code></pre></div>
-<p>Now that we know how many pages to retrieve from each letter page, let’s rotate over letter pages and retrieve cheese names and underlying links to cheese details. We will need to write a helper function. Our session is still valid and we don’t need to <code>nod</code> again, because we will not be modifying a page URL, only its parameters (note that the field <code>url</code> is missing from <code>scrape</code> function).</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1">get_cheese_page &lt;-<span class="st"> </span><span class="cf">function</span>(letter, pages){</a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"> lnks &lt;-<span class="st"> </span><span class="kw"><a href="reference/scrape.html">scrape</a></span>(session, <span class="dt">query=</span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">per_page=</span><span class="dv">100</span>,<span class="dt">i=</span>letter,<span class="dt">page=</span>pages)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="st">"h3 a"</span>)</a>
-<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">name=</span>lnks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span>(),</a>
-<a class="sourceLine" id="cb4-5" data-line-number="5">       <span class="dt">link=</span>lnks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_attr</a></span>(<span class="st">"href"</span>))</a>
-<a class="sourceLine" id="cb4-6" data-line-number="6">}</a>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(polite)</a>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rvest)</a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(purrr)</a>
+<a class="sourceLine" id="cb4-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(dplyr)</a>
+<a class="sourceLine" id="cb4-5" data-line-number="5"></a>
+<a class="sourceLine" id="cb4-6" data-line-number="6">session &lt;-<span class="st"> </span><span class="kw"><a href="reference/bow.html">bow</a></span>(<span class="st">"https://www.cheese.com/alphabetical"</span>)</a>
 <a class="sourceLine" id="cb4-7" data-line-number="7"></a>
-<a class="sourceLine" id="cb4-8" data-line-number="8">df &lt;-<span class="st"> </span>pages_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap_df</a></span>(get_cheese_page)</a>
-<a class="sourceLine" id="cb4-9" data-line-number="9">df</a>
-<a class="sourceLine" id="cb4-10" data-line-number="10"><span class="co">#&gt; # A tibble: 515 x 2</span></a>
-<a class="sourceLine" id="cb4-11" data-line-number="11"><span class="co">#&gt;    name                    link                     </span></a>
-<a class="sourceLine" id="cb4-12" data-line-number="12"><span class="co">#&gt;    &lt;chr&gt;                   &lt;chr&gt;                    </span></a>
-<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="co">#&gt;  1 Abbaye de Belloc        /abbaye-de-belloc/       </span></a>
-<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="co">#&gt;  2 Abbaye de Belval        /abbaye-de-belval/       </span></a>
-<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="co">#&gt;  3 Abbaye de Citeaux       /abbaye-de-citeaux/      </span></a>
-<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="co">#&gt;  4 Abbaye de Timadeuc      /abbaye-de-timadeuc/     </span></a>
-<a class="sourceLine" id="cb4-17" data-line-number="17"><span class="co">#&gt;  5 Abbaye du Mont des Cats /abbaye-du-mont-des-cats/</span></a>
-<a class="sourceLine" id="cb4-18" data-line-number="18"><span class="co">#&gt;  6 Abbot’s Gold            /abbots-gold/            </span></a>
-<a class="sourceLine" id="cb4-19" data-line-number="19"><span class="co">#&gt;  7 Abertam                 /abertam/                </span></a>
-<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt;  8 Abondance               /abondance/              </span></a>
-<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt;  9 Acapella                /acapella/               </span></a>
-<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt; 10 "Accasciato "           /accasciato/             </span></a>
-<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; # … with 505 more rows</span></a></code></pre></div>
+<a class="sourceLine" id="cb4-8" data-line-number="8"><span class="co"># this is only to illustrate the example.</span></a>
+<a class="sourceLine" id="cb4-9" data-line-number="9">letters &lt;-<span class="st"> </span>letters[<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>] <span class="co"># delete this line to scrape all letters</span></a>
+<a class="sourceLine" id="cb4-10" data-line-number="10"></a>
+<a class="sourceLine" id="cb4-11" data-line-number="11">responses &lt;-<span class="st"> </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(letters, <span class="op">~</span><span class="kw"><a href="reference/scrape.html">scrape</a></span>(session, <span class="dt">query =</span> <span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">per_page=</span><span class="dv">100</span>,<span class="dt">i=</span>.x)) )</a>
+<a class="sourceLine" id="cb4-12" data-line-number="12">results &lt;-<span class="st"> </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(responses, <span class="op">~</span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(.x, <span class="st">"#id_page li"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-13" data-line-number="13"><span class="st">                           </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span>(<span class="dt">trim =</span> <span class="ot">TRUE</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-14" data-line-number="14"><span class="st">                           </span><span class="kw"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>() <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb4-15" data-line-number="15"><span class="st">                           </span><span class="kw"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="dv">1</span>) ) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-16" data-line-number="16"><span class="st">           </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="op">~</span><span class="kw"><a href="https://rvest.tidyverse.org/reference/pluck.html">pluck</a></span>(.x, <span class="dv">1</span>, <span class="dt">.default=</span><span class="dv">1</span>))</a>
+<a class="sourceLine" id="cb4-17" data-line-number="17">pages_df &lt;-<span class="st"> </span><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">letter =</span> <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep.int</a></span>(letters, <span class="dt">times=</span><span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(results)),</a>
+<a class="sourceLine" id="cb4-18" data-line-number="18">                   <span class="dt">pages =</span> <span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(results, <span class="op">~</span><span class="kw"><a href="https://rdrr.io/r/base/seq.html">seq.int</a></span>(<span class="dt">from=</span><span class="dv">1</span>, <span class="dt">to=</span>.x))))</a>
+<a class="sourceLine" id="cb4-19" data-line-number="19">pages_df</a>
+<a class="sourceLine" id="cb4-20" data-line-number="20"><span class="co">#&gt; # A tibble: 6 x 2</span></a>
+<a class="sourceLine" id="cb4-21" data-line-number="21"><span class="co">#&gt;   letter pages</span></a>
+<a class="sourceLine" id="cb4-22" data-line-number="22"><span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt;</span></a>
+<a class="sourceLine" id="cb4-23" data-line-number="23"><span class="co">#&gt; 1 a          1</span></a>
+<a class="sourceLine" id="cb4-24" data-line-number="24"><span class="co">#&gt; 2 b          1</span></a>
+<a class="sourceLine" id="cb4-25" data-line-number="25"><span class="co">#&gt; 3 b          2</span></a>
+<a class="sourceLine" id="cb4-26" data-line-number="26"><span class="co">#&gt; 4 c          1</span></a>
+<a class="sourceLine" id="cb4-27" data-line-number="27"><span class="co">#&gt; 5 c          2</span></a>
+<a class="sourceLine" id="cb4-28" data-line-number="28"><span class="co">#&gt; 6 c          3</span></a></code></pre></div>
+<p>Now that we know how many pages to retrieve from each letter page, let’s rotate over letter pages and retrieve cheese names and underlying links to cheese details. We will need to write a helper function. Our session is still valid and we don’t need to <code>nod</code> again, because we will not be modifying a page URL, only its parameters (note that the field <code>url</code> is missing from <code>scrape</code> function).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1">get_cheese_page &lt;-<span class="st"> </span><span class="cf">function</span>(letter, pages){</a>
+<a class="sourceLine" id="cb5-2" data-line-number="2"> lnks &lt;-<span class="st"> </span><span class="kw"><a href="reference/scrape.html">scrape</a></span>(session, <span class="dt">query=</span><span class="kw"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="dt">per_page=</span><span class="dv">100</span>,<span class="dt">i=</span>letter,<span class="dt">page=</span>pages)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="st">"h3 a"</span>)</a>
+<a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="dt">name=</span>lnks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span>(),</a>
+<a class="sourceLine" id="cb5-5" data-line-number="5">       <span class="dt">link=</span>lnks <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_attr</a></span>(<span class="st">"href"</span>))</a>
+<a class="sourceLine" id="cb5-6" data-line-number="6">}</a>
+<a class="sourceLine" id="cb5-7" data-line-number="7"></a>
+<a class="sourceLine" id="cb5-8" data-line-number="8">df &lt;-<span class="st"> </span>pages_df <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap_df</a></span>(get_cheese_page)</a>
+<a class="sourceLine" id="cb5-9" data-line-number="9">df</a>
+<a class="sourceLine" id="cb5-10" data-line-number="10"><span class="co">#&gt; # A tibble: 515 x 2</span></a>
+<a class="sourceLine" id="cb5-11" data-line-number="11"><span class="co">#&gt;    name                    link                     </span></a>
+<a class="sourceLine" id="cb5-12" data-line-number="12"><span class="co">#&gt;    &lt;chr&gt;                   &lt;chr&gt;                    </span></a>
+<a class="sourceLine" id="cb5-13" data-line-number="13"><span class="co">#&gt;  1 Abbaye de Belloc        /abbaye-de-belloc/       </span></a>
+<a class="sourceLine" id="cb5-14" data-line-number="14"><span class="co">#&gt;  2 Abbaye de Belval        /abbaye-de-belval/       </span></a>
+<a class="sourceLine" id="cb5-15" data-line-number="15"><span class="co">#&gt;  3 Abbaye de Citeaux       /abbaye-de-citeaux/      </span></a>
+<a class="sourceLine" id="cb5-16" data-line-number="16"><span class="co">#&gt;  4 Abbaye de Timadeuc      /abbaye-de-timadeuc/     </span></a>
+<a class="sourceLine" id="cb5-17" data-line-number="17"><span class="co">#&gt;  5 Abbaye du Mont des Cats /abbaye-du-mont-des-cats/</span></a>
+<a class="sourceLine" id="cb5-18" data-line-number="18"><span class="co">#&gt;  6 Abbot’s Gold            /abbots-gold/            </span></a>
+<a class="sourceLine" id="cb5-19" data-line-number="19"><span class="co">#&gt;  7 Abertam                 /abertam/                </span></a>
+<a class="sourceLine" id="cb5-20" data-line-number="20"><span class="co">#&gt;  8 Abondance               /abondance/              </span></a>
+<a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt;  9 Acapella                /acapella/               </span></a>
+<a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 10 "Accasciato "           /accasciato/             </span></a>
+<a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; # … with 505 more rows</span></a></code></pre></div>
 <p>Package logo uses elements of a free image by <a href="https://pngtree.com">pngtree.com</a></p>
 <p>[1] Wiktionary (2018), The free dictionary, retrieved from <a href="https://en.wiktionary.org/wiki/bow_and_scrape" class="uri">https://en.wiktionary.org/wiki/bow_and_scrape</a></p>
 </div>

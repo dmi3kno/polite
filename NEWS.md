@@ -1,3 +1,5 @@
+# polite (development version)
+
 # polite 0.1.1 (Release date: 2019-11-22)
 
 * Re-submitted to CRAN

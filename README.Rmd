@@ -48,7 +48,7 @@ Development version of the package can be installed from [Github](https://www.gi
 
 ```{r, eval=FALSE}
 install.packages("remotes")
-remotes::install_github("polite")
+remotes::install_github("dmi3kno/polite")
 ```
 
 

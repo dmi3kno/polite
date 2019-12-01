@@ -56,7 +56,7 @@ Development version of the package can be installed from
 
 ``` r
 install.packages("remotes")
-remotes::install_github("polite")
+remotes::install_github("dmi3kno/polite")
 ```
 
 ## Basic Example

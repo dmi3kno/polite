@@ -11,6 +11,10 @@ status](https://travis-ci.org/dmi3kno/polite.svg?branch=master)](https://travis-
 status](https://ci.appveyor.com/api/projects/status/github/dmi3kno/polite?branch=master&svg=true)](https://ci.appveyor.com/project/dmi3kno/polite)
 [![Codecov test
 coverage](https://codecov.io/gh/dmi3kno/polite/branch/master/graph/badge.svg)](https://codecov.io/gh/dmi3kno/polite?branch=master)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/polite)](https://CRAN.R-project.org/package=polite)
+[![Lifecycle:
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
 <!-- badges: end -->
 
 The goal of `polite` is to promote responsible web etiquette.
@@ -155,6 +159,49 @@ df
 #> 10 "Accasciato "           /accasciato/             
 #> # … with 505 more rows
 ```
+
+## Another example
+
+Bob Rudis is one the vocal proponents of an online etiquette in the R
+community. If you have never seen his robots.txt file, you should
+definitely [check it out](https://rud.is/robots.txt)\! Lets look at his
+[blog](https://rud.is/b/). We don’t know how many pages will the gallery
+return, so we keep going until there’s no more “Older posts” button.
+Note that I first `bow` to the host and then simply `nod` to the current
+scraping page inside the `while` loop.
+
+``` r
+    library(polite)
+    library(rvest)
+    
+    hrbrmstr_posts <- data.frame()
+    url <- "https://rud.is/b/"
+    session <- bow(url)
+    
+    while(!is.na(url)){
+      # make it verbose
+      message("Scraping ", url)
+      # nod and scrape
+      current_page <- nod(session, url) %>% 
+        scrape(verbose=TRUE)
+      # extract post titles
+      hrbrmstr_posts <- current_page %>% 
+        html_nodes(".entry-title a") %>% 
+        polite::html_attrs_dfr() %>% 
+        rbind(hrbrmstr_posts)
+      # see if there's "Older posts" button
+      url <- current_page %>% 
+        html_node(".nav-previous a") %>% 
+        html_attr("href")
+    } # end while loop
+    
+    tibble::as_tibble(hrbrmstr_posts)
+    #> # A tibble: 578 x3
+```
+
+We organize the data into the tidy format and append it to our empty
+data frame. At the end we will discover that Bob has written over 570
+blog articles, which I very much recommend anyone to check out.
 
 Package logo uses elements of a free image by
 [pngtree.com](https://pngtree.com)

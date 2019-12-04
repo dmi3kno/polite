@@ -174,6 +174,38 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <a class="sourceLine" id="cb5-21" data-line-number="21"><span class="co">#&gt;  9 Acapella                /acapella/               </span></a>
 <a class="sourceLine" id="cb5-22" data-line-number="22"><span class="co">#&gt; 10 "Accasciato "           /accasciato/             </span></a>
 <a class="sourceLine" id="cb5-23" data-line-number="23"><span class="co">#&gt; # … with 505 more rows</span></a></code></pre></div>
+</div>
+<div id="another-example" class="section level2">
+<h2 class="hasAnchor">
+<a href="#another-example" class="anchor"></a>Another example</h2>
+<p>Bob Rudis is one the vocal proponents of an online etiquette in the R community. If you have never seen his robots.txt file, you should definitely <a href="https://rud.is/robots.txt">check it out</a>! Lets look at his <a href="https://rud.is/b/">blog</a>. We don’t know how many pages will the gallery return, so we keep going until there’s no more “Older posts” button. Note that I first <code>bow</code> to the host and then simply <code>nod</code> to the current scraping page inside the <code>while</code> loop.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">    <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(polite)</a>
+<a class="sourceLine" id="cb6-2" data-line-number="2">    <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rvest)</a>
+<a class="sourceLine" id="cb6-3" data-line-number="3">    </a>
+<a class="sourceLine" id="cb6-4" data-line-number="4">    hrbrmstr_posts &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>()</a>
+<a class="sourceLine" id="cb6-5" data-line-number="5">    url &lt;-<span class="st"> "https://rud.is/b/"</span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6">    session &lt;-<span class="st"> </span><span class="kw"><a href="reference/bow.html">bow</a></span>(url)</a>
+<a class="sourceLine" id="cb6-7" data-line-number="7">    </a>
+<a class="sourceLine" id="cb6-8" data-line-number="8">    <span class="cf">while</span>(<span class="op">!</span><span class="kw"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(url)){</a>
+<a class="sourceLine" id="cb6-9" data-line-number="9">      <span class="co"># make it verbose</span></a>
+<a class="sourceLine" id="cb6-10" data-line-number="10">      <span class="kw"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"Scraping "</span>, url)</a>
+<a class="sourceLine" id="cb6-11" data-line-number="11">      <span class="co"># nod and scrape</span></a>
+<a class="sourceLine" id="cb6-12" data-line-number="12">      current_page &lt;-<span class="st"> </span><span class="kw"><a href="reference/nod.html">nod</a></span>(session, url) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-13" data-line-number="13"><span class="st">        </span><span class="kw"><a href="reference/scrape.html">scrape</a></span>(<span class="dt">verbose=</span><span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb6-14" data-line-number="14">      <span class="co"># extract post titles</span></a>
+<a class="sourceLine" id="cb6-15" data-line-number="15">      hrbrmstr_posts &lt;-<span class="st"> </span>current_page <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-16" data-line-number="16"><span class="st">        </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="st">".entry-title a"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-17" data-line-number="17"><span class="st">        </span>polite<span class="op">::</span><span class="kw"><a href="https://rdrr.io/pkg/polite/man/html_attrs_dfr.html">html_attrs_dfr</a></span>() <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-18" data-line-number="18"><span class="st">        </span><span class="kw"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(hrbrmstr_posts)</a>
+<a class="sourceLine" id="cb6-19" data-line-number="19">      <span class="co"># see if there's "Older posts" button</span></a>
+<a class="sourceLine" id="cb6-20" data-line-number="20">      url &lt;-<span class="st"> </span>current_page <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-21" data-line-number="21"><span class="st">        </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_node</a></span>(<span class="st">".nav-previous a"</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-22" data-line-number="22"><span class="st">        </span><span class="kw"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_attr</a></span>(<span class="st">"href"</span>)</a>
+<a class="sourceLine" id="cb6-23" data-line-number="23">    } <span class="co"># end while loop</span></a>
+<a class="sourceLine" id="cb6-24" data-line-number="24">    </a>
+<a class="sourceLine" id="cb6-25" data-line-number="25">    tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(hrbrmstr_posts)</a>
+<a class="sourceLine" id="cb6-26" data-line-number="26">    <span class="co">#&gt; # A tibble: 578 x3</span></a></code></pre></div>
+<p>We organize the data into the tidy format and append it to our empty data frame. At the end we will discover that Bob has written over 570 blog articles, which I very much recommend anyone to check out.</p>
 <p>Package logo uses elements of a free image by <a href="https://pngtree.com">pngtree.com</a></p>
 <p>[1] Wiktionary (2018), The free dictionary, retrieved from <a href="https://en.wiktionary.org/wiki/bow_and_scrape" class="uri">https://en.wiktionary.org/wiki/bow_and_scrape</a></p>
 </div>
@@ -212,6 +244,8 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <li><a href="https://travis-ci.org/dmi3kno/polite"><img src="https://travis-ci.org/dmi3kno/polite.svg?branch=master" alt="Travis build status"></a></li>
 <li><a href="https://ci.appveyor.com/project/dmi3kno/polite"><img src="https://ci.appveyor.com/api/projects/status/github/dmi3kno/polite?branch=master&amp;svg=true" alt="AppVeyor build status"></a></li>
 <li><a href="https://codecov.io/gh/dmi3kno/polite?branch=master"><img src="https://codecov.io/gh/dmi3kno/polite/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li><a href="https://CRAN.R-project.org/package=polite"><img src="https://www.r-pkg.org/badges/version/polite" alt="CRAN status"></a></li>
+<li><a href="https://www.tidyverse.org/lifecycle/#maturing"><img src="https://img.shields.io/badge/lifecycle-maturing-blue.svg" alt="Lifecycle: maturing"></a></li>
 </ul>
 </div>
 </div>

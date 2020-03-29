@@ -64,7 +64,7 @@ library(polite)
 library(rvest)
 
 session <- bow("https://www.cheese.com/by_type", force = TRUE)
-result <- scrape(session, query=list(t="semi-soft",per_page=100)) %>%
+result <- scrape(session, query=list(t="semi-soft", per_page=100)) %>%
   html_node("#main-body") %>% 
   html_nodes("h3") %>% 
   html_text()

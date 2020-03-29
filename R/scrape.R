@@ -1,4 +1,4 @@
-#' @importFrom httr http_error add_headers warn_for_status content modify_url parse_url
+#' @importFrom httr http_error content modify_url parse_url
 m_scrape <- function(bow, query=NULL, params=NULL, accept="html", content=NULL, verbose=FALSE) { # nolint
 
   if(!inherits(bow, "polite"))
@@ -29,21 +29,23 @@ m_scrape <- function(bow, query=NULL, params=NULL, accept="html", content=NULL, 
   accept_type <- httr::accept(accept)
   bow$config <- c(bow$config, accept_type)
 
-  response <- httr_get_ltd(bow$url, bow$config, bow$handle)
-  max_attempts <- 3
-
-  att_msg <- c(rep("",max_attempts-1),
-               "This is the last attempt, if it fails will return NULL")
-
-  try_number <- 1
-  while (httr::http_error(response) && try_number < max_attempts) {
-    try_number <- try_number + 1
-    if (verbose)
-      message(paste0("Attempt number ", try_number,".", att_msg[[try_number]]))
-
-    Sys.sleep(2^try_number)
-    response <- httr_get_ltd(bow$url, bow$config, bow$handle)
-  }
+  response <- httr_get_ltd(bow$url, bow$config, bow$handle, verbose)
+  ########################## replaced with RETRY
+  # max_attempts <- 3
+  #
+  # att_msg <- c(rep("",max_attempts-1),
+  #              "This is the last attempt, if it fails will return NULL")
+  #
+  # try_number <- 1
+  # while (httr::http_error(response) && try_number < max_attempts) {
+  #   try_number <- try_number + 1
+  #   if (verbose)
+  #     message(paste0("Attempt number ", try_number,".", att_msg[[try_number]]))
+  #
+  #   Sys.sleep(2^try_number)
+  #   response <- httr_get_ltd(bow$url, bow$config, bow$handle)
+  # }
+  ############################ end replace with RETRY
 
   if(httr::http_error(response)){
     warning(httr::http_status(response)$message, " ", bow$url, call. = FALSE)

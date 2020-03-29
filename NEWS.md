@@ -1,5 +1,11 @@
 # polite (development version)
 
+# polite 0.1.1.9010 (Release date: 2020-03-29)
+
+* Replaced httr::GET with httr::RETRY (closing #24)
+* Removed tests base on Wikipedia due to changed routing
+* Removed dependency on `here`
+
 # polite 0.1.1 (Release date: 2019-11-22)
 
 * Released on CRAN. Initial release v0.1.1

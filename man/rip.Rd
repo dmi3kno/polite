@@ -4,8 +4,14 @@
 \alias{rip}
 \title{Polite file download}
 \usage{
-rip(bow, destfile = NULL, ..., mode = "wb", path = tempdir(),
-  overwrite = FALSE)
+rip(
+  bow,
+  destfile = NULL,
+  ...,
+  mode = "wb",
+  path = tempdir(),
+  overwrite = FALSE
+)
 }
 \arguments{
 \item{bow}{host introduction object of class \code{polite}, \code{session} created by \code{bow()} or \code{nod()}}

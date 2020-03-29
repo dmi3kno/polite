@@ -4,8 +4,14 @@
 \alias{scrape}
 \title{Scrape the content of authorized page/API}
 \usage{
-scrape(bow, query = NULL, params = NULL, accept = "html",
-  content = NULL, verbose = FALSE)
+scrape(
+  bow,
+  query = NULL,
+  params = NULL,
+  accept = "html",
+  content = NULL,
+  verbose = FALSE
+)
 }
 \arguments{
 \item{bow}{host introduction object of class \code{polite}, \code{session} created by \code{bow()} or \code{nod()}}

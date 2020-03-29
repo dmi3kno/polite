@@ -29,11 +29,14 @@ is_scrapable <- function(bow){
 }
 
 #' @importFrom httr GET
-httr_get <- function(url, config, handle){
-  httr::GET(
+httr_get <- function(url, config, handle, verbose){
+  httr::RETRY(verb="GET",
     url = url,
     config = config,
-    handle = handle
+    handle = handle,
+    times = 3,
+    pause_base = 5,
+    quiet=!verbose
   )
 }
 

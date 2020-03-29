@@ -4,8 +4,13 @@
 \alias{html_attrs_dfr}
 \title{Convert collection of html nodes into data frame}
 \usage{
-html_attrs_dfr(x, attrs = NULL, trim = FALSE,
-  defaults = NA_character_, add_text = TRUE)
+html_attrs_dfr(
+  x,
+  attrs = NULL,
+  trim = FALSE,
+  defaults = NA_character_,
+  add_text = TRUE
+)
 }
 \arguments{
 \item{x}{\code{xml_nodeset} object, containing text and attributes of interest}

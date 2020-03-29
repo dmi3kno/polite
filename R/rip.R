@@ -17,8 +17,6 @@
 #'  nod("media/img/sub-page-slide2.jpg") %>%
 #'  rip()
 #' }
-#' @importFrom here here
-#' @importFrom tools file_path_sans_ext file_ext
 rip <- function(bow, destfile=NULL, ..., mode="wb", path=tempdir(), overwrite=FALSE){
 
   url <- bow$url

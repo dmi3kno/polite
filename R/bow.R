@@ -40,7 +40,7 @@ bow <- function(url,
   url_subdomain <- paste0(url_parsed$scheme, "://", url_parsed$hostname)
   rt <- robotstxt::robotstxt(domain = url_subdomain,
                             user_agent = user_agent,
-                            warn=verbose, force = force)
+                            warn = verbose, force = force)
 
   delay_df <- rt$crawl_delay
   delay_rt <- as.numeric(delay_df[with(delay_df, useragent==user_agent), "value"]) %||%

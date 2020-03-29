@@ -77,7 +77,7 @@ library(polite)
 library(rvest)
 
 session <- bow("https://www.cheese.com/by_type", force = TRUE)
-result <- scrape(session, query=list(t="semi-soft",per_page=100)) %>%
+result <- scrape(session, query=list(t="semi-soft", per_page=100)) %>%
   html_node("#main-body") %>% 
   html_nodes("h3") %>% 
   html_text()
@@ -144,20 +144,20 @@ tibble(name=lnks %>% html_text(),
 
 df <- pages_df %>% pmap_df(get_cheese_page)
 df
-#> # A tibble: 515 x 2
-#>    name                    link                     
-#>    <chr>                   <chr>                    
-#>  1 Abbaye de Belloc        /abbaye-de-belloc/       
-#>  2 Abbaye de Belval        /abbaye-de-belval/       
-#>  3 Abbaye de Citeaux       /abbaye-de-citeaux/      
-#>  4 Abbaye de Timadeuc      /abbaye-de-timadeuc/     
-#>  5 Abbaye du Mont des Cats /abbaye-du-mont-des-cats/
-#>  6 Abbot’s Gold            /abbots-gold/            
-#>  7 Abertam                 /abertam/                
-#>  8 Abondance               /abondance/              
-#>  9 Acapella                /acapella/               
-#> 10 "Accasciato "           /accasciato/             
-#> # … with 505 more rows
+#> # A tibble: 517 x 2
+#>    name                      link                     
+#>    <chr>                     <chr>                    
+#>  1 "Abbaye de Belloc"        /abbaye-de-belloc/       
+#>  2 "Abbaye de Belval"        /abbaye-de-belval/       
+#>  3 "Abbaye de Citeaux"       /abbaye-de-citeaux/      
+#>  4 "Abbaye de Timadeuc"      /abbaye-de-timadeuc/     
+#>  5 "Abbaye du Mont des Cats" /abbaye-du-mont-des-cats/
+#>  6 "Abbot’s Gold"            /abbots-gold/            
+#>  7 "Abertam"                 /abertam/                
+#>  8 "Abondance"               /abondance/              
+#>  9 "Acapella"                /acapella/               
+#> 10 "Accasciato "             /accasciato/             
+#> # … with 507 more rows
 ```
 
 ## Another example

@@ -70,12 +70,11 @@ m_scrape <- function(bow, query=NULL, params=NULL, accept="html", content=NULL, 
 #' @examples
 #' \donttest{
 #'  library(rvest)
-#   bow("https://en.wikipedia.org/wiki/List_of_cognitive_biases") %>%
+#'   bow("https://en.wikipedia.org/wiki/List_of_cognitive_biases") %>%
 #'    scrape(content="text/html; charset=UTF-8") %>%
 #'    html_nodes(".wikitable") %>%
 #'    html_table()
-#'  biases
-#'  }
+#'}
 #'
 #' @export
 scrape <- memoise::memoise(m_scrape)

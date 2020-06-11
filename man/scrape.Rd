@@ -36,10 +36,10 @@ Scrape the content of authorized page/API
 \examples{
 \donttest{
  library(rvest)
+  bow("https://en.wikipedia.org/wiki/List_of_cognitive_biases") \%>\%
    scrape(content="text/html; charset=UTF-8") \%>\%
    html_nodes(".wikitable") \%>\%
    html_table()
- biases
- }
+}
 
 }

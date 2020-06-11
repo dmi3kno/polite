@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Introduce yourself to the host — bow • polite</title>
+<title>Give your web-scraping function good manners polite — politely • polite</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Introduce yourself to the host — bow" />
-<meta property="og:description" content="Introduce yourself to the host" />
+<meta property="og:title" content="Give your web-scraping function good manners polite — politely" />
+<meta property="og:description" content="Give your web-scraping function good manners polite" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,74 +119,60 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Introduce yourself to the host</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dmi3kno/polite/blob/master/R/bow.R'><code>R/bow.R</code></a></small>
-    <div class="hidden name"><code>bow.Rd</code></div>
+    <h1>Give your web-scraping function good manners polite</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dmi3kno/polite/blob/master/R/politely.R'><code>R/politely.R</code></a></small>
+    <div class="hidden name"><code>politely.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Introduce yourself to the host</p>
+    <p>Give your web-scraping function good manners polite</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bow</span>(
-  <span class='no'>url</span>,
-  <span class='kw'>user_agent</span> <span class='kw'>=</span> <span class='st'>"polite R package - https://github.com/dmi3kno/polite"</span>,
-  <span class='kw'>delay</span> <span class='kw'>=</span> <span class='fl'>5</span>,
+    <pre class="usage"><span class='fu'>politely</span>(
+  <span class='no'>fun</span>,
+  <span class='kw'>user_agent</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"polite "</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"HTTPUserAgent"</span>), <span class='st'>"bot"</span>),
   <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>delay</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)
-
-<span class='fu'>is.polite</span>(<span class='no'>x</span>)</pre>
+  <span class='kw'>cache</span> <span class='kw'>=</span> <span class='kw pkg'>memoise</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/memoise/man/cache_memory.html'>cache_memory</a></span>()
+)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>url</th>
-      <td><p>URL</p></td>
+      <th>fun</th>
+      <td><p>function to be turned "polite". Must contain an argument named <code>url</code>, which contains url to be queried.</p></td>
     </tr>
     <tr>
       <th>user_agent</th>
-      <td><p>character value passed to user agent string</p></td>
-    </tr>
-    <tr>
-      <th>delay</th>
-      <td><p>desired delay between scraping attempts. Final value will be the maximum of desired and mandated delay, as stipulated by <code>robots.txt</code> for relevant user agent</p></td>
+      <td><p>optional, user agent string to be used. Defaults to <code><a href='https://rdrr.io/r/base/paste.html'>paste0("polite ", getOption("HTTPUserAgent"), "bot")</a></code></p></td>
     </tr>
     <tr>
       <th>force</th>
-      <td><p>refresh all memoised functions. Clears up <code>robotstxt</code> and <code>scrape</code> caches. Default is <code>FALSE</code></p></td>
+      <td><p>whether or not tp force fresh download of robots.txt</p></td>
+    </tr>
+    <tr>
+      <th>delay</th>
+      <td><p>minimum delay in seconds, not less than 1. Default is 5.</p></td>
     </tr>
     <tr>
       <th>verbose</th>
-      <td><p>TRUE/FALSE</p></td>
+      <td><p>output more information about querying process</p></td>
     </tr>
     <tr>
-      <th>...</th>
-      <td><p>other curl parameters wrapped into <code><a href='https://httr.r-lib.org/reference/config.html'>httr::config</a></code> function</p></td>
-    </tr>
-    <tr>
-      <th>x</th>
-      <td><p>object of class <code>polite</code>, <code>session</code></p></td>
+      <th>cache</th>
+      <td><p>memoise cache function for storing results. Default <code><a href='https://rdrr.io/pkg/memoise/man/cache_memory.html'>memoise::cache_memory()</a></code></p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>object of class <code>polite</code>, <code>session</code></p>
+    <p>polite function</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
- <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>polite</span>)
-
- <span class='no'>host</span> <span class='kw'>&lt;-</span> <span class='st'>"https://www.cheese.com"</span>
- <span class='no'>session</span> <span class='kw'>&lt;-</span> <span class='fu'>bow</span>(<span class='no'>host</span>)
- <span class='no'>session</span></div><div class='output co'>#&gt; &lt;polite session&gt; https://www.cheese.com
-#&gt;     User-agent: polite R package - https://github.com/dmi3kno/polite
-#&gt;     robots.txt: 0 rules are defined for 1 bots
-#&gt;    Crawl delay: 5 sec
-#&gt;   The path is scrapable for this user-agent</div><div class='input'><span class='co'># }</span></div></pre>
+    <pre class="examples"><div class='input'>
+<span class='no'>polite_GET</span> <span class='kw'>&lt;-</span> <span class='fu'>politely</span>(<span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='no'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

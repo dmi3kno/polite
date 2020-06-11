@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Introduce yourself to the host — bow • polite</title>
+<title>Guess download file name from the URL — guess_basename • polite</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -46,8 +46,8 @@
 
 
 
-<meta property="og:title" content="Introduce yourself to the host — bow" />
-<meta property="og:description" content="Introduce yourself to the host" />
+<meta property="og:title" content="Guess download file name from the URL — guess_basename" />
+<meta property="og:description" content="Guess download file name from the URL" />
 <meta property="og:image" content="/logo.png" />
 
 
@@ -119,74 +119,33 @@
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Introduce yourself to the host</h1>
-    <small class="dont-index">Source: <a href='https://github.com/dmi3kno/polite/blob/master/R/bow.R'><code>R/bow.R</code></a></small>
-    <div class="hidden name"><code>bow.Rd</code></div>
+    <h1>Guess download file name from the URL</h1>
+    <small class="dont-index">Source: <a href='https://github.com/dmi3kno/polite/blob/master/R/utils.R'><code>R/utils.R</code></a></small>
+    <div class="hidden name"><code>guess_basename.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>Introduce yourself to the host</p>
+    <p>Guess download file name from the URL</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bow</span>(
-  <span class='no'>url</span>,
-  <span class='kw'>user_agent</span> <span class='kw'>=</span> <span class='st'>"polite R package - https://github.com/dmi3kno/polite"</span>,
-  <span class='kw'>delay</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)
-
-<span class='fu'>is.polite</span>(<span class='no'>x</span>)</pre>
+    <pre class="usage"><span class='fu'>guess_basename</span>(<span class='no'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
-      <th>url</th>
-      <td><p>URL</p></td>
-    </tr>
-    <tr>
-      <th>user_agent</th>
-      <td><p>character value passed to user agent string</p></td>
-    </tr>
-    <tr>
-      <th>delay</th>
-      <td><p>desired delay between scraping attempts. Final value will be the maximum of desired and mandated delay, as stipulated by <code>robots.txt</code> for relevant user agent</p></td>
-    </tr>
-    <tr>
-      <th>force</th>
-      <td><p>refresh all memoised functions. Clears up <code>robotstxt</code> and <code>scrape</code> caches. Default is <code>FALSE</code></p></td>
-    </tr>
-    <tr>
-      <th>verbose</th>
-      <td><p>TRUE/FALSE</p></td>
-    </tr>
-    <tr>
-      <th>...</th>
-      <td><p>other curl parameters wrapped into <code><a href='https://httr.r-lib.org/reference/config.html'>httr::config</a></code> function</p></td>
-    </tr>
-    <tr>
       <th>x</th>
-      <td><p>object of class <code>polite</code>, <code>session</code></p></td>
+      <td><p>url to guess basename from</p></td>
     </tr>
     </table>
 
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>object of class <code>polite</code>, <code>session</code></p>
+    <p>guessed file name</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
- <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>polite</span>)
-
- <span class='no'>host</span> <span class='kw'>&lt;-</span> <span class='st'>"https://www.cheese.com"</span>
- <span class='no'>session</span> <span class='kw'>&lt;-</span> <span class='fu'>bow</span>(<span class='no'>host</span>)
- <span class='no'>session</span></div><div class='output co'>#&gt; &lt;polite session&gt; https://www.cheese.com
-#&gt;     User-agent: polite R package - https://github.com/dmi3kno/polite
-#&gt;     robots.txt: 0 rules are defined for 1 bots
-#&gt;    Crawl delay: 5 sec
-#&gt;   The path is scrapable for this user-agent</div><div class='input'><span class='co'># }</span></div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>guess_basename</span>(<span class='st'>"https://bit.ly/polite_sticker"</span>)</div><div class='output co'>#&gt; [1] "sticker.png"</div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

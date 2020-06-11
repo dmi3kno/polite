@@ -80,7 +80,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">polite</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9010</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.1.1.9020</span>
       </span>
     </div>
 
@@ -171,550 +171,555 @@
 <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>rvest</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: xml2</span></div><div class='input'><span class='fu'><a href='bow.html'>bow</a></span>(<span class='st'>"https://en.wikipedia.org/wiki/List_of_cognitive_biases"</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='scrape.html'>scrape</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span>(<span class='st'>"tr td:nth-child(1) a"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>html_attrs_dfr</span>()</div><div class='output co'>#&gt;                                                          href
-#&gt; 1                                      /wiki/Ambiguity_effect
-#&gt; 2                                             /wiki/Anchoring
-#&gt; 3                              /wiki/Anthropocentric_thinking
-#&gt; 4       /wiki/Anthropomorphism#Psychology_of_Anthropomorphism
-#&gt; 5                                      /wiki/Attentional_bias
-#&gt; 6                                /wiki/Attribute_substitution
-#&gt; 7                                       /wiki/Automation_bias
-#&gt; 8                                /wiki/Availability_heuristic
-#&gt; 9                                  /wiki/Availability_cascade
-#&gt; 10                                      /wiki/Backfire_effect
-#&gt; 11                                     /wiki/Bandwagon_effect
-#&gt; 12                                    /wiki/Base_rate_fallacy
-#&gt; 13                                          /wiki/Belief_bias
-#&gt; 14                                  /wiki/Ben_Franklin_effect
-#&gt; 15                                  /wiki/Berkson%27s_paradox
-#&gt; 16                                      /wiki/Bias_blind_spot
-#&gt; 17                               /wiki/Choice-supportive_bias
-#&gt; 18                                  /wiki/Clustering_illusion
-#&gt; 19                                      /wiki/Compassion_fade
-#&gt; 20                                    /wiki/Confirmation_bias
-#&gt; 21                                      /wiki/Congruence_bias
-#&gt; 22                                  /wiki/Conjunction_fallacy
-#&gt; 23                       /wiki/Conservatism_(belief_revision)
-#&gt; 24                           /wiki/Continued_influence_effect
-#&gt; 25                                      /wiki/Contrast_effect
-#&gt; 26                                   /wiki/Curse_of_knowledge
-#&gt; 27                                            /wiki/Declinism
-#&gt; 28                                         /wiki/Decoy_effect
-#&gt; 29                                       /wiki/Default_effect
-#&gt; 30                                  /wiki/Denomination_effect
-#&gt; 31                                   /wiki/Disposition_effect
-#&gt; 32                                     /wiki/Distinction_bias
-#&gt; 33                        /wiki/Dunning%E2%80%93Kruger_effect
-#&gt; 34                                     /wiki/Duration_neglect
-#&gt; 35                                          /wiki/Empathy_gap
-#&gt; 36                              /wiki/End-of-history_illusion
-#&gt; 37                                     /wiki/Endowment_effect
-#&gt; 38                                /wiki/Experimenter%27s_bias
-#&gt; 39                                     /wiki/Expectation_bias
-#&gt; 40                                      /wiki/Focusing_effect
-#&gt; 41                                         /wiki/Forer_effect
-#&gt; 42                                        /wiki/Barnum_effect
-#&gt; 43                          /wiki/Framing_effect_(psychology)
-#&gt; 44                                 /wiki/Functional_fixedness
-#&gt; 45                                  /wiki/Gambler%27s_fallacy
-#&gt; 46                                           /wiki/Groupthink
-#&gt; 47                             /wiki/Hard%E2%80%93easy_effect
-#&gt; 48                                       /wiki/Hindsight_bias
-#&gt; 49                             /wiki/Hostile_attribution_bias
-#&gt; 50                                     /wiki/Hot-hand_fallacy
-#&gt; 51                               /wiki/Hyperbolic_discounting
-#&gt; 52                           /wiki/Identifiable_victim_effect
-#&gt; 53                                          /wiki/IKEA_effect
-#&gt; 54                                 /wiki/Illicit_transference
-#&gt; 55                                  /wiki/Illusion_of_control
-#&gt; 56                                 /wiki/Illusion_of_validity
-#&gt; 57                                 /wiki/Illusory_correlation
-#&gt; 58                                /wiki/Illusory_truth_effect
-#&gt; 59                                          /wiki/Impact_bias
-#&gt; 60                            /wiki/Implicit_association_test
-#&gt; 61                        /wiki/Information_bias_(psychology)
-#&gt; 62                         /wiki/Insensitivity_to_sample_size
-#&gt; 63                             /wiki/Escalation_of_commitment
-#&gt; 64                                /wiki/Law_of_the_instrument
-#&gt; 65                                /wiki/Less-is-better_effect
-#&gt; 66                                /wiki/Look-elsewhere_effect
-#&gt; 67                                        /wiki/Loss_aversion
-#&gt; 68                                 /wiki/Mere_exposure_effect
-#&gt; 69                                       /wiki/Money_illusion
-#&gt; 70                                     /wiki/Moral_credential
-#&gt; 71                                      /wiki/Negativity_bias
-#&gt; 72                               /wiki/Neglect_of_probability
-#&gt; 73                                        /wiki/Normalcy_bias
-#&gt; 74                                    /wiki/Not_invented_here
-#&gt; 75                           /wiki/Observer-expectancy_effect
-#&gt; 76                                        /wiki/Omission_bias
-#&gt; 77                                        /wiki/Optimism_bias
-#&gt; 78                                       /wiki/Ostrich_effect
-#&gt; 79                                         /wiki/Outcome_bias
-#&gt; 80                                /wiki/Overconfidence_effect
-#&gt; 81                                           /wiki/Pareidolia
-#&gt; 82                                     /wiki/Pygmalion_effect
-#&gt; 83                                       /wiki/Pessimism_bias
-#&gt; 84                               /wiki/Plan_continuation_bias
-#&gt; 85                                     /wiki/Planning_fallacy
-#&gt; 86                                         /wiki/Present_bias
-#&gt; 87                                      /wiki/Plant_blindness
-#&gt; 88                                  /wiki/Pro-innovation_bias
-#&gt; 89                                      /wiki/Projection_bias
-#&gt; 90                               /wiki/Pseudocertainty_effect
-#&gt; 91                               /wiki/Reactance_(psychology)
-#&gt; 92                                 /wiki/Reactive_devaluation
-#&gt; 93                                     /wiki/Recency_illusion
-#&gt; 94                                       /wiki/Restraint_bias
-#&gt; 95                               /wiki/Rhyme_as_reason_effect
-#&gt; 96                                    /wiki/Risk_compensation
-#&gt; 97                                        /wiki/Salience_bias
-#&gt; 98                                       /wiki/Selection_bias
-#&gt; 99                                 /wiki/Selective_perception
-#&gt; 100                                   /wiki/Semmelweis_reflex
-#&gt; 101                          /wiki/Sexual_overperception_bias
-#&gt; 102                  /wiki/Compassion_fade#Singularity_effect
-#&gt; 103                              /wiki/Social_comparison_bias
-#&gt; 104                            /wiki/Social_desirability_bias
-#&gt; 105                                     /wiki/Status_quo_bias
-#&gt; 106                                        /wiki/Stereotyping
-#&gt; 107                                /wiki/Subadditivity_effect
-#&gt; 108                               /wiki/Subjective_validation
-#&gt; 109                                         /wiki/Surrogation
-#&gt; 110                                   /wiki/Survivorship_bias
-#&gt; 111                                    /wiki/Time-saving_bias
-#&gt; 112                                 /wiki/Third-person_effect
-#&gt; 113                     /wiki/Parkinson%27s_law_of_triviality
-#&gt; 114                           /wiki/Weber%E2%80%93Fechner_law
-#&gt; 115                          /wiki/Well_travelled_road_effect
-#&gt; 116                          /wiki/Women_are_wonderful_effect
-#&gt; 117                                      /wiki/Zero-risk_bias
-#&gt; 118                                   /wiki/Zero-sum_thinking
-#&gt; 119                                 /wiki/Actor-observer_bias
-#&gt; 120                                      /wiki/Authority_bias
-#&gt; 121                                  /wiki/Cheerleader_effect
-#&gt; 122                    /wiki/Defensive_attribution_hypothesis
-#&gt; 123                                     /wiki/Egocentric_bias
-#&gt; 124                           /wiki/Extrinsic_incentives_bias
-#&gt; 125                              /wiki/False_consensus_effect
-#&gt; 126                               /wiki/False_uniqueness_bias
-#&gt; 127                       /wiki/Fundamental_attribution_error
-#&gt; 128                             /wiki/Group_attribution_error
-#&gt; 129                                         /wiki/Halo_effect
-#&gt; 130                      /wiki/Illusion_of_asymmetric_insight
-#&gt; 131                         /wiki/Illusion_of_external_agency
-#&gt; 132                            /wiki/Illusion_of_transparency
-#&gt; 133                                /wiki/Illusory_superiority
-#&gt; 134                                        /wiki/Ingroup_bias
-#&gt; 135                               /wiki/Just-world_hypothesis
-#&gt; 136                                          /wiki/Moral_luck
-#&gt; 137                                 /wiki/Na%C3%AFve_cynicism
-#&gt; 138                     /wiki/Na%C3%AFve_realism_(psychology)
-#&gt; 139                           /wiki/Outgroup_homogeneity_bias
-#&gt; 140 /w/index.php?title=Puritanical_bias&amp;action=edit&amp;redlink=1
-#&gt; 141                                   /wiki/Self-serving_bias
-#&gt; 142                             /wiki/Shared_information_bias
-#&gt; 143                                /wiki/System_justification
-#&gt; 144                               /wiki/Trait_ascription_bias
-#&gt; 145                          /wiki/Ultimate_attribution_error
-#&gt; 146                           /wiki/Worse-than-average_effect
-#&gt; 147                                  /wiki/Bizarreness_effect
-#&gt; 148                            /wiki/Cue-dependent_forgetting
-#&gt; 149                                   /wiki/Cross-race_effect
-#&gt; 150                                        /wiki/Cryptomnesia
-#&gt; 151                                     /wiki/Egocentric_bias
-#&gt; 152                                  /wiki/Fading_affect_bias
-#&gt; 153                                        /wiki/False_memory
-#&gt; 154                                   /wiki/Generation_effect
-#&gt; 155                                       /wiki/Google_effect
-#&gt; 156                             /wiki/Leveling_and_sharpening
-#&gt; 157                         /wiki/Levels-of-processing_effect
-#&gt; 158                               /wiki/Misinformation_effect
-#&gt; 159                                     /wiki/Modality_effect
-#&gt; 160                              /wiki/State-dependent_memory
-#&gt; 161                             /wiki/Part-list_cueing_effect
-#&gt; 162                                       /wiki/Peak-end_rule
-#&gt; 163                          /wiki/Picture_superiority_effect
-#&gt; 164                   /wiki/Socioemotional_selectivity_theory
-#&gt; 165                                      /wiki/Primacy_effect
-#&gt; 166                                      /wiki/Recency_effect
-#&gt; 167                              /wiki/Serial_position_effect
-#&gt; 168                                   /wiki/Reminiscence_bump
-#&gt; 169                            /wiki/Misattribution_of_memory
-#&gt; 170                                      /wiki/Spacing_effect
-#&gt; 171                                    /wiki/Spotlight_effect
-#&gt; 172                             /wiki/Suggestibility#External
-#&gt; 173                                        /wiki/Tachypsychia
-#&gt; 174                                  /wiki/Telescoping_effect
-#&gt; 175                                      /wiki/Testing_effect
-#&gt; 176                                   /wiki/Tip_of_the_tongue
-#&gt; 177                                 /wiki/Von_Restorff_effect
-#&gt; 178                                    /wiki/Zeigarnik_effect
-#&gt; 179                                                      &lt;NA&gt;
-#&gt; 180                               /wiki/List_of_memory_biases
-#&gt;                                      title                class
-#&gt; 1                         Ambiguity effect                 &lt;NA&gt;
-#&gt; 2                                Anchoring                 &lt;NA&gt;
-#&gt; 3                 Anthropocentric thinking          mw-redirect
-#&gt; 4                         Anthropomorphism                 &lt;NA&gt;
-#&gt; 5                         Attentional bias                 &lt;NA&gt;
-#&gt; 6                   Attribute substitution                 &lt;NA&gt;
-#&gt; 7                          Automation bias                 &lt;NA&gt;
-#&gt; 8                   Availability heuristic                 &lt;NA&gt;
-#&gt; 9                     Availability cascade                 &lt;NA&gt;
-#&gt; 10                         Backfire effect          mw-redirect
-#&gt; 11                        Bandwagon effect                 &lt;NA&gt;
-#&gt; 12                       Base rate fallacy                 &lt;NA&gt;
-#&gt; 13                             Belief bias                 &lt;NA&gt;
-#&gt; 14                     Ben Franklin effect                 &lt;NA&gt;
-#&gt; 15                       Berkson's paradox                 &lt;NA&gt;
-#&gt; 16                         Bias blind spot                 &lt;NA&gt;
-#&gt; 17                  Choice-supportive bias                 &lt;NA&gt;
-#&gt; 18                     Clustering illusion                 &lt;NA&gt;
-#&gt; 19                         Compassion fade                 &lt;NA&gt;
-#&gt; 20                       Confirmation bias                 &lt;NA&gt;
-#&gt; 21                         Congruence bias                 &lt;NA&gt;
-#&gt; 22                     Conjunction fallacy                 &lt;NA&gt;
-#&gt; 23          Conservatism (belief revision)                 &lt;NA&gt;
-#&gt; 24              Continued influence effect          mw-redirect
-#&gt; 25                         Contrast effect                 &lt;NA&gt;
-#&gt; 26                      Curse of knowledge                 &lt;NA&gt;
-#&gt; 27                               Declinism                 &lt;NA&gt;
-#&gt; 28                            Decoy effect                 &lt;NA&gt;
-#&gt; 29                          Default effect                 &lt;NA&gt;
-#&gt; 30                     Denomination effect                 &lt;NA&gt;
-#&gt; 31                      Disposition effect                 &lt;NA&gt;
-#&gt; 32                        Distinction bias                 &lt;NA&gt;
-#&gt; 33                   Dunning–Kruger effect                 &lt;NA&gt;
-#&gt; 34                        Duration neglect                 &lt;NA&gt;
-#&gt; 35                             Empathy gap                 &lt;NA&gt;
-#&gt; 36                 End-of-history illusion                 &lt;NA&gt;
-#&gt; 37                        Endowment effect                 &lt;NA&gt;
-#&gt; 38                     Experimenter's bias          mw-redirect
-#&gt; 39                        Expectation bias          mw-redirect
-#&gt; 40                         Focusing effect          mw-redirect
-#&gt; 41                            Forer effect          mw-redirect
-#&gt; 42                           Barnum effect                 &lt;NA&gt;
-#&gt; 43             Framing effect (psychology)                 &lt;NA&gt;
-#&gt; 44                    Functional fixedness                 &lt;NA&gt;
-#&gt; 45                       Gambler's fallacy                 &lt;NA&gt;
-#&gt; 46                              Groupthink                 &lt;NA&gt;
-#&gt; 47                        Hard–easy effect                 &lt;NA&gt;
-#&gt; 48                          Hindsight bias                 &lt;NA&gt;
-#&gt; 49                Hostile attribution bias                 &lt;NA&gt;
-#&gt; 50                        Hot-hand fallacy          mw-redirect
-#&gt; 51                  Hyperbolic discounting                 &lt;NA&gt;
-#&gt; 52              Identifiable victim effect                 &lt;NA&gt;
-#&gt; 53                             IKEA effect                 &lt;NA&gt;
-#&gt; 54                    Illicit transference          mw-redirect
-#&gt; 55                     Illusion of control                 &lt;NA&gt;
-#&gt; 56                    Illusion of validity                 &lt;NA&gt;
-#&gt; 57                    Illusory correlation                 &lt;NA&gt;
-#&gt; 58                   Illusory truth effect                 &lt;NA&gt;
-#&gt; 59                             Impact bias                 &lt;NA&gt;
-#&gt; 60               Implicit association test          mw-redirect
-#&gt; 61           Information bias (psychology)                 &lt;NA&gt;
-#&gt; 62            Insensitivity to sample size                 &lt;NA&gt;
-#&gt; 63                Escalation of commitment                 &lt;NA&gt;
-#&gt; 64                   Law of the instrument                 &lt;NA&gt;
-#&gt; 65                   Less-is-better effect                 &lt;NA&gt;
-#&gt; 66                   Look-elsewhere effect                 &lt;NA&gt;
-#&gt; 67                           Loss aversion                 &lt;NA&gt;
-#&gt; 68                    Mere exposure effect          mw-redirect
-#&gt; 69                          Money illusion                 &lt;NA&gt;
-#&gt; 70                        Moral credential          mw-redirect
-#&gt; 71                         Negativity bias                 &lt;NA&gt;
-#&gt; 72                  Neglect of probability                 &lt;NA&gt;
-#&gt; 73                           Normalcy bias                 &lt;NA&gt;
-#&gt; 74                       Not invented here                 &lt;NA&gt;
-#&gt; 75              Observer-expectancy effect                 &lt;NA&gt;
-#&gt; 76                           Omission bias                 &lt;NA&gt;
-#&gt; 77                           Optimism bias                 &lt;NA&gt;
-#&gt; 78                          Ostrich effect                 &lt;NA&gt;
-#&gt; 79                            Outcome bias                 &lt;NA&gt;
-#&gt; 80                   Overconfidence effect                 &lt;NA&gt;
-#&gt; 81                              Pareidolia                 &lt;NA&gt;
-#&gt; 82                        Pygmalion effect                 &lt;NA&gt;
-#&gt; 83                          Pessimism bias          mw-redirect
-#&gt; 84                  Plan continuation bias          mw-redirect
-#&gt; 85                        Planning fallacy                 &lt;NA&gt;
-#&gt; 86                            Present bias                 &lt;NA&gt;
-#&gt; 87                         Plant blindness                 &lt;NA&gt;
-#&gt; 88                     Pro-innovation bias                 &lt;NA&gt;
-#&gt; 89                         Projection bias          mw-redirect
-#&gt; 90                  Pseudocertainty effect                 &lt;NA&gt;
-#&gt; 91                  Reactance (psychology)                 &lt;NA&gt;
-#&gt; 92                    Reactive devaluation                 &lt;NA&gt;
-#&gt; 93                        Recency illusion                 &lt;NA&gt;
-#&gt; 94                          Restraint bias                 &lt;NA&gt;
-#&gt; 95                  Rhyme as reason effect          mw-redirect
-#&gt; 96                       Risk compensation                 &lt;NA&gt;
-#&gt; 97                           Salience bias          mw-redirect
-#&gt; 98                          Selection bias                 &lt;NA&gt;
-#&gt; 99                    Selective perception                 &lt;NA&gt;
-#&gt; 100                      Semmelweis reflex                 &lt;NA&gt;
-#&gt; 101             Sexual overperception bias          mw-redirect
-#&gt; 102                        Compassion fade                 &lt;NA&gt;
-#&gt; 103                 Social comparison bias                 &lt;NA&gt;
-#&gt; 104               Social desirability bias                 &lt;NA&gt;
-#&gt; 105                        Status quo bias                 &lt;NA&gt;
-#&gt; 106                           Stereotyping          mw-redirect
-#&gt; 107                   Subadditivity effect                 &lt;NA&gt;
-#&gt; 108                  Subjective validation                 &lt;NA&gt;
-#&gt; 109                            Surrogation                 &lt;NA&gt;
-#&gt; 110                      Survivorship bias                 &lt;NA&gt;
-#&gt; 111                       Time-saving bias                 &lt;NA&gt;
-#&gt; 112                    Third-person effect                 &lt;NA&gt;
-#&gt; 113          Parkinson's law of triviality          mw-redirect
-#&gt; 114                      Weber–Fechner law                 &lt;NA&gt;
-#&gt; 115             Well travelled road effect                 &lt;NA&gt;
-#&gt; 116             Women are wonderful effect                 &lt;NA&gt;
-#&gt; 117                         Zero-risk bias                 &lt;NA&gt;
-#&gt; 118                      Zero-sum thinking                 &lt;NA&gt;
-#&gt; 119                    Actor-observer bias          mw-redirect
-#&gt; 120                         Authority bias                 &lt;NA&gt;
-#&gt; 121                     Cheerleader effect                 &lt;NA&gt;
-#&gt; 122       Defensive attribution hypothesis                 &lt;NA&gt;
-#&gt; 123                        Egocentric bias                 &lt;NA&gt;
-#&gt; 124              Extrinsic incentives bias                 &lt;NA&gt;
-#&gt; 125                 False consensus effect                 &lt;NA&gt;
-#&gt; 126                  False uniqueness bias          mw-redirect
-#&gt; 127          Fundamental attribution error                 &lt;NA&gt;
-#&gt; 128                Group attribution error                 &lt;NA&gt;
-#&gt; 129                            Halo effect                 &lt;NA&gt;
-#&gt; 130         Illusion of asymmetric insight                 &lt;NA&gt;
-#&gt; 131            Illusion of external agency                 &lt;NA&gt;
-#&gt; 132               Illusion of transparency                 &lt;NA&gt;
-#&gt; 133                   Illusory superiority                 &lt;NA&gt;
-#&gt; 134                           Ingroup bias          mw-redirect
-#&gt; 135                  Just-world hypothesis                 &lt;NA&gt;
-#&gt; 136                             Moral luck                 &lt;NA&gt;
-#&gt; 137                         Naïve cynicism                 &lt;NA&gt;
-#&gt; 138             Naïve realism (psychology)                 &lt;NA&gt;
-#&gt; 139              Outgroup homogeneity bias          mw-redirect
-#&gt; 140 Puritanical bias (page does not exist)                  new
-#&gt; 141                      Self-serving bias                 &lt;NA&gt;
-#&gt; 142                Shared information bias                 &lt;NA&gt;
-#&gt; 143                   System justification                 &lt;NA&gt;
-#&gt; 144                  Trait ascription bias                 &lt;NA&gt;
-#&gt; 145             Ultimate attribution error                 &lt;NA&gt;
-#&gt; 146              Worse-than-average effect                 &lt;NA&gt;
-#&gt; 147                     Bizarreness effect                 &lt;NA&gt;
-#&gt; 148               Cue-dependent forgetting                 &lt;NA&gt;
-#&gt; 149                      Cross-race effect                 &lt;NA&gt;
-#&gt; 150                           Cryptomnesia                 &lt;NA&gt;
-#&gt; 151                        Egocentric bias                 &lt;NA&gt;
-#&gt; 152                     Fading affect bias                 &lt;NA&gt;
-#&gt; 153                           False memory                 &lt;NA&gt;
-#&gt; 154                      Generation effect                 &lt;NA&gt;
-#&gt; 155                          Google effect                 &lt;NA&gt;
-#&gt; 156                Leveling and sharpening                 &lt;NA&gt;
-#&gt; 157            Levels-of-processing effect          mw-redirect
-#&gt; 158                  Misinformation effect                 &lt;NA&gt;
-#&gt; 159                        Modality effect                 &lt;NA&gt;
-#&gt; 160                 State-dependent memory                 &lt;NA&gt;
-#&gt; 161                Part-list cueing effect          mw-redirect
-#&gt; 162                          Peak-end rule          mw-redirect
-#&gt; 163             Picture superiority effect                 &lt;NA&gt;
-#&gt; 164      Socioemotional selectivity theory                 &lt;NA&gt;
-#&gt; 165                         Primacy effect          mw-redirect
-#&gt; 166                         Recency effect          mw-redirect
-#&gt; 167                 Serial position effect          mw-redirect
-#&gt; 168                      Reminiscence bump                 &lt;NA&gt;
-#&gt; 169               Misattribution of memory                 &lt;NA&gt;
-#&gt; 170                         Spacing effect                 &lt;NA&gt;
-#&gt; 171                       Spotlight effect                 &lt;NA&gt;
-#&gt; 172                         Suggestibility                 &lt;NA&gt;
-#&gt; 173                           Tachypsychia          mw-redirect
-#&gt; 174                     Telescoping effect                 &lt;NA&gt;
-#&gt; 175                         Testing effect                 &lt;NA&gt;
-#&gt; 176                      Tip of the tongue                 &lt;NA&gt;
-#&gt; 177                    Von Restorff effect                 &lt;NA&gt;
-#&gt; 178                       Zeigarnik effect                 &lt;NA&gt;
-#&gt; 179                                   &lt;NA&gt; mw-selflink selflink
-#&gt; 180                  List of memory biases                 &lt;NA&gt;
+  <span class='fu'>html_attrs_dfr</span>()</div><div class='output co'>#&gt;                                                      href
+#&gt; 1                                   /wiki/Agent_detection
+#&gt; 2                                  /wiki/Ambiguity_effect
+#&gt; 3                                         /wiki/Anchoring
+#&gt; 4                          /wiki/Anthropocentric_thinking
+#&gt; 5   /wiki/Anthropomorphism#Psychology_of_Anthropomorphism
+#&gt; 6                                  /wiki/Attentional_bias
+#&gt; 7                            /wiki/Attribute_substitution
+#&gt; 8                                   /wiki/Automation_bias
+#&gt; 9                            /wiki/Availability_heuristic
+#&gt; 10                             /wiki/Availability_cascade
+#&gt; 11                                  /wiki/Backfire_effect
+#&gt; 12                                 /wiki/Bandwagon_effect
+#&gt; 13                                /wiki/Base_rate_fallacy
+#&gt; 14                                      /wiki/Belief_bias
+#&gt; 15                              /wiki/Ben_Franklin_effect
+#&gt; 16                              /wiki/Berkson%27s_paradox
+#&gt; 17                                  /wiki/Bias_blind_spot
+#&gt; 18                           /wiki/Choice-supportive_bias
+#&gt; 19                              /wiki/Clustering_illusion
+#&gt; 20                                  /wiki/Compassion_fade
+#&gt; 21                                /wiki/Confirmation_bias
+#&gt; 22                                  /wiki/Congruence_bias
+#&gt; 23                              /wiki/Conjunction_fallacy
+#&gt; 24                   /wiki/Conservatism_(belief_revision)
+#&gt; 25                       /wiki/Continued_influence_effect
+#&gt; 26                                  /wiki/Contrast_effect
+#&gt; 27                               /wiki/Curse_of_knowledge
+#&gt; 28                                        /wiki/Declinism
+#&gt; 29                                     /wiki/Decoy_effect
+#&gt; 30                                   /wiki/Default_effect
+#&gt; 31                              /wiki/Denomination_effect
+#&gt; 32                               /wiki/Disposition_effect
+#&gt; 33                                 /wiki/Distinction_bias
+#&gt; 34                    /wiki/Dunning%E2%80%93Kruger_effect
+#&gt; 35                                 /wiki/Duration_neglect
+#&gt; 36                                      /wiki/Empathy_gap
+#&gt; 37                          /wiki/End-of-history_illusion
+#&gt; 38                                 /wiki/Endowment_effect
+#&gt; 39                            /wiki/Experimenter%27s_bias
+#&gt; 40                                 /wiki/Expectation_bias
+#&gt; 41                                  /wiki/Focusing_effect
+#&gt; 42                                     /wiki/Forer_effect
+#&gt; 43                                    /wiki/Barnum_effect
+#&gt; 44                      /wiki/Framing_effect_(psychology)
+#&gt; 45                             /wiki/Functional_fixedness
+#&gt; 46                              /wiki/Gambler%27s_fallacy
+#&gt; 47                    /wiki/Second-generation_gender_bias
+#&gt; 48                                       /wiki/Groupthink
+#&gt; 49                         /wiki/Hard%E2%80%93easy_effect
+#&gt; 50                                   /wiki/Hindsight_bias
+#&gt; 51                         /wiki/Hostile_attribution_bias
+#&gt; 52                                 /wiki/Hot-hand_fallacy
+#&gt; 53                           /wiki/Hyperbolic_discounting
+#&gt; 54                                      /wiki/IKEA_effect
+#&gt; 55                             /wiki/Illicit_transference
+#&gt; 56                              /wiki/Illusion_of_control
+#&gt; 57                             /wiki/Illusion_of_validity
+#&gt; 58                             /wiki/Illusory_correlation
+#&gt; 59                            /wiki/Illusory_truth_effect
+#&gt; 60                                      /wiki/Impact_bias
+#&gt; 61                        /wiki/Implicit_association_test
+#&gt; 62                    /wiki/Information_bias_(psychology)
+#&gt; 63                     /wiki/Insensitivity_to_sample_size
+#&gt; 64                         /wiki/Escalation_of_commitment
+#&gt; 65                            /wiki/Law_of_the_instrument
+#&gt; 66                            /wiki/Less-is-better_effect
+#&gt; 67                            /wiki/Look-elsewhere_effect
+#&gt; 68                                    /wiki/Loss_aversion
+#&gt; 69                             /wiki/Mere_exposure_effect
+#&gt; 70                                   /wiki/Money_illusion
+#&gt; 71                                 /wiki/Moral_credential
+#&gt; 72                                  /wiki/Negativity_bias
+#&gt; 73                           /wiki/Neglect_of_probability
+#&gt; 74                                    /wiki/Normalcy_bias
+#&gt; 75                                /wiki/Not_invented_here
+#&gt; 76                       /wiki/Observer-expectancy_effect
+#&gt; 77                                    /wiki/Omission_bias
+#&gt; 78                                    /wiki/Optimism_bias
+#&gt; 79                                   /wiki/Ostrich_effect
+#&gt; 80                                     /wiki/Outcome_bias
+#&gt; 81                            /wiki/Overconfidence_effect
+#&gt; 82                                       /wiki/Pareidolia
+#&gt; 83                                 /wiki/Pygmalion_effect
+#&gt; 84                                   /wiki/Pessimism_bias
+#&gt; 85                           /wiki/Plan_continuation_bias
+#&gt; 86                                 /wiki/Planning_fallacy
+#&gt; 87                                     /wiki/Present_bias
+#&gt; 88                                  /wiki/Plant_blindness
+#&gt; 89                              /wiki/Pro-innovation_bias
+#&gt; 90                                  /wiki/Projection_bias
+#&gt; 91                           /wiki/Pseudocertainty_effect
+#&gt; 92                           /wiki/Reactance_(psychology)
+#&gt; 93                             /wiki/Reactive_devaluation
+#&gt; 94                                 /wiki/Recency_illusion
+#&gt; 95                                   /wiki/Restraint_bias
+#&gt; 96                           /wiki/Rhyme_as_reason_effect
+#&gt; 97                                /wiki/Risk_compensation
+#&gt; 98                                  /wiki/Peltzman_effect
+#&gt; 99                                    /wiki/Salience_bias
+#&gt; 100                                  /wiki/Selection_bias
+#&gt; 101                            /wiki/Selective_perception
+#&gt; 102                               /wiki/Semmelweis_reflex
+#&gt; 103                      /wiki/Sexual_overperception_bias
+#&gt; 104                     /wiki/Sexual_underperception_bias
+#&gt; 105                          /wiki/Social_comparison_bias
+#&gt; 106                        /wiki/Social_desirability_bias
+#&gt; 107                                 /wiki/Status_quo_bias
+#&gt; 108                                    /wiki/Stereotyping
+#&gt; 109                            /wiki/Subadditivity_effect
+#&gt; 110                           /wiki/Subjective_validation
+#&gt; 111                                     /wiki/Surrogation
+#&gt; 112                               /wiki/Survivorship_bias
+#&gt; 113                                /wiki/Time-saving_bias
+#&gt; 114                             /wiki/Third-person_effect
+#&gt; 115                 /wiki/Parkinson%27s_law_of_triviality
+#&gt; 116                       /wiki/Weber%E2%80%93Fechner_law
+#&gt; 117                      /wiki/Well_travelled_road_effect
+#&gt; 118                      /wiki/Women_are_wonderful_effect
+#&gt; 119                                  /wiki/Zero-risk_bias
+#&gt; 120                               /wiki/Zero-sum_thinking
+#&gt; 121                             /wiki/Actor-observer_bias
+#&gt; 122                                  /wiki/Authority_bias
+#&gt; 123                              /wiki/Cheerleader_effect
+#&gt; 124                /wiki/Defensive_attribution_hypothesis
+#&gt; 125                                 /wiki/Egocentric_bias
+#&gt; 126                       /wiki/Extrinsic_incentives_bias
+#&gt; 127                          /wiki/False_consensus_effect
+#&gt; 128                           /wiki/False_uniqueness_bias
+#&gt; 129                   /wiki/Fundamental_attribution_error
+#&gt; 130                         /wiki/Group_attribution_error
+#&gt; 131                                     /wiki/Halo_effect
+#&gt; 132                  /wiki/Illusion_of_asymmetric_insight
+#&gt; 133                     /wiki/Illusion_of_external_agency
+#&gt; 134                        /wiki/Illusion_of_transparency
+#&gt; 135                            /wiki/Illusory_superiority
+#&gt; 136                                    /wiki/Ingroup_bias
+#&gt; 137                           /wiki/Just-world_hypothesis
+#&gt; 138                                      /wiki/Moral_luck
+#&gt; 139                             /wiki/Na%C3%AFve_cynicism
+#&gt; 140                 /wiki/Na%C3%AFve_realism_(psychology)
+#&gt; 141                       /wiki/Outgroup_homogeneity_bias
+#&gt; 142                                /wiki/Puritanical_bias
+#&gt; 143                               /wiki/Self-serving_bias
+#&gt; 144                         /wiki/Shared_information_bias
+#&gt; 145                            /wiki/System_justification
+#&gt; 146                           /wiki/Trait_ascription_bias
+#&gt; 147                      /wiki/Ultimate_attribution_error
+#&gt; 148                       /wiki/Worse-than-average_effect
+#&gt; 149                              /wiki/Bizarreness_effect
+#&gt; 150                        /wiki/Cue-dependent_forgetting
+#&gt; 151                               /wiki/Cross-race_effect
+#&gt; 152                                    /wiki/Cryptomnesia
+#&gt; 153                                 /wiki/Egocentric_bias
+#&gt; 154                              /wiki/Fading_affect_bias
+#&gt; 155                                    /wiki/False_memory
+#&gt; 156                               /wiki/Generation_effect
+#&gt; 157                                   /wiki/Google_effect
+#&gt; 158                         /wiki/Leveling_and_sharpening
+#&gt; 159                     /wiki/Levels-of-processing_effect
+#&gt; 160                           /wiki/Misinformation_effect
+#&gt; 161                                 /wiki/Modality_effect
+#&gt; 162                          /wiki/State-dependent_memory
+#&gt; 163                             /wiki/Next-in-line_effect
+#&gt; 164                         /wiki/Part-list_cueing_effect
+#&gt; 165                                   /wiki/Peak-end_rule
+#&gt; 166                      /wiki/Picture_superiority_effect
+#&gt; 167               /wiki/Socioemotional_selectivity_theory
+#&gt; 168                          /wiki/Serial_position_effect
+#&gt; 169                               /wiki/Reminiscence_bump
+#&gt; 170                           /wiki/Self-reference_effect
+#&gt; 171                        /wiki/Misattribution_of_memory
+#&gt; 172                                  /wiki/Spacing_effect
+#&gt; 173                                /wiki/Spotlight_effect
+#&gt; 174                         /wiki/Suggestibility#External
+#&gt; 175                                    /wiki/Tachypsychia
+#&gt; 176                              /wiki/Telescoping_effect
+#&gt; 177                                  /wiki/Testing_effect
+#&gt; 178                               /wiki/Tip_of_the_tongue
+#&gt; 179                             /wiki/Von_Restorff_effect
+#&gt; 180                                /wiki/Zeigarnik_effect
+#&gt; 181                                                  &lt;NA&gt;
+#&gt; 182                           /wiki/List_of_memory_biases
+#&gt;                                 title                class
+#&gt; 1                     Agent detection                 &lt;NA&gt;
+#&gt; 2                    Ambiguity effect                 &lt;NA&gt;
+#&gt; 3                           Anchoring          mw-redirect
+#&gt; 4            Anthropocentric thinking          mw-redirect
+#&gt; 5                    Anthropomorphism                 &lt;NA&gt;
+#&gt; 6                    Attentional bias                 &lt;NA&gt;
+#&gt; 7              Attribute substitution                 &lt;NA&gt;
+#&gt; 8                     Automation bias                 &lt;NA&gt;
+#&gt; 9              Availability heuristic                 &lt;NA&gt;
+#&gt; 10               Availability cascade                 &lt;NA&gt;
+#&gt; 11                    Backfire effect          mw-redirect
+#&gt; 12                   Bandwagon effect                 &lt;NA&gt;
+#&gt; 13                  Base rate fallacy                 &lt;NA&gt;
+#&gt; 14                        Belief bias                 &lt;NA&gt;
+#&gt; 15                Ben Franklin effect                 &lt;NA&gt;
+#&gt; 16                  Berkson's paradox                 &lt;NA&gt;
+#&gt; 17                    Bias blind spot                 &lt;NA&gt;
+#&gt; 18             Choice-supportive bias                 &lt;NA&gt;
+#&gt; 19                Clustering illusion                 &lt;NA&gt;
+#&gt; 20                    Compassion fade                 &lt;NA&gt;
+#&gt; 21                  Confirmation bias                 &lt;NA&gt;
+#&gt; 22                    Congruence bias                 &lt;NA&gt;
+#&gt; 23                Conjunction fallacy                 &lt;NA&gt;
+#&gt; 24     Conservatism (belief revision)                 &lt;NA&gt;
+#&gt; 25         Continued influence effect          mw-redirect
+#&gt; 26                    Contrast effect                 &lt;NA&gt;
+#&gt; 27                 Curse of knowledge                 &lt;NA&gt;
+#&gt; 28                          Declinism                 &lt;NA&gt;
+#&gt; 29                       Decoy effect                 &lt;NA&gt;
+#&gt; 30                     Default effect                 &lt;NA&gt;
+#&gt; 31                Denomination effect                 &lt;NA&gt;
+#&gt; 32                 Disposition effect                 &lt;NA&gt;
+#&gt; 33                   Distinction bias                 &lt;NA&gt;
+#&gt; 34              Dunning–Kruger effect                 &lt;NA&gt;
+#&gt; 35                   Duration neglect                 &lt;NA&gt;
+#&gt; 36                        Empathy gap                 &lt;NA&gt;
+#&gt; 37            End-of-history illusion                 &lt;NA&gt;
+#&gt; 38                   Endowment effect                 &lt;NA&gt;
+#&gt; 39                Experimenter's bias          mw-redirect
+#&gt; 40                   Expectation bias          mw-redirect
+#&gt; 41                    Focusing effect          mw-redirect
+#&gt; 42                       Forer effect          mw-redirect
+#&gt; 43                      Barnum effect                 &lt;NA&gt;
+#&gt; 44        Framing effect (psychology)                 &lt;NA&gt;
+#&gt; 45               Functional fixedness                 &lt;NA&gt;
+#&gt; 46                  Gambler's fallacy                 &lt;NA&gt;
+#&gt; 47      Second-generation gender bias                 &lt;NA&gt;
+#&gt; 48                         Groupthink                 &lt;NA&gt;
+#&gt; 49                   Hard–easy effect                 &lt;NA&gt;
+#&gt; 50                     Hindsight bias                 &lt;NA&gt;
+#&gt; 51           Hostile attribution bias                 &lt;NA&gt;
+#&gt; 52                   Hot-hand fallacy          mw-redirect
+#&gt; 53             Hyperbolic discounting                 &lt;NA&gt;
+#&gt; 54                        IKEA effect                 &lt;NA&gt;
+#&gt; 55               Illicit transference          mw-redirect
+#&gt; 56                Illusion of control                 &lt;NA&gt;
+#&gt; 57               Illusion of validity                 &lt;NA&gt;
+#&gt; 58               Illusory correlation                 &lt;NA&gt;
+#&gt; 59              Illusory truth effect                 &lt;NA&gt;
+#&gt; 60                        Impact bias                 &lt;NA&gt;
+#&gt; 61          Implicit association test          mw-redirect
+#&gt; 62      Information bias (psychology)                 &lt;NA&gt;
+#&gt; 63       Insensitivity to sample size                 &lt;NA&gt;
+#&gt; 64           Escalation of commitment                 &lt;NA&gt;
+#&gt; 65              Law of the instrument                 &lt;NA&gt;
+#&gt; 66              Less-is-better effect                 &lt;NA&gt;
+#&gt; 67              Look-elsewhere effect                 &lt;NA&gt;
+#&gt; 68                      Loss aversion                 &lt;NA&gt;
+#&gt; 69               Mere exposure effect          mw-redirect
+#&gt; 70                     Money illusion                 &lt;NA&gt;
+#&gt; 71                   Moral credential          mw-redirect
+#&gt; 72                    Negativity bias                 &lt;NA&gt;
+#&gt; 73             Neglect of probability                 &lt;NA&gt;
+#&gt; 74                      Normalcy bias                 &lt;NA&gt;
+#&gt; 75                  Not invented here                 &lt;NA&gt;
+#&gt; 76         Observer-expectancy effect                 &lt;NA&gt;
+#&gt; 77                      Omission bias                 &lt;NA&gt;
+#&gt; 78                      Optimism bias                 &lt;NA&gt;
+#&gt; 79                     Ostrich effect                 &lt;NA&gt;
+#&gt; 80                       Outcome bias                 &lt;NA&gt;
+#&gt; 81              Overconfidence effect                 &lt;NA&gt;
+#&gt; 82                         Pareidolia                 &lt;NA&gt;
+#&gt; 83                   Pygmalion effect                 &lt;NA&gt;
+#&gt; 84                     Pessimism bias          mw-redirect
+#&gt; 85             Plan continuation bias          mw-redirect
+#&gt; 86                   Planning fallacy                 &lt;NA&gt;
+#&gt; 87                       Present bias                 &lt;NA&gt;
+#&gt; 88                    Plant blindness                 &lt;NA&gt;
+#&gt; 89                Pro-innovation bias                 &lt;NA&gt;
+#&gt; 90                    Projection bias          mw-redirect
+#&gt; 91             Pseudocertainty effect                 &lt;NA&gt;
+#&gt; 92             Reactance (psychology)                 &lt;NA&gt;
+#&gt; 93               Reactive devaluation                 &lt;NA&gt;
+#&gt; 94                   Recency illusion                 &lt;NA&gt;
+#&gt; 95                     Restraint bias                 &lt;NA&gt;
+#&gt; 96             Rhyme as reason effect          mw-redirect
+#&gt; 97                  Risk compensation                 &lt;NA&gt;
+#&gt; 98                    Peltzman effect          mw-redirect
+#&gt; 99                      Salience bias          mw-redirect
+#&gt; 100                    Selection bias                 &lt;NA&gt;
+#&gt; 101              Selective perception                 &lt;NA&gt;
+#&gt; 102                 Semmelweis reflex                 &lt;NA&gt;
+#&gt; 103        Sexual overperception bias          mw-redirect
+#&gt; 104       Sexual underperception bias          mw-redirect
+#&gt; 105            Social comparison bias                 &lt;NA&gt;
+#&gt; 106          Social desirability bias                 &lt;NA&gt;
+#&gt; 107                   Status quo bias                 &lt;NA&gt;
+#&gt; 108                      Stereotyping          mw-redirect
+#&gt; 109              Subadditivity effect                 &lt;NA&gt;
+#&gt; 110             Subjective validation                 &lt;NA&gt;
+#&gt; 111                       Surrogation                 &lt;NA&gt;
+#&gt; 112                 Survivorship bias                 &lt;NA&gt;
+#&gt; 113                  Time-saving bias                 &lt;NA&gt;
+#&gt; 114               Third-person effect                 &lt;NA&gt;
+#&gt; 115     Parkinson's law of triviality          mw-redirect
+#&gt; 116                 Weber–Fechner law                 &lt;NA&gt;
+#&gt; 117        Well travelled road effect                 &lt;NA&gt;
+#&gt; 118        Women are wonderful effect          mw-redirect
+#&gt; 119                    Zero-risk bias                 &lt;NA&gt;
+#&gt; 120                 Zero-sum thinking                 &lt;NA&gt;
+#&gt; 121               Actor-observer bias          mw-redirect
+#&gt; 122                    Authority bias                 &lt;NA&gt;
+#&gt; 123                Cheerleader effect                 &lt;NA&gt;
+#&gt; 124  Defensive attribution hypothesis                 &lt;NA&gt;
+#&gt; 125                   Egocentric bias                 &lt;NA&gt;
+#&gt; 126         Extrinsic incentives bias                 &lt;NA&gt;
+#&gt; 127            False consensus effect                 &lt;NA&gt;
+#&gt; 128             False uniqueness bias          mw-redirect
+#&gt; 129     Fundamental attribution error                 &lt;NA&gt;
+#&gt; 130           Group attribution error                 &lt;NA&gt;
+#&gt; 131                       Halo effect                 &lt;NA&gt;
+#&gt; 132    Illusion of asymmetric insight                 &lt;NA&gt;
+#&gt; 133       Illusion of external agency                 &lt;NA&gt;
+#&gt; 134          Illusion of transparency                 &lt;NA&gt;
+#&gt; 135              Illusory superiority                 &lt;NA&gt;
+#&gt; 136                      Ingroup bias          mw-redirect
+#&gt; 137             Just-world hypothesis                 &lt;NA&gt;
+#&gt; 138                        Moral luck                 &lt;NA&gt;
+#&gt; 139                    Naïve cynicism                 &lt;NA&gt;
+#&gt; 140        Naïve realism (psychology)                 &lt;NA&gt;
+#&gt; 141         Outgroup homogeneity bias          mw-redirect
+#&gt; 142                  Puritanical bias                 &lt;NA&gt;
+#&gt; 143                 Self-serving bias                 &lt;NA&gt;
+#&gt; 144           Shared information bias                 &lt;NA&gt;
+#&gt; 145              System justification                 &lt;NA&gt;
+#&gt; 146             Trait ascription bias                 &lt;NA&gt;
+#&gt; 147        Ultimate attribution error                 &lt;NA&gt;
+#&gt; 148         Worse-than-average effect                 &lt;NA&gt;
+#&gt; 149                Bizarreness effect                 &lt;NA&gt;
+#&gt; 150          Cue-dependent forgetting                 &lt;NA&gt;
+#&gt; 151                 Cross-race effect                 &lt;NA&gt;
+#&gt; 152                      Cryptomnesia                 &lt;NA&gt;
+#&gt; 153                   Egocentric bias                 &lt;NA&gt;
+#&gt; 154                Fading affect bias                 &lt;NA&gt;
+#&gt; 155                      False memory                 &lt;NA&gt;
+#&gt; 156                 Generation effect                 &lt;NA&gt;
+#&gt; 157                     Google effect                 &lt;NA&gt;
+#&gt; 158           Leveling and sharpening                 &lt;NA&gt;
+#&gt; 159       Levels-of-processing effect          mw-redirect
+#&gt; 160             Misinformation effect                 &lt;NA&gt;
+#&gt; 161                   Modality effect                 &lt;NA&gt;
+#&gt; 162            State-dependent memory                 &lt;NA&gt;
+#&gt; 163               Next-in-line effect                 &lt;NA&gt;
+#&gt; 164           Part-list cueing effect          mw-redirect
+#&gt; 165                     Peak-end rule          mw-redirect
+#&gt; 166        Picture superiority effect                 &lt;NA&gt;
+#&gt; 167 Socioemotional selectivity theory                 &lt;NA&gt;
+#&gt; 168            Serial position effect          mw-redirect
+#&gt; 169                 Reminiscence bump                 &lt;NA&gt;
+#&gt; 170             Self-reference effect                 &lt;NA&gt;
+#&gt; 171          Misattribution of memory                 &lt;NA&gt;
+#&gt; 172                    Spacing effect                 &lt;NA&gt;
+#&gt; 173                  Spotlight effect                 &lt;NA&gt;
+#&gt; 174                    Suggestibility                 &lt;NA&gt;
+#&gt; 175                      Tachypsychia          mw-redirect
+#&gt; 176                Telescoping effect                 &lt;NA&gt;
+#&gt; 177                    Testing effect                 &lt;NA&gt;
+#&gt; 178                 Tip of the tongue                 &lt;NA&gt;
+#&gt; 179               Von Restorff effect                 &lt;NA&gt;
+#&gt; 180                  Zeigarnik effect                 &lt;NA&gt;
+#&gt; 181                              &lt;NA&gt; mw-selflink selflink
+#&gt; 182             List of memory biases                 &lt;NA&gt;
 #&gt;                                                 .text
-#&gt; 1                                    Ambiguity effect
-#&gt; 2                                           Anchoring
-#&gt; 3                            Anthropocentric thinking
-#&gt; 4                                    Anthropomorphism
-#&gt; 5                                    Attentional bias
-#&gt; 6                              Attribute substitution
-#&gt; 7                                     Automation bias
-#&gt; 8                              Availability heuristic
-#&gt; 9                                Availability cascade
-#&gt; 10                                    Backfire effect
-#&gt; 11                                   Bandwagon effect
-#&gt; 12                                  Base rate fallacy
-#&gt; 13                                        Belief bias
-#&gt; 14                                Ben Franklin effect
-#&gt; 15                                  Berkson's paradox
-#&gt; 16                                    Bias blind spot
-#&gt; 17                             Choice-supportive bias
-#&gt; 18                                Clustering illusion
-#&gt; 19                                    Compassion fade
-#&gt; 20                                  Confirmation bias
-#&gt; 21                                    Congruence bias
-#&gt; 22                                Conjunction fallacy
-#&gt; 23                     Conservatism (belief revision)
-#&gt; 24                         Continued influence effect
-#&gt; 25                                    Contrast effect
-#&gt; 26                                 Curse of knowledge
-#&gt; 27                                          Declinism
-#&gt; 28                                       Decoy effect
-#&gt; 29                                     Default effect
-#&gt; 30                                Denomination effect
-#&gt; 31                                 Disposition effect
-#&gt; 32                                   Distinction bias
-#&gt; 33                              Dunning–Kruger effect
-#&gt; 34                                   Duration neglect
-#&gt; 35                                        Empathy gap
-#&gt; 36                            End-of-history illusion
-#&gt; 37                                   Endowment effect
-#&gt; 38                                     Experimenter's
-#&gt; 39                                   expectation bias
-#&gt; 40                                    Focusing effect
-#&gt; 41                                       Forer effect
-#&gt; 42                                      Barnum effect
-#&gt; 43                                     Framing effect
-#&gt; 44                               Functional fixedness
-#&gt; 45                                  Gambler's fallacy
-#&gt; 46                                         Groupthink
-#&gt; 47                                   Hard–easy effect
-#&gt; 48                                     Hindsight bias
-#&gt; 49                           Hostile attribution bias
-#&gt; 50                                   Hot-hand fallacy
-#&gt; 51                             Hyperbolic discounting
-#&gt; 52                         Identifiable victim effect
-#&gt; 53                                        IKEA effect
-#&gt; 54                               Illicit transference
-#&gt; 55                                Illusion of control
-#&gt; 56                               Illusion of validity
-#&gt; 57                               Illusory correlation
-#&gt; 58                              Illusory truth effect
-#&gt; 59                                        Impact bias
-#&gt; 60                               Implicit association
-#&gt; 61                                   Information bias
-#&gt; 62                       Insensitivity to sample size
-#&gt; 63  Irrational escalation or Escalation of commitment
-#&gt; 64                              Law of the instrument
-#&gt; 65                              Less-is-better effect
-#&gt; 66                              Look-elsewhere effect
-#&gt; 67                                      Loss aversion
-#&gt; 68                               Mere exposure effect
-#&gt; 69                                     Money illusion
-#&gt; 70                            Moral credential effect
-#&gt; 71                                    Negativity bias
-#&gt; 72                             Neglect of probability
-#&gt; 73                                      Normalcy bias
-#&gt; 74                                  Not invented here
-#&gt; 75                         Observer-expectancy effect
-#&gt; 76                                      Omission bias
-#&gt; 77                                      Optimism bias
-#&gt; 78                                     Ostrich effect
-#&gt; 79                                       Outcome bias
-#&gt; 80                              Overconfidence effect
-#&gt; 81                                         Pareidolia
-#&gt; 82                                   Pygmalion effect
-#&gt; 83                                     Pessimism bias
-#&gt; 84                             Plan continuation bias
-#&gt; 85                                   Planning fallacy
-#&gt; 86                                       Present bias
-#&gt; 87                                    Plant blindness
-#&gt; 88                                Pro-innovation bias
-#&gt; 89                                    Projection bias
-#&gt; 90                             Pseudocertainty effect
-#&gt; 91                                          Reactance
-#&gt; 92                               Reactive devaluation
-#&gt; 93                                   Recency illusion
-#&gt; 94                                     Restraint bias
-#&gt; 95                             Rhyme as reason effect
-#&gt; 96                                  Risk compensation
-#&gt; 97                                      Salience bias
-#&gt; 98                                     Selection bias
-#&gt; 99                               Selective perception
-#&gt; 100                                 Semmelweis reflex
-#&gt; 101                        Sexual overperception bias
-#&gt; 102                                Singularity effect
-#&gt; 103                            Social comparison bias
-#&gt; 104                          Social desirability bias
-#&gt; 105                                   Status quo bias
-#&gt; 106                                      Stereotyping
-#&gt; 107                              Subadditivity effect
-#&gt; 108                             Subjective validation
-#&gt; 109                                       Surrogation
-#&gt; 110                                 Survivorship bias
-#&gt; 111                                  Time-saving bias
-#&gt; 112                               Third-person effect
-#&gt; 113                     Parkinson's law of triviality
-#&gt; 114                                 Weber–Fechner law
-#&gt; 115                        Well travelled road effect
-#&gt; 116                        Women are wonderful effect
-#&gt; 117                                    Zero-risk bias
-#&gt; 118                                     Zero-sum bias
-#&gt; 119                               Actor-observer bias
-#&gt; 120                                    Authority bias
-#&gt; 121                                Cheerleader effect
-#&gt; 122                  Defensive attribution hypothesis
-#&gt; 123                                   Egocentric bias
-#&gt; 124                         Extrinsic incentives bias
-#&gt; 125                            False consensus effect
-#&gt; 126                             False uniqueness bias
-#&gt; 127                     Fundamental attribution error
-#&gt; 128                           Group attribution error
-#&gt; 129                                       Halo effect
-#&gt; 130                    Illusion of asymmetric insight
-#&gt; 131                       Illusion of external agency
-#&gt; 132                          Illusion of transparency
-#&gt; 133                              Illusory superiority
-#&gt; 134                                      Ingroup bias
-#&gt; 135                             Just-world hypothesis
-#&gt; 136                                        Moral luck
-#&gt; 137                                    Naïve cynicism
-#&gt; 138                                     Naïve realism
-#&gt; 139                         Outgroup homogeneity bias
-#&gt; 140                                  Puritanical bias
-#&gt; 141                                 Self-serving bias
-#&gt; 142                           Shared information bias
-#&gt; 143                              System justification
-#&gt; 144                             Trait ascription bias
-#&gt; 145                        Ultimate attribution error
-#&gt; 146                         Worse-than-average effect
-#&gt; 147                                Bizarreness effect
-#&gt; 148                                    Context effect
-#&gt; 149                                 Cross-race effect
-#&gt; 150                                      Cryptomnesia
-#&gt; 151                                   Egocentric bias
-#&gt; 152                                Fading affect bias
-#&gt; 153                                      False memory
-#&gt; 154                                 Generation effect
-#&gt; 155                                     Google effect
-#&gt; 156                           Leveling and sharpening
-#&gt; 157                       Levels-of-processing effect
-#&gt; 158                             Misinformation effect
-#&gt; 159                                   Modality effect
-#&gt; 160                        Mood-congruent memory bias
-#&gt; 161                           Part-list cueing effect
-#&gt; 162                                     Peak-end rule
-#&gt; 163                        Picture superiority effect
-#&gt; 164                 Socioemotional selectivity theory
-#&gt; 165                                    Primacy effect
-#&gt; 166                                    recency effect
-#&gt; 167                            serial position effect
-#&gt; 168                                 Reminiscence bump
-#&gt; 169                                  Source confusion
-#&gt; 170                                    Spacing effect
-#&gt; 171                                  Spotlight effect
-#&gt; 172                                    Suggestibility
-#&gt; 173                                      Tachypsychia
-#&gt; 174                                Telescoping effect
-#&gt; 175                                    Testing effect
-#&gt; 176                                 Tip of the tongue
-#&gt; 177                               von Restorff effect
-#&gt; 178                                  Zeigarnik effect
-#&gt; 179                                           General
-#&gt; 180                                            Memory</div><div class='input'>  # }
-</div></pre>
+#&gt; 1                                     Agent detection
+#&gt; 2                                    Ambiguity effect
+#&gt; 3                                           Anchoring
+#&gt; 4                            Anthropocentric thinking
+#&gt; 5                                    Anthropomorphism
+#&gt; 6                                    Attentional bias
+#&gt; 7                              Attribute substitution
+#&gt; 8                                     Automation bias
+#&gt; 9                              Availability heuristic
+#&gt; 10                               Availability cascade
+#&gt; 11                                    Backfire effect
+#&gt; 12                                   Bandwagon effect
+#&gt; 13                                  Base rate fallacy
+#&gt; 14                                        Belief bias
+#&gt; 15                                Ben Franklin effect
+#&gt; 16                                  Berkson's paradox
+#&gt; 17                                    Bias blind spot
+#&gt; 18                             Choice-supportive bias
+#&gt; 19                                Clustering illusion
+#&gt; 20                                    Compassion fade
+#&gt; 21                                  Confirmation bias
+#&gt; 22                                    Congruence bias
+#&gt; 23                                Conjunction fallacy
+#&gt; 24                     Conservatism (belief revision)
+#&gt; 25                         Continued influence effect
+#&gt; 26                                    Contrast effect
+#&gt; 27                                 Curse of knowledge
+#&gt; 28                                          Declinism
+#&gt; 29                                       Decoy effect
+#&gt; 30                                     Default effect
+#&gt; 31                                Denomination effect
+#&gt; 32                                 Disposition effect
+#&gt; 33                                   Distinction bias
+#&gt; 34                              Dunning–Kruger effect
+#&gt; 35                                   Duration neglect
+#&gt; 36                                        Empathy gap
+#&gt; 37                            End-of-history illusion
+#&gt; 38                                   Endowment effect
+#&gt; 39                                     Experimenter's
+#&gt; 40                                   expectation bias
+#&gt; 41                                    Focusing effect
+#&gt; 42                                       Forer effect
+#&gt; 43                                      Barnum effect
+#&gt; 44                                     Framing effect
+#&gt; 45                               Functional fixedness
+#&gt; 46                                  Gambler's fallacy
+#&gt; 47                                        Gender bias
+#&gt; 48                                         Groupthink
+#&gt; 49                                   Hard–easy effect
+#&gt; 50                                     Hindsight bias
+#&gt; 51                           Hostile attribution bias
+#&gt; 52                                   Hot-hand fallacy
+#&gt; 53                             Hyperbolic discounting
+#&gt; 54                                        IKEA effect
+#&gt; 55                               Illicit transference
+#&gt; 56                                Illusion of control
+#&gt; 57                               Illusion of validity
+#&gt; 58                               Illusory correlation
+#&gt; 59                              Illusory truth effect
+#&gt; 60                                        Impact bias
+#&gt; 61                               Implicit association
+#&gt; 62                                   Information bias
+#&gt; 63                       Insensitivity to sample size
+#&gt; 64  Irrational escalation or Escalation of commitment
+#&gt; 65                              Law of the instrument
+#&gt; 66                              Less-is-better effect
+#&gt; 67                              Look-elsewhere effect
+#&gt; 68                                      Loss aversion
+#&gt; 69                               Mere exposure effect
+#&gt; 70                                     Money illusion
+#&gt; 71                            Moral credential effect
+#&gt; 72                                    Negativity bias
+#&gt; 73                             Neglect of probability
+#&gt; 74                                      Normalcy bias
+#&gt; 75                                  Not invented here
+#&gt; 76                         Observer-expectancy effect
+#&gt; 77                                      Omission bias
+#&gt; 78                                      Optimism bias
+#&gt; 79                                     Ostrich effect
+#&gt; 80                                       Outcome bias
+#&gt; 81                              Overconfidence effect
+#&gt; 82                                         Pareidolia
+#&gt; 83                                   Pygmalion effect
+#&gt; 84                                     Pessimism bias
+#&gt; 85                             Plan continuation bias
+#&gt; 86                                   Planning fallacy
+#&gt; 87                                       Present bias
+#&gt; 88                                    Plant blindness
+#&gt; 89                                Pro-innovation bias
+#&gt; 90                                    Projection bias
+#&gt; 91                             Pseudocertainty effect
+#&gt; 92                                          Reactance
+#&gt; 93                               Reactive devaluation
+#&gt; 94                                   Recency illusion
+#&gt; 95                                     Restraint bias
+#&gt; 96                             Rhyme as reason effect
+#&gt; 97                                  Risk compensation
+#&gt; 98                                    Peltzman effect
+#&gt; 99                                      Salience bias
+#&gt; 100                                    Selection bias
+#&gt; 101                              Selective perception
+#&gt; 102                                 Semmelweis reflex
+#&gt; 103                        Sexual overperception bias
+#&gt; 104                       Sexual underperception bias
+#&gt; 105                            Social comparison bias
+#&gt; 106                          Social desirability bias
+#&gt; 107                                   Status quo bias
+#&gt; 108                                      Stereotyping
+#&gt; 109                              Subadditivity effect
+#&gt; 110                             Subjective validation
+#&gt; 111                                       Surrogation
+#&gt; 112                                 Survivorship bias
+#&gt; 113                                  Time-saving bias
+#&gt; 114                               Third-person effect
+#&gt; 115                     Parkinson's law of triviality
+#&gt; 116                                 Weber–Fechner law
+#&gt; 117                        Well travelled road effect
+#&gt; 118                        Women are wonderful effect
+#&gt; 119                                    Zero-risk bias
+#&gt; 120                                     Zero-sum bias
+#&gt; 121                               Actor-observer bias
+#&gt; 122                                    Authority bias
+#&gt; 123                                Cheerleader effect
+#&gt; 124                  Defensive attribution hypothesis
+#&gt; 125                                   Egocentric bias
+#&gt; 126                         Extrinsic incentives bias
+#&gt; 127                            False consensus effect
+#&gt; 128                             False uniqueness bias
+#&gt; 129                     Fundamental attribution error
+#&gt; 130                           Group attribution error
+#&gt; 131                                       Halo effect
+#&gt; 132                    Illusion of asymmetric insight
+#&gt; 133                       Illusion of external agency
+#&gt; 134                          Illusion of transparency
+#&gt; 135                              Illusory superiority
+#&gt; 136                                      Ingroup bias
+#&gt; 137                             Just-world hypothesis
+#&gt; 138                                        Moral luck
+#&gt; 139                                    Naïve cynicism
+#&gt; 140                                     Naïve realism
+#&gt; 141                         Outgroup homogeneity bias
+#&gt; 142                                  Puritanical bias
+#&gt; 143                                 Self-serving bias
+#&gt; 144                           Shared information bias
+#&gt; 145                              System justification
+#&gt; 146                             Trait ascription bias
+#&gt; 147                        Ultimate attribution error
+#&gt; 148                         Worse-than-average effect
+#&gt; 149                                Bizarreness effect
+#&gt; 150                                    Context effect
+#&gt; 151                                 Cross-race effect
+#&gt; 152                                      Cryptomnesia
+#&gt; 153                                   Egocentric bias
+#&gt; 154                                Fading affect bias
+#&gt; 155                                      False memory
+#&gt; 156                                 Generation effect
+#&gt; 157                                     Google effect
+#&gt; 158                           Leveling and sharpening
+#&gt; 159                       Levels-of-processing effect
+#&gt; 160                             Misinformation effect
+#&gt; 161                                   Modality effect
+#&gt; 162                        Mood-congruent memory bias
+#&gt; 163                               Next-in-line effect
+#&gt; 164                           Part-list cueing effect
+#&gt; 165                                     Peak-end rule
+#&gt; 166                        Picture superiority effect
+#&gt; 167                 Socioemotional selectivity theory
+#&gt; 168                            Serial position effect
+#&gt; 169                                 Reminiscence bump
+#&gt; 170                             Self-relevance effect
+#&gt; 171                                  Source confusion
+#&gt; 172                                    Spacing effect
+#&gt; 173                                  Spotlight effect
+#&gt; 174                                    Suggestibility
+#&gt; 175                                      Tachypsychia
+#&gt; 176                                Telescoping effect
+#&gt; 177                                    Testing effect
+#&gt; 178                                 Tip of the tongue
+#&gt; 179                               von Restorff effect
+#&gt; 180                                  Zeigarnik effect
+#&gt; 181                                           General
+#&gt; 182                                            Memory</div><div class='input'>  <span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -730,7 +735,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.0.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
 </div>
 
       </footer>

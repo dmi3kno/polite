@@ -22,7 +22,7 @@
 #' @importFrom stats setNames
 html_attrs_dfr <- function(x, attrs=NULL, trim=FALSE, defaults=NA_character_, add_text=TRUE){
 
-  attrs <-  attrs %||% unique(unlist(lapply(rvest::html_attrs(x), names)))
+  attrs <-  attrs %otherwise% unique(unlist(lapply(rvest::html_attrs(x), names)))
   defaults <- rep(defaults, length.out=length(attrs))
   attrs_lst <- lapply(seq_along(attrs), function(i)
                                rvest::html_attr(x, attrs[i], default = defaults[i]))

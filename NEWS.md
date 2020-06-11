@@ -1,5 +1,9 @@
 # polite (development version)
 
+# polite 0.1.1.9020 (Release date: 2020-06-12)
+
+* Added `politely` adverb
+
 # polite 0.1.1.9010 (Release date: 2020-03-29)
 
 * Replaced httr::GET with httr::RETRY (closing #24)

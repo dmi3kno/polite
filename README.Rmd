@@ -146,6 +146,9 @@ Bob Rudis is one the vocal proponents of an online etiquette in the R community.
 
 We organize the data into the tidy format and append it to our empty data frame. At the end we will discover that Bob has written over 570 blog articles, which I very much recommend anyone to check out.
 
+## Learn mode
+
+[Ethical webscraper manifesto](https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01)
 
 Package logo uses elements of a free image by [pngtree.com](https://pngtree.com)
 

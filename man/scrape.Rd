@@ -33,3 +33,13 @@ Object of class \code{httr::response} which can be further processed by function
 \description{
 Scrape the content of authorized page/API
 }
+\examples{
+\donttest{
+ library(rvest)
+   scrape(content="text/html; charset=UTF-8") \%>\%
+   html_nodes(".wikitable") \%>\%
+   html_table()
+ biases
+ }
+
+}

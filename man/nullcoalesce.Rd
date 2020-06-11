@@ -2,10 +2,10 @@
 % Please edit documentation in R/utils.R
 \name{null-coalesce}
 \alias{null-coalesce}
-\alias{\%||\%}
+\alias{\%otherwise\%}
 \title{Null coalescing operator}
 \usage{
-lhs \%||\% rhs
+lhs \%otherwise\% rhs
 }
 \description{
 See \code{purrr::\link[purrr]{\%||\%}} for details.

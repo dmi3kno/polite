@@ -43,8 +43,8 @@ bow <- function(url,
                             warn = verbose, force = force)
 
   delay_df <- rt$crawl_delay
-  delay_rt <- as.numeric(delay_df[with(delay_df, useragent==user_agent), "value"]) %||%
-    as.numeric(delay_df[with(delay_df, useragent=="*"), "value"]) %||% 0
+  delay_rt <- as.numeric(delay_df[with(delay_df, useragent==user_agent), "value"]) %otherwise%
+    as.numeric(delay_df[with(delay_df, useragent=="*"), "value"]) %otherwise% 0
 
   # define object
   self <- structure(

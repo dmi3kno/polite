@@ -144,7 +144,7 @@ tibble(name=lnks %>% html_text(),
 
 df <- pages_df %>% pmap_df(get_cheese_page)
 df
-#> # A tibble: 517 x 2
+#> # A tibble: 516 x 2
 #>    name                      link                     
 #>    <chr>                     <chr>                    
 #>  1 "Abbaye de Belloc"        /abbaye-de-belloc/       
@@ -157,7 +157,7 @@ df
 #>  8 "Abondance"               /abondance/              
 #>  9 "Acapella"                /acapella/               
 #> 10 "Accasciato "             /accasciato/             
-#> # … with 507 more rows
+#> # … with 506 more rows
 ```
 
 ## Another example
@@ -202,6 +202,272 @@ scraping page inside the `while` loop.
 We organize the data into the tidy format and append it to our empty
 data frame. At the end we will discover that Bob has written over 570
 blog articles, which I very much recommend anyone to check out.
+
+## Polite for package developers
+
+If you are developing a package which accesses the web, `polite` can be
+used either as a *template*, or as a *backend* for your polite web
+session.
+
+### Polite template
+
+Just before its ascension to CRAN, the package acquired new
+functionality for helping package developers get started on creating
+polite web tools for the users. Any modern package developer is probably
+familiar with excellent [`usethis`
+package](https://github.com/r-lib/usethis) by Rstudio team. `usethis` is
+a collection of scripts for automating package development workflow.
+Many `usethis` functions automating repetitive tasks start with prefix
+`use_` indicating that what followed will be adopted and “used” by the
+package user developes. For details about `use_` family of functions,
+see [package
+documentation](https://usethis.r-lib.org/reference/index.html).
+
+`{polite}` has one usethis-like function called `polite::use_manners()`.
+
+``` r
+polite::use_manners()
+```
+
+When called within the analysis (or package) directory, it creates a new
+file called `R/polite-scrape.R` (creating `R` directory if necessary)
+and populates it with template functions for creating polite
+web-scraping session. The functions provided by `polite::use_manners()`
+are drop-in replacements for two of the most popular tools in
+web-accessing R ecosystem: `read_html()` and `download.file()`. The only
+difference is that these functions have `polite_` prefix. In all other
+respects they should have look and feel of the original, i.e. in most
+cases you should be able to simply replace calls to `read_html()` with
+`polite_read_html()` and `download.file` with `polite_download_file()`
+and your code should work (provided you scrape from a `url`, which it
+the first required argument in both functions).
+
+### Polite backend
+
+Recent addition to polite package is a
+[`purrr`-like](https://purrr.tidyverse.org/reference/index.html#section-adverbs)
+adverb `politely()` which can make any web-accessing function “polite”
+by wrapping it with a code which delivers on four pillars of polite
+session:
+
+> **Introduce Yourself, Seek Permission, Take Slowly and Never Ask
+> Twice**.
+
+Adverbs can be useful, when a user (package developer) wants to
+“delegate” polite session handling to external package, without
+modifying the existing code. The only thing user needs to do is wrap
+existing verb with `politely()` and use the new function instead of the
+original.
+
+Let’s say you wanted to use `httr::GET` for accessing certain API, such
+as `musicbrainz` and extract certain data from a deeply nested list,
+returned by the server. Your originally developed code looks like this:
+
+``` r
+library(magrittr)
+#> 
+#> Attaching package: 'magrittr'
+#> The following object is masked from 'package:purrr':
+#> 
+#>     set_names
+library(httr)
+library(xml2)
+library(purrr)
+
+beatles_res <- GET("https://musicbrainz.org/ws/2/artist/", 
+                   query=list(query="Beatles", limit=10),
+                   httr::accept("application/json")) 
+if(!is.null(beatles_res)) beatles_lst <- httr::content(beatles_res, type = "application/json")
+
+str(beatles_lst, max.level = 2)
+#> List of 4
+#>  $ created: chr "2020-06-13T22:09:32.724Z"
+#>  $ count  : int 129
+#>  $ offset : int 0
+#>  $ artists:List of 10
+#>   ..$ :List of 13
+#>   ..$ :List of 12
+#>   ..$ :List of 8
+#>   ..$ :List of 10
+#>   ..$ :List of 9
+#>   ..$ :List of 5
+#>   ..$ :List of 11
+#>   ..$ :List of 11
+#>   ..$ :List of 10
+#>   ..$ :List of 10
+```
+
+This code does not comply with `polite` principles. It does not provide
+human-readable user-agent string, it does not consult `robots.txt` about
+permissions. It is possible to run this code in the loop and
+(accidentally) overwhelm the server with requests. It does not cache the
+results, so if this code is re-run again, data will be re-queried.
+
+You could write your own infastructure for handling useragent,
+robots.txt, rate limiting and memoisation, or you could simply use an
+adverb `politely()` which does all of these things for you.
+
+### Querying colormind.io with polite backend
+
+Here’s an example from using colormind.io API. We will need a couple of
+service functions to convert colors between HEX and RGB and to prepare a
+json [required by the service](http://colormind.io/api-access/).
+
+``` r
+rgba2hex <- function(r,g,b,a) {grDevices::rgb(r, g, b, a, maxColorValue = 255)}
+
+hex2rgba <- function(x, alpha=TRUE){t(grDevices::col2rgb(x, alpha = alpha))}
+
+prepare_colormind_query <- function(x, model){
+  lst <- list(model=model)
+
+  if(!is.null(x)){
+    x <- utils::head(c(x, rep(NA_character_, times=4)), 5) # pad it with NAs
+    x_mat <- hex2rgba(x)
+    x_lst <- lapply(seq_len(nrow(x_mat)), function(i) if(x_mat[i,4]==0) "N" else x_mat[i,1:3])
+    lst <- c(list(input=x_lst), lst)
+  }
+  jsonlite::toJSON(lst, auto_unbox = TRUE)
+}
+```
+
+Now all we have to do is to “wrap” existing function in the `politely`
+adverb. Then call the new function insted of original. You dont need to
+change anything other than a function name.
+
+``` r
+polite_GET <- politely(httr::GET, verbose=TRUE) 
+
+#res <- httr::GET("http://colormind.io/list") # was
+res <- polite_GET("http://colormind.io/list") # now
+#> Fetching robots.txt
+#> rt_robotstxt_http_getter: normal http get
+#> Warning in request_handler_handler(request = request, handler = on_not_found, :
+#> Event: on_not_found
+#> Warning in request_handler_handler(request = request, handler =
+#> on_file_type_mismatch, : Event: on_file_type_mismatch
+#> Warning in request_handler_handler(request = request, handler =
+#> on_suspect_content, : Event: on_suspect_content
+#> 
+#> Success! robots.txt was found at: http://colormind.io/robots.txt
+#> Total of 0 crawl delay rule(s) defined for this host.
+#> Your rate will be set to 1 request every 5 second(s).
+#> Pausing...
+#> Scraping: http://colormind.io/list
+jsonlite::fromJSON(httr::content(res, as = "text"))$result
+#> [1] "ui"                 "default"            "christmas_season"  
+#> [4] "nature_photography" "the_wind_rises"     "maple_story"
+```
+
+The backend functionality of `polite` can be used for *any* function as
+long as it has `url` argument. Here’s an example of polite POST created
+with adverb `politely`.
+
+``` r
+polite_POST <- politely(POST, verbose=TRUE) 
+
+clue_colors <-c(NA, "lightseagreen", NA, "coral", NA)
+
+req <- prepare_colormind_query(clue_colors, "default")
+
+#res <- httr::POST(url='http://colormind.io/api/', body = req) #was
+res <- polite_POST(url='http://colormind.io/api/', body = req) #now
+#> Fetching robots.txt
+#> rt_robotstxt_http_getter: cached http get
+#> Warning in request_handler_handler(request = request, handler = on_not_found, :
+#> Event: on_not_found
+#> Warning in request_handler_handler(request = request, handler =
+#> on_file_type_mismatch, : Event: on_file_type_mismatch
+#> Warning in request_handler_handler(request = request, handler =
+#> on_suspect_content, : Event: on_suspect_content
+#> 
+#> Success! robots.txt was found at: http://colormind.io/robots.txt
+#> Total of 0 crawl delay rule(s) defined for this host.
+#> Your rate will be set to 1 request every 5 second(s).
+#> Pausing...
+#> Scraping: http://colormind.io/api/
+res_json <- httr::content(res, as = "text")
+res_mcol <- jsonlite::fromJSON(res_json)$result
+colrs <- rgba2hex(res_mcol)
+scales::show_col(colrs, ncol = 5)
+```
+
+<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+
+### Querying musicbrainz API with polite backend
+
+[Musicbrainz
+API](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2)
+allows querying data on artists, releases, labels and all things music.
+API endpoint, unfortunately, is Disallowed in `robots.txt`, but it is
+completely legal to access for small size requests. Mass querying is
+easier using a datadump, with musicbrainz published periodically. We can
+create polite GET and turn off `robots.txt` validation.
+
+``` r
+library(polite)
+polite_GET_nrt <- politely(GET, verbose=TRUE, robots = FALSE) # turn off robotstxt checking
+
+beatles_lst <- polite_GET_nrt("https://musicbrainz.org/ws/2/artist/", 
+                   query=list(query="Beatles", limit=10),
+                   httr::accept("application/json")) %>% 
+  httr::content(type = "application/json")
+#> Pausing...
+#> Scraping: https://musicbrainz.org/ws/2/artist/
+str(beatles_lst, max.level = 2)
+#> List of 4
+#>  $ created: chr "2020-06-13T22:09:32.724Z"
+#>  $ count  : int 129
+#>  $ offset : int 0
+#>  $ artists:List of 10
+#>   ..$ :List of 13
+#>   ..$ :List of 12
+#>   ..$ :List of 8
+#>   ..$ :List of 10
+#>   ..$ :List of 9
+#>   ..$ :List of 5
+#>   ..$ :List of 11
+#>   ..$ :List of 11
+#>   ..$ :List of 10
+#>   ..$ :List of 10
+```
+
+Lets parse the response
+
+``` r
+beatles_lst %>%   
+  extract2("artists") %>% 
+  {tibble::tibble(id=map_chr(.,"id", .default=NA_character_),
+                  match_pct=map_int(.,"score", .default=NA_character_),
+                  type=map_chr(.,"type", .default=NA_character_),
+                  name=map_chr(., "name", .default=NA_character_),
+                  country=map_chr(., "country", .default=NA_character_),
+                  lifespan_begin=map_chr(., c("life-span", "begin"),.default=NA_character_),
+                  lifespan_end=map_chr(., c("life-span", "end"),.default=NA_character_)
+                  )
+    } %>% knitr::kable(col.names = c(id="Musicbrainz ID", match_pct="Match, %", 
+                                     type="Type", name="Name of artist",
+                                     country="Country", lifespan_begin="Career begun",
+                                     lifespan_end="Career ended"))
+```
+
+| Musicbrainz ID                       | Match, % | Type  | Name of artist      | Country | Career begun | Career ended |
+| :----------------------------------- | -------: | :---- | :------------------ | :------ | :----------- | :----------- |
+| b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d |      100 | Group | The Beatles         | GB      | 1957-03      | 1970-04-10   |
+| 5e685f9e-83bb-423c-acfa-487e34f15ffd |       76 | Group | The Tape-beatles    | US      | 1986-12      | NA           |
+| e897e5fc-2707-49c8-8605-be82b4664dc5 |       75 | Group | Sex Beatles         | NA      | NA           | NA           |
+| 1019b551-eba7-4e7c-bc7d-eb427ef54df2 |       75 | Group | Blues Beatles       | BR      | NA           | NA           |
+| bc569a61-dd62-4758-86c6-e99dcb1fdda6 |       74 | NA    | Tokyo Beatles       | JP      | NA           | NA           |
+| 3133aeb8-9982-4e11-a8ff-5477996a80bf |       74 | NA    | Beatles Chillout    | NA      | NA           | NA           |
+| 35574687-3a4d-4b30-a01a-43fea73b3430 |       74 | Group | Them Beatles        | GB      | NA           | NA           |
+| de0769fa-7c32-4706-9c8c-03631c90f208 |       74 | Group | Shitty Beatles      | NA      | 2005         | 2015-04-19   |
+| ad60d963-44f1-4b41-b785-8284edcaaffe |       74 | Group | Counterfeit Beatles | GB      | NA           | NA           |
+| 7cac6d47-ef4e-4347-8835-63ed3f2e74a7 |       74 | Group | Beatles Back2Back   | AU      | 2011         | NA           |
+
+## Learn more
+
+[Ethical webscraper
+manifesto](https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01)
 
 Package logo uses elements of a free image by
 [pngtree.com](https://pngtree.com)

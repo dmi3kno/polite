@@ -7,6 +7,7 @@
 politely(
   fun,
   user_agent = paste0("polite ", getOption("HTTPUserAgent"), "bot"),
+  robots = TRUE,
   force = FALSE,
   delay = 5,
   verbose = FALSE,
@@ -17,6 +18,8 @@ politely(
 \item{fun}{function to be turned "polite". Must contain an argument named \code{url}, which contains url to be queried.}
 
 \item{user_agent}{optional, user agent string to be used. Defaults to \code{paste0("polite ", getOption("HTTPUserAgent"), "bot")}}
+
+\item{robots}{optional, should robots.txt be consulted for permissions. Default is TRUE}
 
 \item{force}{whether or not tp force fresh download of robots.txt}
 

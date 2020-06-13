@@ -18,7 +18,7 @@ fetch_rtxt <-function(domain, user_agent, delay, force, verbose){
   rt$cached <- attr(rt_txt, "cached")
 
   if(verbose){
-    message("Success! robots.txt was found at: ", rt$received_from)
+    message("\nSuccess! robots.txt was found at: ", rt$received_from)
     message("Total of ", nrow(rt_delay_df), " crawl delay rule(s) defined for this host.")
     message("Your rate will be set to 1 request every ", rt$delay_rate, " second(s).")}
 
@@ -29,7 +29,8 @@ fetch_rtxt <-function(domain, user_agent, delay, force, verbose){
 #' Give your web-scraping function good manners polite
 #'
 #' @param fun function to be turned "polite". Must contain an argument named `url`, which contains url to be queried.
-#' @param user_agent optional, user agent string to be used. Defaults to `paste0("polite ", getOption("HTTPUserAgent"), "bot")`
+#' @param user_agent optional, user agent string to be used. Defaults to `paste("polite", getOption("HTTPUserAgent"), "bot")`
+#' @param robots optional, should robots.txt be consulted for permissions. Default is TRUE
 #' @param force whether or not tp force fresh download of robots.txt
 #' @param delay minimum delay in seconds, not less than 1. Default is 5.
 #' @param verbose output more information about querying process
@@ -43,7 +44,7 @@ fetch_rtxt <-function(domain, user_agent, delay, force, verbose){
 #' polite_GET <- politely(httr::GET)
 #'
 politely <- function(fun, user_agent=paste0("polite ", getOption("HTTPUserAgent"), "bot"),
-                     force=FALSE, delay=5, verbose=FALSE, cache=memoise::cache_memory()){
+                     robots=TRUE, force=FALSE, delay=5, verbose=FALSE, cache=memoise::cache_memory()){
   f_formals <- formals(args(fun))
   mem_fun <- memoise::memoise(fun, cache=cache)
 
@@ -56,17 +57,20 @@ politely <- function(fun, user_agent=paste0("polite ", getOption("HTTPUserAgent"
     af <- match_to_formals(arg_lst, f_formals)
     url <- af[["url"]]
 
-    if(verbose) message("Fetching robots.txt")
-    hst <- extract_domain(url)
-    rtxt <- fetch_rtxt(domain=hst, user_agent = user_agent, delay=delay, force=force, verbose = verbose)
-    is_rt_vetted <- is_scrapable_rt(rtxt, url, user_agent)
+    if(robots){
 
-    if(!is_rt_vetted){
-      warning("Unfortunately, robots.txt says that this path is NOT scrapable for your user agent. Returning NULL", call. = FALSE)
-      return(NULL)
+      if(verbose) message("Fetching robots.txt")
+            hst <- extract_domain(url)
+      rtxt <- fetch_rtxt(domain=hst, user_agent = user_agent, delay=delay, force=force, verbose = verbose)
+      delay <- rtxt$delay_rate
+
+      if(!is_scrapable_rt(rtxt, url, user_agent)){
+        warning("Unfortunately, robots.txt indicates that this path is NOT scrapable for your user agent", call. = FALSE)
+        return(NULL)
+      }
     }
     if(verbose) message("Pausing... ")
-    Sys.sleep(rtxt$delay_rate)
+    Sys.sleep(delay)
 
     if(verbose) message("Scraping: ", url)
     old_ua <-  getOption("HTTPUserAgent")
@@ -76,5 +80,3 @@ politely <- function(fun, user_agent=paste0("polite ", getOption("HTTPUserAgent"
     res
   }
 }
-
-

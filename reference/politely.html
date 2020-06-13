@@ -131,6 +131,7 @@
     <pre class="usage"><span class='fu'>politely</span>(
   <span class='no'>fun</span>,
   <span class='kw'>user_agent</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"polite "</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"HTTPUserAgent"</span>), <span class='st'>"bot"</span>),
+  <span class='kw'>robots</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>delay</span> <span class='kw'>=</span> <span class='fl'>5</span>,
   <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -147,6 +148,10 @@
     <tr>
       <th>user_agent</th>
       <td><p>optional, user agent string to be used. Defaults to <code><a href='https://rdrr.io/r/base/paste.html'>paste0("polite ", getOption("HTTPUserAgent"), "bot")</a></code></p></td>
+    </tr>
+    <tr>
+      <th>robots</th>
+      <td><p>optional, should robots.txt be consulted for permissions. Default is TRUE</p></td>
     </tr>
     <tr>
       <th>force</th>

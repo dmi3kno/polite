@@ -160,7 +160,7 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 
 <span class="no">df</span> <span class="kw">&lt;-</span> <span class="no">pages_df</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap_df</a></span>(<span class="no">get_cheese_page</span>)
 <span class="no">df</span>
-<span class="co">#&gt; # A tibble: 517 x 2</span>
+<span class="co">#&gt; # A tibble: 516 x 2</span>
 <span class="co">#&gt;    name                      link                     </span>
 <span class="co">#&gt;    &lt;chr&gt;                     &lt;chr&gt;                    </span>
 <span class="co">#&gt;  1 "Abbaye de Belloc"        /abbaye-de-belloc/       </span>
@@ -173,7 +173,7 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt;  8 "Abondance"               /abondance/              </span>
 <span class="co">#&gt;  9 "Acapella"                /acapella/               </span>
 <span class="co">#&gt; 10 "Accasciato "             /accasciato/             </span>
-<span class="co">#&gt; # … with 507 more rows</span></pre></div>
+<span class="co">#&gt; # … with 506 more rows</span></pre></div>
 </div>
 <div id="another-example" class="section level2">
 <h2 class="hasAnchor">
@@ -206,6 +206,294 @@ Source: <em>Wiktionary, The free dictionary</em></p>
     <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="no">hrbrmstr_posts</span>)
     <span class="co">#&gt; # A tibble: 578 x3</span></pre></div>
 <p>We organize the data into the tidy format and append it to our empty data frame. At the end we will discover that Bob has written over 570 blog articles, which I very much recommend anyone to check out.</p>
+</div>
+<div id="polite-for-package-developers" class="section level2">
+<h2 class="hasAnchor">
+<a href="#polite-for-package-developers" class="anchor"></a>Polite for package developers</h2>
+<p>If you are developing a package which accesses the web, <code>polite</code> can be used either as a <em>template</em>, or as a <em>backend</em> for your polite web session.</p>
+<div id="polite-template" class="section level3">
+<h3 class="hasAnchor">
+<a href="#polite-template" class="anchor"></a>Polite template</h3>
+<p>Just before its ascension to CRAN, the package acquired new functionality for helping package developers get started on creating polite web tools for the users. Any modern package developer is probably familiar with excellent <a href="https://github.com/r-lib/usethis"><code>usethis</code> package</a> by Rstudio team. <code>usethis</code> is a collection of scripts for automating package development workflow. Many <code>usethis</code> functions automating repetitive tasks start with prefix <code>use_</code> indicating that what followed will be adopted and “used” by the package user developes. For details about <code>use_</code> family of functions, see <a href="https://usethis.r-lib.org/reference/index.html">package documentation</a>.</p>
+<p><code>{polite}</code> has one usethis-like function called <code><a href="reference/use_manners.html">polite::use_manners()</a></code>.</p>
+<div class="sourceCode" id="cb7"><pre class="r"><span class="kw pkg">polite</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_manners.html">use_manners</a></span>()</pre></div>
+<p>When called within the analysis (or package) directory, it creates a new file called <code>R/polite-scrape.R</code> (creating <code>R</code> directory if necessary) and populates it with template functions for creating polite web-scraping session. The functions provided by <code><a href="reference/use_manners.html">polite::use_manners()</a></code> are drop-in replacements for two of the most popular tools in web-accessing R ecosystem: <code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html()</a></code> and <code><a href="https://rdrr.io/r/utils/download.file.html">download.file()</a></code>. The only difference is that these functions have <code>polite_</code> prefix. In all other respects they should have look and feel of the original, i.e. in most cases you should be able to simply replace calls to <code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html()</a></code> with <code>polite_read_html()</code> and <code>download.file</code> with <code>polite_download_file()</code> and your code should work (provided you scrape from a <code>url</code>, which it the first required argument in both functions).</p>
+</div>
+<div id="polite-backend" class="section level3">
+<h3 class="hasAnchor">
+<a href="#polite-backend" class="anchor"></a>Polite backend</h3>
+<p>Recent addition to polite package is a <a href="https://purrr.tidyverse.org/reference/index.html#section-adverbs"><code>purrr</code>-like</a> adverb <code><a href="reference/politely.html">politely()</a></code> which can make any web-accessing function “polite” by wrapping it with a code which delivers on four pillars of polite session:</p>
+<blockquote>
+<p><strong>Introduce Yourself, Seek Permission, Take Slowly and Never Ask Twice</strong>.</p>
+</blockquote>
+<p>Adverbs can be useful, when a user (package developer) wants to “delegate” polite session handling to external package, without modifying the existing code. The only thing user needs to do is wrap existing verb with <code><a href="reference/politely.html">politely()</a></code> and use the new function instead of the original.</p>
+<p>Let’s say you wanted to use <code><a href="https://httr.r-lib.org/reference/GET.html">httr::GET</a></code> for accessing certain API, such as <code>musicbrainz</code> and extract certain data from a deeply nested list, returned by the server. Your originally developed code looks like this:</p>
+<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Attaching package: 'magrittr'</span>
+<span class="co">#&gt; The following object is masked from 'package:purrr':</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt;     set_names</span>
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">httr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">xml2</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">purrr</span>)
+
+<span class="no">beatles_res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>(<span class="st">"https://musicbrainz.org/ws/2/artist/"</span>,
+                   <span class="kw">query</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">query</span><span class="kw">=</span><span class="st">"Beatles"</span>, <span class="kw">limit</span><span class="kw">=</span><span class="fl">10</span>),
+                   <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content_type.html">accept</a></span>(<span class="st">"application/json"</span>))
+<span class="kw">if</span>(!<span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(<span class="no">beatles_res</span>)) <span class="no">beatles_lst</span> <span class="kw">&lt;-</span> <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="no">beatles_res</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"application/json"</span>)
+
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">beatles_lst</span>, <span class="kw">max.level</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="co">#&gt; List of 4</span>
+<span class="co">#&gt;  $ created: chr "2020-06-13T22:09:32.724Z"</span>
+<span class="co">#&gt;  $ count  : int 129</span>
+<span class="co">#&gt;  $ offset : int 0</span>
+<span class="co">#&gt;  $ artists:List of 10</span>
+<span class="co">#&gt;   ..$ :List of 13</span>
+<span class="co">#&gt;   ..$ :List of 12</span>
+<span class="co">#&gt;   ..$ :List of 8</span>
+<span class="co">#&gt;   ..$ :List of 10</span>
+<span class="co">#&gt;   ..$ :List of 9</span>
+<span class="co">#&gt;   ..$ :List of 5</span>
+<span class="co">#&gt;   ..$ :List of 11</span>
+<span class="co">#&gt;   ..$ :List of 11</span>
+<span class="co">#&gt;   ..$ :List of 10</span>
+<span class="co">#&gt;   ..$ :List of 10</span></pre></div>
+<p>This code does not comply with <code>polite</code> principles. It does not provide human-readable user-agent string, it does not consult <code>robots.txt</code> about permissions. It is possible to run this code in the loop and (accidentally) overwhelm the server with requests. It does not cache the results, so if this code is re-run again, data will be re-queried.</p>
+<p>You could write your own infastructure for handling useragent, robots.txt, rate limiting and memoisation, or you could simply use an adverb <code><a href="reference/politely.html">politely()</a></code> which does all of these things for you.</p>
+</div>
+<div id="querying-colormind-io-with-polite-backend" class="section level3">
+<h3 class="hasAnchor">
+<a href="#querying-colormind-io-with-polite-backend" class="anchor"></a>Querying colormind.io with polite backend</h3>
+<p>Here’s an example from using colormind.io API. We will need a couple of service functions to convert colors between HEX and RGB and to prepare a json <a href="http://colormind.io/api-access/">required by the service</a>.</p>
+<div class="sourceCode" id="cb9"><pre class="r"><span class="no">rgba2hex</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">r</span>,<span class="no">g</span>,<span class="no">b</span>,<span class="no">a</span>) {<span class="kw pkg">grDevices</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(<span class="no">r</span>, <span class="no">g</span>, <span class="no">b</span>, <span class="no">a</span>, <span class="kw">maxColorValue</span> <span class="kw">=</span> <span class="fl">255</span>)}
+
+<span class="no">hex2rgba</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>, <span class="no">alpha</span><span class="kw">=</span><span class="fl">TRUE</span>){<span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="kw pkg">grDevices</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/col2rgb.html">col2rgb</a></span>(<span class="no">x</span>, <span class="kw">alpha</span> <span class="kw">=</span> <span class="no">alpha</span>))}
+
+<span class="no">prepare_colormind_query</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>, <span class="no">model</span>){
+  <span class="no">lst</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">model</span><span class="kw">=</span><span class="no">model</span>)
+
+  <span class="kw">if</span>(!<span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(<span class="no">x</span>)){
+    <span class="no">x</span> <span class="kw">&lt;-</span> <span class="kw pkg">utils</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA_character_</span>, <span class="kw">times</span><span class="kw">=</span><span class="fl">4</span>)), <span class="fl">5</span>) <span class="co"># pad it with NAs</span>
+    <span class="no">x_mat</span> <span class="kw">&lt;-</span> <span class="fu">hex2rgba</span>(<span class="no">x</span>)
+    <span class="no">x_lst</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">x_mat</span>)), <span class="kw">function</span>(<span class="no">i</span>) <span class="kw">if</span>(<span class="no">x_mat</span>[<span class="no">i</span>,<span class="fl">4</span>]<span class="kw">==</span><span class="fl">0</span>) <span class="st">"N"</span> <span class="kw">else</span> <span class="no">x_mat</span>[<span class="no">i</span>,<span class="fl">1</span>:<span class="fl">3</span>])
+    <span class="no">lst</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">input</span><span class="kw">=</span><span class="no">x_lst</span>), <span class="no">lst</span>)
+  }
+  <span class="kw pkg">jsonlite</span><span class="kw ns">::</span><span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">toJSON</a></span>(<span class="no">lst</span>, <span class="kw">auto_unbox</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
+}</pre></div>
+<p>Now all we have to do is to “wrap” existing function in the <code>politely</code> adverb. Then call the new function insted of original. You dont need to change anything other than a function name.</p>
+<div class="sourceCode" id="cb10"><pre class="r"><span class="no">polite_GET</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/politely.html">politely</a></span>(<span class="kw pkg">httr</span><span class="kw ns">::</span><span class="no"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>, <span class="kw">verbose</span><span class="kw">=</span><span class="fl">TRUE</span>)
+
+<span class="co">#res &lt;- httr::GET("http://colormind.io/list") # was</span>
+<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu">polite_GET</span>(<span class="st">"http://colormind.io/list"</span>) <span class="co"># now</span>
+<span class="co">#&gt; Fetching robots.txt</span>
+<span class="co">#&gt; rt_robotstxt_http_getter: normal http get</span>
+<span class="co">#&gt; Warning in request_handler_handler(request = request, handler = on_not_found, :</span>
+<span class="co">#&gt; Event: on_not_found</span>
+<span class="co">#&gt; Warning in request_handler_handler(request = request, handler =</span>
+<span class="co">#&gt; on_file_type_mismatch, : Event: on_file_type_mismatch</span>
+<span class="co">#&gt; Warning in request_handler_handler(request = request, handler =</span>
+<span class="co">#&gt; on_suspect_content, : Event: on_suspect_content</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Success! robots.txt was found at: http://colormind.io/robots.txt</span>
+<span class="co">#&gt; Total of 0 crawl delay rule(s) defined for this host.</span>
+<span class="co">#&gt; Your rate will be set to 1 request every 5 second(s).</span>
+<span class="co">#&gt; Pausing...</span>
+<span class="co">#&gt; Scraping: http://colormind.io/list</span>
+<span class="kw pkg">jsonlite</span><span class="kw ns">::</span><span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">fromJSON</a></span>(<span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="no">res</span>, <span class="kw">as</span> <span class="kw">=</span> <span class="st">"text"</span>))$<span class="no">result</span>
+<span class="co">#&gt; [1] "ui"                 "default"            "christmas_season"  </span>
+<span class="co">#&gt; [4] "nature_photography" "the_wind_rises"     "maple_story"</span></pre></div>
+<p>The backend functionality of <code>polite</code> can be used for <em>any</em> function as long as it has <code>url</code> argument. Here’s an example of polite POST created with adverb <code>politely</code>.</p>
+<div class="sourceCode" id="cb11"><pre class="r"><span class="no">polite_POST</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/politely.html">politely</a></span>(<span class="no">POST</span>, <span class="kw">verbose</span><span class="kw">=</span><span class="fl">TRUE</span>)
+
+<span class="no">clue_colors</span> <span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">NA</span>, <span class="st">"lightseagreen"</span>, <span class="fl">NA</span>, <span class="st">"coral"</span>, <span class="fl">NA</span>)
+
+<span class="no">req</span> <span class="kw">&lt;-</span> <span class="fu">prepare_colormind_query</span>(<span class="no">clue_colors</span>, <span class="st">"default"</span>)
+
+<span class="co">#res &lt;- httr::POST(url='http://colormind.io/api/', body = req) #was</span>
+<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu">polite_POST</span>(<span class="kw">url</span><span class="kw">=</span><span class="st">'http://colormind.io/api/'</span>, <span class="kw">body</span> <span class="kw">=</span> <span class="no">req</span>) <span class="co">#now</span>
+<span class="co">#&gt; Fetching robots.txt</span>
+<span class="co">#&gt; rt_robotstxt_http_getter: cached http get</span>
+<span class="co">#&gt; Warning in request_handler_handler(request = request, handler = on_not_found, :</span>
+<span class="co">#&gt; Event: on_not_found</span>
+<span class="co">#&gt; Warning in request_handler_handler(request = request, handler =</span>
+<span class="co">#&gt; on_file_type_mismatch, : Event: on_file_type_mismatch</span>
+<span class="co">#&gt; Warning in request_handler_handler(request = request, handler =</span>
+<span class="co">#&gt; on_suspect_content, : Event: on_suspect_content</span>
+<span class="co">#&gt; </span>
+<span class="co">#&gt; Success! robots.txt was found at: http://colormind.io/robots.txt</span>
+<span class="co">#&gt; Total of 0 crawl delay rule(s) defined for this host.</span>
+<span class="co">#&gt; Your rate will be set to 1 request every 5 second(s).</span>
+<span class="co">#&gt; Pausing...</span>
+<span class="co">#&gt; Scraping: http://colormind.io/api/</span>
+<span class="no">res_json</span> <span class="kw">&lt;-</span> <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="no">res</span>, <span class="kw">as</span> <span class="kw">=</span> <span class="st">"text"</span>)
+<span class="no">res_mcol</span> <span class="kw">&lt;-</span> <span class="kw pkg">jsonlite</span><span class="kw ns">::</span><span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">fromJSON</a></span>(<span class="no">res_json</span>)$<span class="no">result</span>
+<span class="no">colrs</span> <span class="kw">&lt;-</span> <span class="fu">rgba2hex</span>(<span class="no">res_mcol</span>)
+<span class="kw pkg">scales</span><span class="kw ns">::</span><span class="fu">show_col</span>(<span class="no">colrs</span>, <span class="kw">ncol</span> <span class="kw">=</span> <span class="fl">5</span>)</pre></div>
+<p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="100%"></p>
+</div>
+<div id="querying-musicbrainz-api-with-polite-backend" class="section level3">
+<h3 class="hasAnchor">
+<a href="#querying-musicbrainz-api-with-polite-backend" class="anchor"></a>Querying musicbrainz API with polite backend</h3>
+<p><a href="https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2">Musicbrainz API</a> allows querying data on artists, releases, labels and all things music. API endpoint, unfortunately, is Disallowed in <code>robots.txt</code>, but it is completely legal to access for small size requests. Mass querying is easier using a datadump, with musicbrainz published periodically. We can create polite GET and turn off <code>robots.txt</code> validation.</p>
+<div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">polite</span>)
+<span class="no">polite_GET_nrt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/politely.html">politely</a></span>(<span class="no">GET</span>, <span class="kw">verbose</span><span class="kw">=</span><span class="fl">TRUE</span>, <span class="kw">robots</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="co"># turn off robotstxt checking</span>
+
+<span class="no">beatles_lst</span> <span class="kw">&lt;-</span> <span class="fu">polite_GET_nrt</span>(<span class="st">"https://musicbrainz.org/ws/2/artist/"</span>,
+                   <span class="kw">query</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">query</span><span class="kw">=</span><span class="st">"Beatles"</span>, <span class="kw">limit</span><span class="kw">=</span><span class="fl">10</span>),
+                   <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content_type.html">accept</a></span>(<span class="st">"application/json"</span>)) <span class="kw">%&gt;%</span>
+  <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"application/json"</span>)
+<span class="co">#&gt; Pausing...</span>
+<span class="co">#&gt; Scraping: https://musicbrainz.org/ws/2/artist/</span>
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">beatles_lst</span>, <span class="kw">max.level</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="co">#&gt; List of 4</span>
+<span class="co">#&gt;  $ created: chr "2020-06-13T22:09:32.724Z"</span>
+<span class="co">#&gt;  $ count  : int 129</span>
+<span class="co">#&gt;  $ offset : int 0</span>
+<span class="co">#&gt;  $ artists:List of 10</span>
+<span class="co">#&gt;   ..$ :List of 13</span>
+<span class="co">#&gt;   ..$ :List of 12</span>
+<span class="co">#&gt;   ..$ :List of 8</span>
+<span class="co">#&gt;   ..$ :List of 10</span>
+<span class="co">#&gt;   ..$ :List of 9</span>
+<span class="co">#&gt;   ..$ :List of 5</span>
+<span class="co">#&gt;   ..$ :List of 11</span>
+<span class="co">#&gt;   ..$ :List of 11</span>
+<span class="co">#&gt;   ..$ :List of 10</span>
+<span class="co">#&gt;   ..$ :List of 10</span></pre></div>
+<p>Lets parse the response</p>
+<div class="sourceCode" id="cb13"><pre class="r"><span class="no">beatles_lst</span> <span class="kw">%&gt;%</span>
+  <span class="fu"><a href="https://rdrr.io/pkg/magrittr/man/aliases.html">extract2</a></span>(<span class="st">"artists"</span>) <span class="kw">%&gt;%</span>
+  {<span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">id</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>,<span class="st">"id"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
+                  <span class="kw">match_pct</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_int</a></span>(<span class="no">.</span>,<span class="st">"score"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
+                  <span class="kw">type</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>,<span class="st">"type"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
+                  <span class="kw">name</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>, <span class="st">"name"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
+                  <span class="kw">country</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>, <span class="st">"country"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
+                  <span class="kw">lifespan_begin</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"life-span"</span>, <span class="st">"begin"</span>),<span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
+                  <span class="kw">lifespan_end</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"life-span"</span>, <span class="st">"end"</span>),<span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>)
+                  )
+    } <span class="kw">%&gt;%</span> <span class="kw pkg">knitr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">col.names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">id</span><span class="kw">=</span><span class="st">"Musicbrainz ID"</span>, <span class="kw">match_pct</span><span class="kw">=</span><span class="st">"Match, %"</span>,
+                                     <span class="kw">type</span><span class="kw">=</span><span class="st">"Type"</span>, <span class="kw">name</span><span class="kw">=</span><span class="st">"Name of artist"</span>,
+                                     <span class="kw">country</span><span class="kw">=</span><span class="st">"Country"</span>, <span class="kw">lifespan_begin</span><span class="kw">=</span><span class="st">"Career begun"</span>,
+                                     <span class="kw">lifespan_end</span><span class="kw">=</span><span class="st">"Career ended"</span>))</pre></div>
+<table class="table">
+<colgroup>
+<col width="36%">
+<col width="8%">
+<col width="5%">
+<col width="19%">
+<col width="7%">
+<col width="12%">
+<col width="12%">
+</colgroup>
+<thead><tr class="header">
+<th align="left">Musicbrainz ID</th>
+<th align="right">Match, %</th>
+<th align="left">Type</th>
+<th align="left">Name of artist</th>
+<th align="left">Country</th>
+<th align="left">Career begun</th>
+<th align="left">Career ended</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td align="left">b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d</td>
+<td align="right">100</td>
+<td align="left">Group</td>
+<td align="left">The Beatles</td>
+<td align="left">GB</td>
+<td align="left">1957-03</td>
+<td align="left">1970-04-10</td>
+</tr>
+<tr class="even">
+<td align="left">5e685f9e-83bb-423c-acfa-487e34f15ffd</td>
+<td align="right">76</td>
+<td align="left">Group</td>
+<td align="left">The Tape-beatles</td>
+<td align="left">US</td>
+<td align="left">1986-12</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">e897e5fc-2707-49c8-8605-be82b4664dc5</td>
+<td align="right">75</td>
+<td align="left">Group</td>
+<td align="left">Sex Beatles</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">1019b551-eba7-4e7c-bc7d-eb427ef54df2</td>
+<td align="right">75</td>
+<td align="left">Group</td>
+<td align="left">Blues Beatles</td>
+<td align="left">BR</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">bc569a61-dd62-4758-86c6-e99dcb1fdda6</td>
+<td align="right">74</td>
+<td align="left">NA</td>
+<td align="left">Tokyo Beatles</td>
+<td align="left">JP</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">3133aeb8-9982-4e11-a8ff-5477996a80bf</td>
+<td align="right">74</td>
+<td align="left">NA</td>
+<td align="left">Beatles Chillout</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="odd">
+<td align="left">35574687-3a4d-4b30-a01a-43fea73b3430</td>
+<td align="right">74</td>
+<td align="left">Group</td>
+<td align="left">Them Beatles</td>
+<td align="left">GB</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">de0769fa-7c32-4706-9c8c-03631c90f208</td>
+<td align="right">74</td>
+<td align="left">Group</td>
+<td align="left">Shitty Beatles</td>
+<td align="left">NA</td>
+<td align="left">2005</td>
+<td align="left">2015-04-19</td>
+</tr>
+<tr class="odd">
+<td align="left">ad60d963-44f1-4b41-b785-8284edcaaffe</td>
+<td align="right">74</td>
+<td align="left">Group</td>
+<td align="left">Counterfeit Beatles</td>
+<td align="left">GB</td>
+<td align="left">NA</td>
+<td align="left">NA</td>
+</tr>
+<tr class="even">
+<td align="left">7cac6d47-ef4e-4347-8835-63ed3f2e74a7</td>
+<td align="right">74</td>
+<td align="left">Group</td>
+<td align="left">Beatles Back2Back</td>
+<td align="left">AU</td>
+<td align="left">2011</td>
+<td align="left">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="learn-more" class="section level2">
+<h2 class="hasAnchor">
+<a href="#learn-more" class="anchor"></a>Learn more</h2>
+<p><a href="https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01">Ethical webscraper manifesto</a></p>
 <p>Package logo uses elements of a free image by <a href="https://pngtree.com">pngtree.com</a></p>
 <p><br><span class="math display">1</span><br> Wiktionary (2018), The free dictionary, retrieved from <a href="https://en.wiktionary.org/wiki/bow_and_scrape" class="uri">https://en.wiktionary.org/wiki/bow_and_scrape</a></p>
 </div>

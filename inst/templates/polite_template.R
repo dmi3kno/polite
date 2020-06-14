@@ -79,12 +79,12 @@ polite_read_html <- memoise::memoise(
   if(!check_rtxt(url, delay, user_agent, force, verbose)){
     return(NULL)
   }
-
-  old_ua <-  getOption("HTTPUserAgent")
-  options("HTTPUserAgent"= user_agent)
+# this is not working yet.
+#  old_ua <-  getOption("HTTPUserAgent")
+#  options("HTTPUserAgent"= user_agent)
   if(verbose) message("Scraping: ", url)
-  res <- httr::GET(url, ...)
-  options("HTTPUserAgent"= old_ua)
+  res <- httr::GET(url, user_agent(user_agent), ...)
+#  options("HTTPUserAgent"= old_ua)
   httr::content(res)
 })
 

@@ -222,7 +222,7 @@ res <- polite_GET("http://colormind.io/list") # now
 jsonlite::fromJSON(httr::content(res, as = "text"))$result
 ```
 
-The backend functionality of `polite` can be used for *any* function as long as it has `url` argument. Here's an example of polite POST created with adverb `politely`.
+The backend functionality of `polite` can be used for *any* function as long as it has `url` argument (or the first argument is a url). Here's an example of polite POST created with adverb `politely`.
 
 ```{r}
 polite_POST <- politely(POST, verbose=TRUE) 
@@ -257,6 +257,7 @@ str(beatles_lst, max.level = 2)
 Lets parse the response
 
 ```{r}
+options(knitr.kable.NA = '')
 beatles_lst %>%   
   extract2("artists") %>% 
   {tibble::tibble(id=map_chr(.,"id", .default=NA_character_),
@@ -270,9 +271,8 @@ beatles_lst %>%
     } %>% knitr::kable(col.names = c(id="Musicbrainz ID", match_pct="Match, %", 
                                      type="Type", name="Name of artist",
                                      country="Country", lifespan_begin="Career begun",
-                                     lifespan_end="Career ended"))
+                                     lifespan_end="Career ended")) 
 ```
-
 
 ## Learn more
 

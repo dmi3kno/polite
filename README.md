@@ -281,7 +281,7 @@ if(!is.null(beatles_res)) beatles_lst <- httr::content(beatles_res, type = "appl
 
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2020-06-13T22:09:32.724Z"
+#>  $ created: chr "2020-06-14T16:51:08.730Z"
 #>  $ count  : int 129
 #>  $ offset : int 0
 #>  $ artists:List of 10
@@ -355,13 +355,13 @@ res <- polite_GET("http://colormind.io/list") # now
 #> Pausing...
 #> Scraping: http://colormind.io/list
 jsonlite::fromJSON(httr::content(res, as = "text"))$result
-#> [1] "ui"                 "default"            "christmas_season"  
-#> [4] "nature_photography" "the_wind_rises"     "maple_story"
+#> [1] "ui"                "default"           "kaguya_film"      
+#> [4] "the_fall"          "only_god_forgives" "paper_mario"
 ```
 
 The backend functionality of `polite` can be used for *any* function as
-long as it has `url` argument. Here’s an example of polite POST created
-with adverb `politely`.
+long as it has `url` argument (or the first argument is a url). Here’s
+an example of polite POST created with adverb `politely`.
 
 ``` r
 polite_POST <- politely(POST, verbose=TRUE) 
@@ -416,7 +416,7 @@ beatles_lst <- polite_GET_nrt("https://musicbrainz.org/ws/2/artist/",
 #> Scraping: https://musicbrainz.org/ws/2/artist/
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2020-06-13T22:09:32.724Z"
+#>  $ created: chr "2020-06-14T16:51:08.730Z"
 #>  $ count  : int 129
 #>  $ offset : int 0
 #>  $ artists:List of 10
@@ -435,6 +435,7 @@ str(beatles_lst, max.level = 2)
 Lets parse the response
 
 ``` r
+options(knitr.kable.NA = '')
 beatles_lst %>%   
   extract2("artists") %>% 
   {tibble::tibble(id=map_chr(.,"id", .default=NA_character_),
@@ -448,21 +449,21 @@ beatles_lst %>%
     } %>% knitr::kable(col.names = c(id="Musicbrainz ID", match_pct="Match, %", 
                                      type="Type", name="Name of artist",
                                      country="Country", lifespan_begin="Career begun",
-                                     lifespan_end="Career ended"))
+                                     lifespan_end="Career ended")) 
 ```
 
 | Musicbrainz ID                       | Match, % | Type  | Name of artist      | Country | Career begun | Career ended |
 | :----------------------------------- | -------: | :---- | :------------------ | :------ | :----------- | :----------- |
 | b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d |      100 | Group | The Beatles         | GB      | 1957-03      | 1970-04-10   |
-| 5e685f9e-83bb-423c-acfa-487e34f15ffd |       76 | Group | The Tape-beatles    | US      | 1986-12      | NA           |
-| e897e5fc-2707-49c8-8605-be82b4664dc5 |       75 | Group | Sex Beatles         | NA      | NA           | NA           |
-| 1019b551-eba7-4e7c-bc7d-eb427ef54df2 |       75 | Group | Blues Beatles       | BR      | NA           | NA           |
-| bc569a61-dd62-4758-86c6-e99dcb1fdda6 |       74 | NA    | Tokyo Beatles       | JP      | NA           | NA           |
-| 3133aeb8-9982-4e11-a8ff-5477996a80bf |       74 | NA    | Beatles Chillout    | NA      | NA           | NA           |
-| 35574687-3a4d-4b30-a01a-43fea73b3430 |       74 | Group | Them Beatles        | GB      | NA           | NA           |
-| de0769fa-7c32-4706-9c8c-03631c90f208 |       74 | Group | Shitty Beatles      | NA      | 2005         | 2015-04-19   |
-| ad60d963-44f1-4b41-b785-8284edcaaffe |       74 | Group | Counterfeit Beatles | GB      | NA           | NA           |
-| 7cac6d47-ef4e-4347-8835-63ed3f2e74a7 |       74 | Group | Beatles Back2Back   | AU      | 2011         | NA           |
+| 5e685f9e-83bb-423c-acfa-487e34f15ffd |       76 | Group | The Tape-beatles    | US      | 1986-12      |              |
+| e897e5fc-2707-49c8-8605-be82b4664dc5 |       75 | Group | Sex Beatles         |         |              |              |
+| 1019b551-eba7-4e7c-bc7d-eb427ef54df2 |       75 | Group | Blues Beatles       | BR      |              |              |
+| bc569a61-dd62-4758-86c6-e99dcb1fdda6 |       74 |       | Tokyo Beatles       | JP      |              |              |
+| 3133aeb8-9982-4e11-a8ff-5477996a80bf |       74 |       | Beatles Chillout    |         |              |              |
+| 35574687-3a4d-4b30-a01a-43fea73b3430 |       74 | Group | Them Beatles        | GB      |              |              |
+| de0769fa-7c32-4706-9c8c-03631c90f208 |       74 | Group | Shitty Beatles      |         | 2005         | 2015-04-19   |
+| ad60d963-44f1-4b41-b785-8284edcaaffe |       74 | Group | Counterfeit Beatles | GB      |              |              |
+| 7cac6d47-ef4e-4347-8835-63ed3f2e74a7 |       74 | Group | Beatles Back2Back   | AU      | 2011         |              |
 
 ## Learn more
 

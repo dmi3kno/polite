@@ -245,7 +245,7 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">beatles_lst</span>, <span class="kw">max.level</span> <span class="kw">=</span> <span class="fl">2</span>)
 <span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ created: chr "2020-06-13T22:09:32.724Z"</span>
+<span class="co">#&gt;  $ created: chr "2020-06-14T16:51:08.730Z"</span>
 <span class="co">#&gt;  $ count  : int 129</span>
 <span class="co">#&gt;  $ offset : int 0</span>
 <span class="co">#&gt;  $ artists:List of 10</span>
@@ -301,9 +301,9 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt; Pausing...</span>
 <span class="co">#&gt; Scraping: http://colormind.io/list</span>
 <span class="kw pkg">jsonlite</span><span class="kw ns">::</span><span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">fromJSON</a></span>(<span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="no">res</span>, <span class="kw">as</span> <span class="kw">=</span> <span class="st">"text"</span>))$<span class="no">result</span>
-<span class="co">#&gt; [1] "ui"                 "default"            "christmas_season"  </span>
-<span class="co">#&gt; [4] "nature_photography" "the_wind_rises"     "maple_story"</span></pre></div>
-<p>The backend functionality of <code>polite</code> can be used for <em>any</em> function as long as it has <code>url</code> argument. Here’s an example of polite POST created with adverb <code>politely</code>.</p>
+<span class="co">#&gt; [1] "ui"                "default"           "kaguya_film"      </span>
+<span class="co">#&gt; [4] "the_fall"          "only_god_forgives" "paper_mario"</span></pre></div>
+<p>The backend functionality of <code>polite</code> can be used for <em>any</em> function as long as it has <code>url</code> argument (or the first argument is a url). Here’s an example of polite POST created with adverb <code>politely</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="r"><span class="no">polite_POST</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/politely.html">politely</a></span>(<span class="no">POST</span>, <span class="kw">verbose</span><span class="kw">=</span><span class="fl">TRUE</span>)
 
 <span class="no">clue_colors</span> <span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">NA</span>, <span class="st">"lightseagreen"</span>, <span class="fl">NA</span>, <span class="st">"coral"</span>, <span class="fl">NA</span>)
@@ -347,7 +347,7 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt; Scraping: https://musicbrainz.org/ws/2/artist/</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">beatles_lst</span>, <span class="kw">max.level</span> <span class="kw">=</span> <span class="fl">2</span>)
 <span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ created: chr "2020-06-13T22:09:32.724Z"</span>
+<span class="co">#&gt;  $ created: chr "2020-06-14T16:51:08.730Z"</span>
 <span class="co">#&gt;  $ count  : int 129</span>
 <span class="co">#&gt;  $ offset : int 0</span>
 <span class="co">#&gt;  $ artists:List of 10</span>
@@ -362,7 +362,8 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt;   ..$ :List of 10</span>
 <span class="co">#&gt;   ..$ :List of 10</span></pre></div>
 <p>Lets parse the response</p>
-<div class="sourceCode" id="cb13"><pre class="r"><span class="no">beatles_lst</span> <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb13"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">knitr.kable.NA</span> <span class="kw">=</span> <span class="st">''</span>)
+<span class="no">beatles_lst</span> <span class="kw">%&gt;%</span>
   <span class="fu"><a href="https://rdrr.io/pkg/magrittr/man/aliases.html">extract2</a></span>(<span class="st">"artists"</span>) <span class="kw">%&gt;%</span>
   {<span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">id</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>,<span class="st">"id"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
                   <span class="kw">match_pct</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_int</a></span>(<span class="no">.</span>,<span class="st">"score"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
@@ -412,16 +413,16 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <td align="left">The Tape-beatles</td>
 <td align="left">US</td>
 <td align="left">1986-12</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">e897e5fc-2707-49c8-8605-be82b4664dc5</td>
 <td align="right">75</td>
 <td align="left">Group</td>
 <td align="left">Sex Beatles</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">1019b551-eba7-4e7c-bc7d-eb427ef54df2</td>
@@ -429,26 +430,26 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <td align="left">Group</td>
 <td align="left">Blues Beatles</td>
 <td align="left">BR</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">bc569a61-dd62-4758-86c6-e99dcb1fdda6</td>
 <td align="right">74</td>
-<td align="left">NA</td>
+<td align="left"></td>
 <td align="left">Tokyo Beatles</td>
 <td align="left">JP</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">3133aeb8-9982-4e11-a8ff-5477996a80bf</td>
 <td align="right">74</td>
-<td align="left">NA</td>
+<td align="left"></td>
 <td align="left">Beatles Chillout</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr class="odd">
 <td align="left">35574687-3a4d-4b30-a01a-43fea73b3430</td>
@@ -456,15 +457,15 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <td align="left">Group</td>
 <td align="left">Them Beatles</td>
 <td align="left">GB</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">de0769fa-7c32-4706-9c8c-03631c90f208</td>
 <td align="right">74</td>
 <td align="left">Group</td>
 <td align="left">Shitty Beatles</td>
-<td align="left">NA</td>
+<td align="left"></td>
 <td align="left">2005</td>
 <td align="left">2015-04-19</td>
 </tr>
@@ -474,8 +475,8 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <td align="left">Group</td>
 <td align="left">Counterfeit Beatles</td>
 <td align="left">GB</td>
-<td align="left">NA</td>
-<td align="left">NA</td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr class="even">
 <td align="left">7cac6d47-ef4e-4347-8835-63ed3f2e74a7</td>
@@ -484,7 +485,7 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <td align="left">Beatles Back2Back</td>
 <td align="left">AU</td>
 <td align="left">2011</td>
-<td align="left">NA</td>
+<td align="left"></td>
 </tr>
 </tbody>
 </table>

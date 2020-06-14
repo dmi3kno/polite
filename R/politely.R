@@ -48,8 +48,8 @@ politely <- function(fun, user_agent=paste0("polite ", getOption("HTTPUserAgent"
   f_formals <- formals(args(fun))
   mem_fun <- memoise::memoise(fun, cache=cache)
 
-  if(!"url" %in% names(f_formals))
-    warning("It does not look like there's an argument with the name 'url' in this function. polite::politely() will assume that first argument is a url.", call.=FALSE)
+  if(!"url" %in% names(f_formals) && verbose)
+    message("It does not look like there's an argument with the name 'url' in this function. polite::politely() will assume that first argument is a url.")
 
   function(...){
     arg_lst <- list(...)

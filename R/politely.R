@@ -49,13 +49,22 @@ politely <- function(fun, user_agent=paste0("polite ", getOption("HTTPUserAgent"
   mem_fun <- memoise::memoise(fun, cache=cache)
 
   if(!"url" %in% names(f_formals))
-    stop("It does not look like there's an argument with the name 'url' in this function.
-            polite::politely() only works with functions access the web. Aborting.", call.=FALSE)
+    warning("It does not look like there's an argument with the name 'url' in this function. polite::politely() will assume that first argument is a url.", call.=FALSE)
 
   function(...){
     arg_lst <- list(...)
     af <- match_to_formals(arg_lst, f_formals)
-    url <- af[["url"]]
+    if("url" %in% names(af) && is_url(af[["url"]])){
+      url <- af[["url"]]
+    } else {
+      if(is_url(af[[1]])){
+        url <- af[[1]]
+      } else {
+        stop("I can't find an argument containing url. Aborting", call. = FALSE)
+        return(NULL)
+      }
+    }
+
 
     if(robots){
 

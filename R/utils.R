@@ -79,3 +79,10 @@ guess_basename <- function(x) {
   }}
   destfile %otherwise% basename(x)
 }
+
+
+is_url <- function(x){
+  # from Jim Hester's rex vignette https://cran.r-project.org/web/packages/rex/vignettes/url_parsing.html
+  re <- "^(?:(?:http(?:s)?|ftp)://)(?:\\S+(?::(?:\\S)*)?@)?(?:(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)(?:\\.(?:[a-z0-9\u00a1-\uffff](?:-)*)*(?:[a-z0-9\u00a1-\uffff])+)*(?:\\.(?:[a-z0-9\u00a1-\uffff]){2,})(?::(?:\\d){2,5})?(?:/(?:\\S)*)?$"
+  grepl(re, x)
+}

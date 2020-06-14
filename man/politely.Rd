@@ -17,7 +17,7 @@ politely(
 \arguments{
 \item{fun}{function to be turned "polite". Must contain an argument named \code{url}, which contains url to be queried.}
 
-\item{user_agent}{optional, user agent string to be used. Defaults to \code{paste0("polite ", getOption("HTTPUserAgent"), "bot")}}
+\item{user_agent}{optional, user agent string to be used. Defaults to \code{paste("polite", getOption("HTTPUserAgent"), "bot")}}
 
 \item{robots}{optional, should robots.txt be consulted for permissions. Default is TRUE}
 

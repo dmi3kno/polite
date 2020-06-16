@@ -281,7 +281,7 @@ if(!is.null(beatles_res)) beatles_lst <- httr::content(beatles_res, type = "appl
 
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2020-06-14T16:51:08.730Z"
+#>  $ created: chr "2020-06-16T13:27:09.252Z"
 #>  $ count  : int 129
 #>  $ offset : int 0
 #>  $ artists:List of 10
@@ -349,14 +349,15 @@ res <- polite_GET("http://colormind.io/list") # now
 #> Warning in request_handler_handler(request = request, handler =
 #> on_suspect_content, : Event: on_suspect_content
 #> 
-#> Success! robots.txt was found at: http://colormind.io/robots.txt
+#> New copy robots.txt was fetched from http://colormind.io/robots.txt
 #> Total of 0 crawl delay rule(s) defined for this host.
 #> Your rate will be set to 1 request every 5 second(s).
 #> Pausing...
 #> Scraping: http://colormind.io/list
+#> Setting useragent: polite R (3.6.3 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
 jsonlite::fromJSON(httr::content(res, as = "text"))$result
-#> [1] "ui"                "default"           "kaguya_film"      
-#> [4] "the_fall"          "only_god_forgives" "paper_mario"
+#> [1] "ui"                 "default"            "city_photography"  
+#> [4] "makoto_shinkai"     "sunset_photography" "only_god_forgives"
 ```
 
 The backend functionality of `polite` can be used for *any* function as
@@ -381,11 +382,12 @@ res <- polite_POST(url='http://colormind.io/api/', body = req) #now
 #> Warning in request_handler_handler(request = request, handler =
 #> on_suspect_content, : Event: on_suspect_content
 #> 
-#> Success! robots.txt was found at: http://colormind.io/robots.txt
+#> Found the cached version of robots.txt for http://colormind.io/robots.txt
 #> Total of 0 crawl delay rule(s) defined for this host.
 #> Your rate will be set to 1 request every 5 second(s).
 #> Pausing...
 #> Scraping: http://colormind.io/api/
+#> Setting useragent: polite R (3.6.3 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
 res_json <- httr::content(res, as = "text")
 res_mcol <- jsonlite::fromJSON(res_json)$result
 colrs <- rgba2hex(res_mcol)
@@ -414,9 +416,10 @@ beatles_lst <- polite_GET_nrt("https://musicbrainz.org/ws/2/artist/",
   httr::content(type = "application/json")
 #> Pausing...
 #> Scraping: https://musicbrainz.org/ws/2/artist/
+#> Setting useragent: polite R (3.6.3 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2020-06-14T16:51:08.730Z"
+#>  $ created: chr "2020-06-16T13:27:09.252Z"
 #>  $ count  : int 129
 #>  $ offset : int 0
 #>  $ artists:List of 10

@@ -128,14 +128,14 @@
     <p>Agree modification of session path with the host</p>
     </div>
 
-    <pre class="usage"><span class='fu'>nod</span>(<span class='no'>bow</span>, <span class='no'>path</span>, <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/polite/man/nod.html'>nod</a></span>(<span class='kw'>bow</span>, <span class='kw'>path</span>, verbose = <span class='fl'>FALSE</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>bow</th>
-      <td><p>object of class <code>polite</code>, <code>session</code> created by <code><a href='bow.html'>polite::bow()</a></code></p></td>
+      <td><p>object of class <code>polite</code>, <code>session</code> created by <code><a href='https://rdrr.io/pkg/polite/man/bow.html'>polite::bow()</a></code></p></td>
     </tr>
     <tr>
       <th>path</th>
@@ -153,12 +153,12 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
- <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>polite</span>)
+ <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/dmi3kno/polite'>polite</a></span>)
 
- <span class='no'>host</span> <span class='kw'>&lt;-</span> <span class='st'>"https://www.cheese.com"</span>
- <span class='no'>session</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='bow.html'>bow</a></span>(<span class='no'>host</span>) <span class='kw'>%&gt;%</span>
-              <span class='fu'>nod</span>(<span class='kw'>path</span><span class='kw'>=</span><span class='st'>"by_type"</span>)
- <span class='no'>session</span></div><div class='output co'>#&gt; &lt;polite session&gt; https://www.cheese.com/by_type
+ <span class='kw'>host</span> <span class='op'>&lt;-</span> <span class='st'>"https://www.cheese.com"</span>
+ <span class='kw'>session</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/polite/man/bow.html'>bow</a></span>(<span class='kw'>host</span>) <span class='op'>%&gt;%</span>
+              <span class='fu'><a href='https://rdrr.io/pkg/polite/man/nod.html'>nod</a></span>(path=<span class='st'>"by_type"</span>)
+ <span class='kw'>session</span></div><div class='output co'>#&gt; &lt;polite session&gt; https://www.cheese.com/by_type
 #&gt;     User-agent: polite R package - https://github.com/dmi3kno/polite
 #&gt;     robots.txt: 0 rules are defined for 1 bots
 #&gt;    Crawl delay: 5 sec

@@ -128,14 +128,14 @@
     <p>Give your web-scraping function good manners polite</p>
     </div>
 
-    <pre class="usage"><span class='fu'>politely</span>(
-  <span class='no'>fun</span>,
-  <span class='kw'>user_agent</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"polite "</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"HTTPUserAgent"</span>), <span class='st'>"bot"</span>),
-  <span class='kw'>robots</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>delay</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>cache</span> <span class='kw'>=</span> <span class='kw pkg'>memoise</span><span class='kw ns'>::</span><span class='fu'><a href='https://rdrr.io/pkg/memoise/man/cache_memory.html'>cache_memory</a></span>()
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/polite/man/politely.html'>politely</a></span>(
+  <span class='kw'>fun</span>,
+  user_agent = <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste0</a></span>(<span class='st'>"polite "</span>, <span class='fu'><a href='https://rdrr.io/r/base/options.html'>getOption</a></span>(<span class='st'>"HTTPUserAgent"</span>), <span class='st'>" bot"</span>),
+  robots = <span class='fl'>TRUE</span>,
+  force = <span class='fl'>FALSE</span>,
+  delay = <span class='fl'>5</span>,
+  verbose = <span class='fl'>FALSE</span>,
+  cache = <span class='kw'>memoise</span>::<span class='fu'><a href='https://rdrr.io/pkg/memoise/man/cache_memory.html'>cache_memory</a></span>()
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -177,7 +177,7 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'>
-<span class='no'>polite_GET</span> <span class='kw'>&lt;-</span> <span class='fu'>politely</span>(<span class='kw pkg'>httr</span><span class='kw ns'>::</span><span class='no'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>)</div></pre>
+<span class='kw'>polite_GET</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/polite/man/politely.html'>politely</a></span>(<span class='kw'>httr</span>::<span class='kw'><a href='https://httr.r-lib.org/reference/GET.html'>GET</a></span>)</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

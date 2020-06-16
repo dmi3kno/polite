@@ -128,13 +128,13 @@
     <p>Polite file download</p>
     </div>
 
-    <pre class="usage"><span class='fu'>rip</span>(
-  <span class='no'>bow</span>,
-  <span class='kw'>destfile</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='no'>...</span>,
-  <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"wb"</span>,
-  <span class='kw'>path</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(),
-  <span class='kw'>overwrite</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/polite/man/rip.html'>rip</a></span>(
+  <span class='kw'>bow</span>,
+  destfile = <span class='kw'>NULL</span>,
+  <span class='kw'>...</span>,
+  mode = <span class='st'>"wb"</span>,
+  path = <span class='fu'><a href='https://rdrr.io/r/base/tempfile.html'>tempdir</a></span>(),
+  overwrite = <span class='fl'>FALSE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -142,7 +142,7 @@
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>bow</th>
-      <td><p>host introduction object of class <code>polite</code>, <code>session</code> created by <code><a href='bow.html'>bow()</a></code> or <code><a href='nod.html'>nod()</a></code></p></td>
+      <td><p>host introduction object of class <code>polite</code>, <code>session</code> created by <code><a href='https://rdrr.io/pkg/polite/man/bow.html'>bow()</a></code> or <code><a href='https://rdrr.io/pkg/polite/man/nod.html'>nod()</a></code></p></td>
     </tr>
     <tr>
       <th>destfile</th>
@@ -173,9 +173,9 @@ Ignored if <code>destfile</code> contains path along with filename.</p></td>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'><a href='bow.html'>bow</a></span>(<span class='st'>"https://www.cheese.com/"</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'><a href='nod.html'>nod</a></span>(<span class='st'>"media/img/sub-page-slide2.jpg"</span>) <span class='kw'>%&gt;%</span>
- <span class='fu'>rip</span>()</div><div class='output co'>#&gt; [1] "/tmp/RtmpWzMU8H/sub-page-slide2.jpg"</div><div class='input'><span class='co'># }</span></div></pre>
+<span class='fu'><a href='https://rdrr.io/pkg/polite/man/bow.html'>bow</a></span>(<span class='st'>"https://www.cheese.com/"</span>) <span class='op'>%&gt;%</span>
+ <span class='fu'><a href='https://rdrr.io/pkg/polite/man/nod.html'>nod</a></span>(<span class='st'>"media/img/sub-page-slide2.jpg"</span>) <span class='op'>%&gt;%</span>
+ <span class='fu'><a href='https://rdrr.io/pkg/polite/man/rip.html'>rip</a></span>()</div><div class='output co'>#&gt; [1] "/tmp/Rtmpak6Gv6/sub-page-slide2.jpg"</div><div class='input'><span class='co'># }</span></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">

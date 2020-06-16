@@ -128,16 +128,16 @@
     <p>Introduce yourself to the host</p>
     </div>
 
-    <pre class="usage"><span class='fu'>bow</span>(
-  <span class='no'>url</span>,
-  <span class='kw'>user_agent</span> <span class='kw'>=</span> <span class='st'>"polite R package - https://github.com/dmi3kno/polite"</span>,
-  <span class='kw'>delay</span> <span class='kw'>=</span> <span class='fl'>5</span>,
-  <span class='kw'>force</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>verbose</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/polite/man/bow.html'>bow</a></span>(
+  <span class='kw'>url</span>,
+  user_agent = <span class='st'>"polite R package - https://github.com/dmi3kno/polite"</span>,
+  delay = <span class='fl'>5</span>,
+  force = <span class='fl'>FALSE</span>,
+  verbose = <span class='fl'>FALSE</span>,
+  <span class='kw'>...</span>
 )
 
-<span class='fu'>is.polite</span>(<span class='no'>x</span>)</pre>
+<span class='fu'><a href='https://rdrr.io/pkg/polite/man/bow.html'>is.polite</a></span>(<span class='kw'>x</span>)</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -178,11 +178,11 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
- <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>polite</span>)
+ <span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/dmi3kno/polite'>polite</a></span>)
 
- <span class='no'>host</span> <span class='kw'>&lt;-</span> <span class='st'>"https://www.cheese.com"</span>
- <span class='no'>session</span> <span class='kw'>&lt;-</span> <span class='fu'>bow</span>(<span class='no'>host</span>)
- <span class='no'>session</span></div><div class='output co'>#&gt; &lt;polite session&gt; https://www.cheese.com
+ <span class='kw'>host</span> <span class='op'>&lt;-</span> <span class='st'>"https://www.cheese.com"</span>
+ <span class='kw'>session</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/polite/man/bow.html'>bow</a></span>(<span class='kw'>host</span>)
+ <span class='kw'>session</span></div><div class='output co'>#&gt; &lt;polite session&gt; https://www.cheese.com
 #&gt;     User-agent: polite R package - https://github.com/dmi3kno/polite
 #&gt;     robots.txt: 0 rules are defined for 1 bots
 #&gt;    Crawl delay: 5 sec

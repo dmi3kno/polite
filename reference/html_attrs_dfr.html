@@ -128,12 +128,12 @@
     <p>Convert collection of html nodes into data frame</p>
     </div>
 
-    <pre class="usage"><span class='fu'>html_attrs_dfr</span>(
-  <span class='no'>x</span>,
-  <span class='kw'>attrs</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>trim</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>defaults</span> <span class='kw'>=</span> <span class='fl'>NA_character_</span>,
-  <span class='kw'>add_text</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>
+    <pre class="usage"><span class='fu'><a href='https://rdrr.io/pkg/polite/man/html_attrs_dfr.html'>html_attrs_dfr</a></span>(
+  <span class='kw'>x</span>,
+  attrs = <span class='kw'>NULL</span>,
+  trim = <span class='fl'>FALSE</span>,
+  defaults = <span class='fl'>NA_character_</span>,
+  add_text = <span class='fl'>TRUE</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -167,11 +167,11 @@
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='co'># \donttest{</span>
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>polite</span>)
-<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>rvest</span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: xml2</span></div><div class='input'><span class='fu'><a href='bow.html'>bow</a></span>(<span class='st'>"https://en.wikipedia.org/wiki/List_of_cognitive_biases"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='scrape.html'>scrape</a></span>() <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span>(<span class='st'>"tr td:nth-child(1) a"</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'>html_attrs_dfr</span>()</div><div class='output co'>#&gt;                                                      href
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='https://github.com/dmi3kno/polite'>polite</a></span>)
+<span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='kw'><a href='http://rvest.tidyverse.org'>rvest</a></span>)</div><div class='output co'>#&gt; <span class='message'>Loading required package: xml2</span></div><div class='input'><span class='fu'><a href='https://rdrr.io/pkg/polite/man/bow.html'>bow</a></span>(<span class='st'>"https://en.wikipedia.org/wiki/List_of_cognitive_biases"</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/polite/man/scrape.html'>scrape</a></span>() <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rvest.tidyverse.org/reference/html_nodes.html'>html_nodes</a></span>(<span class='st'>"tr td:nth-child(1) a"</span>) <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/polite/man/html_attrs_dfr.html'>html_attrs_dfr</a></span>()</div><div class='output co'>#&gt;                                                      href
 #&gt; 1                                   /wiki/Agent_detection
 #&gt; 2                                  /wiki/Ambiguity_effect
 #&gt; 3                                         /wiki/Anchoring

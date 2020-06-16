@@ -96,51 +96,58 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p>You can install <code>polite</code> from <a href="https://cran.r-project.org/">CRAN</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"polite"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"polite"</span>)
+</pre></div>
 <p>Development version of the package can be installed from <a href="https://www.github.com/dmi3kno/polite">Github</a> with:</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
-<span class="kw pkg">remotes</span><span class="kw ns">::</span><span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"dmi3kno/polite"</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/utils/install.packages.html">install.packages</a></span>(<span class="st">"remotes"</span>)
+<span class="kw">remotes</span>::<span class="fu"><a href="https://remotes.r-lib.org/reference/install_github.html">install_github</a></span>(<span class="st">"dmi3kno/polite"</span>)
+</pre></div>
 </div>
 <div id="basic-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#basic-example" class="anchor"></a>Basic Example</h2>
 <p>This is a basic example which shows how to retrieve the list of semi-soft cheeses from www.cheese.com. Here, we authenticate a session and then scrape the page with specified parameters. Behind the scenes <code>polite</code> retrieves <code>robots.txt</code>, checks the URL and user agent string against it, caches the call to <code>robots.txt</code> and to the web page and enforces rate limiting.</p>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">polite</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rvest</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/dmi3kno/polite">polite</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://rvest.tidyverse.org">rvest</a></span>)
 
-<span class="no">session</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/bow.html">bow</a></span>(<span class="st">"https://www.cheese.com/by_type"</span>, <span class="kw">force</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-<span class="no">result</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/scrape.html">scrape</a></span>(<span class="no">session</span>, <span class="kw">query</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">t</span><span class="kw">=</span><span class="st">"semi-soft"</span>, <span class="kw">per_page</span><span class="kw">=</span><span class="fl">100</span>)) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_node</a></span>(<span class="st">"#main-body"</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="st">"h3"</span>) <span class="kw">%&gt;%</span>
+<span class="kw">session</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bow.html">bow</a></span>(<span class="st">"https://www.cheese.com/by_type"</span>, force = <span class="fl">TRUE</span>)
+<span class="kw">result</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/scrape.html">scrape</a></span>(<span class="kw">session</span>, query=<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(t=<span class="st">"semi-soft"</span>, per_page=<span class="fl">100</span>)) <span class="op">%&gt;%</span>
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_node</a></span>(<span class="st">"#main-body"</span>) <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="st">"h3"</span>) <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span>()
-<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">result</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="kw">result</span>)
 <span class="co">#&gt; [1] "3-Cheese Italian Blend"  "Abbaye de Citeaux"      </span>
 <span class="co">#&gt; [3] "Abbaye du Mont des Cats" "Adelost"                </span>
-<span class="co">#&gt; [5] "ADL Brick Cheese"        "Ailsa Craig"</span></pre></div>
+<span class="co">#&gt; [5] "ADL Brick Cheese"        "Ailsa Craig"</span>
+</pre></div>
 </div>
 <div id="extended-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#extended-example" class="anchor"></a>Extended Example</h2>
 <p>You can build your own functions that incorporate <code>bow</code>, <code>scrape</code> (and, if required, <code>nod</code>). Here we will extend our inquiry into cheeses and will download all cheese names and URLs to their information pages. Let’s retrieve the number of pages per letter in the alphabetical list, keeping the number of results per page to 100 to minimize number of web requests.</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">polite</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rvest</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">purrr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">dplyr</span>)
+<div class="sourceCode" id="cb4"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/dmi3kno/polite">polite</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://rvest.tidyverse.org">rvest</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://purrr.tidyverse.org">purrr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://dplyr.tidyverse.org">dplyr</a></span>)
 
-<span class="no">session</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/bow.html">bow</a></span>(<span class="st">"https://www.cheese.com/alphabetical"</span>)
+<span class="kw">session</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bow.html">bow</a></span>(<span class="st">"https://www.cheese.com/alphabetical"</span>)
 
 <span class="co"># this is only to illustrate the example.</span>
-<span class="no">letters</span> <span class="kw">&lt;-</span> <span class="no">letters</span>[<span class="fl">1</span>:<span class="fl">3</span>] <span class="co"># delete this line to scrape all letters</span>
+<span class="kw">letters</span> <span class="op">&lt;-</span> <span class="kw">letters</span>[<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>] <span class="co"># delete this line to scrape all letters</span>
 
-<span class="no">responses</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="no">letters</span>, ~<span class="fu"><a href="reference/scrape.html">scrape</a></span>(<span class="no">session</span>, <span class="kw">query</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">per_page</span><span class="kw">=</span><span class="fl">100</span>,<span class="kw">i</span><span class="kw">=</span><span class="no">.x</span>)) )
-<span class="no">results</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="no">responses</span>, ~<span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="no">.x</span>, <span class="st">"#id_page li"</span>) <span class="kw">%&gt;%</span>
-                           <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span>(<span class="kw">trim</span> <span class="kw">=</span> <span class="fl">TRUE</span>) <span class="kw">%&gt;%</span>
-                           <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>() <span class="kw">%&gt;%</span>
-                           <span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="fl">1</span>) ) <span class="kw">%&gt;%</span>
-           <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(~<span class="fu"><a href="https://rvest.tidyverse.org/reference/pluck.html">pluck</a></span>(<span class="no">.x</span>, <span class="fl">1</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">1</span>))
-<span class="no">pages_df</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">letter</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep.int</a></span>(<span class="no">letters</span>, <span class="kw">times</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="no">results</span>)),
-                   <span class="kw">pages</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="no">results</span>, ~<span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq.int</a></span>(<span class="kw">from</span><span class="kw">=</span><span class="fl">1</span>, <span class="kw">to</span><span class="kw">=</span><span class="no">.x</span>))))
-<span class="no">pages_df</span>
+<span class="kw">responses</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="kw">letters</span>, <span class="op">~</span><span class="fu"><a href="reference/scrape.html">scrape</a></span>(<span class="kw">session</span>, query = <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(per_page=<span class="fl">100</span>,i=<span class="kw">.x</span>)) )
+<span class="kw">results</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="kw">responses</span>, <span class="op">~</span><span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="kw">.x</span>, <span class="st">"#id_page li"</span>) <span class="op">%&gt;%</span> 
+                           <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span>(trim = <span class="fl">TRUE</span>) <span class="op">%&gt;%</span> 
+                           <span class="fu"><a href="https://rdrr.io/r/base/numeric.html">as.numeric</a></span>() <span class="op">%&gt;%</span>
+                           <span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span>(<span class="fl">1</span>) ) <span class="op">%&gt;%</span> 
+           <span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="op">~</span><span class="fu"><a href="https://rvest.tidyverse.org/reference/pluck.html">pluck</a></span>(<span class="kw">.x</span>, <span class="fl">1</span>, .default=<span class="fl">1</span>))
+<span class="kw">pages_df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(letter = <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep.int</a></span>(<span class="kw">letters</span>, times=<span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="kw">results</span>)),
+                   pages = <span class="fu"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map</a></span>(<span class="kw">results</span>, <span class="op">~</span><span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq.int</a></span>(from=<span class="fl">1</span>, to=<span class="kw">.x</span>))))
+<span class="kw">pages_df</span>
 <span class="co">#&gt; # A tibble: 6 x 2</span>
 <span class="co">#&gt;   letter pages</span>
 <span class="co">#&gt;   &lt;chr&gt;  &lt;int&gt;</span>
@@ -149,17 +156,19 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt; 3 b          2</span>
 <span class="co">#&gt; 4 c          1</span>
 <span class="co">#&gt; 5 c          2</span>
-<span class="co">#&gt; 6 c          3</span></pre></div>
+<span class="co">#&gt; 6 c          3</span>
+</pre></div>
 <p>Now that we know how many pages to retrieve from each letter page, let’s rotate over letter pages and retrieve cheese names and underlying links to cheese details. We will need to write a helper function. Our session is still valid and we don’t need to <code>nod</code> again, because we will not be modifying a page URL, only its parameters (note that the field <code>url</code> is missing from <code>scrape</code> function).</p>
-<div class="sourceCode" id="cb5"><pre class="r"><span class="no">get_cheese_page</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">letter</span>, <span class="no">pages</span>){
- <span class="no">lnks</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/scrape.html">scrape</a></span>(<span class="no">session</span>, <span class="kw">query</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">per_page</span><span class="kw">=</span><span class="fl">100</span>,<span class="kw">i</span><span class="kw">=</span><span class="no">letter</span>,<span class="kw">page</span><span class="kw">=</span><span class="no">pages</span>)) <span class="kw">%&gt;%</span>
+<div class="sourceCode" id="cb5"><pre class="downlit">
+<span class="kw">get_cheese_page</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">letter</span>, <span class="kw">pages</span>){
+ <span class="kw">lnks</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/scrape.html">scrape</a></span>(<span class="kw">session</span>, query=<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(per_page=<span class="fl">100</span>,i=<span class="kw">letter</span>,page=<span class="kw">pages</span>)) <span class="op">%&gt;%</span> 
     <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="st">"h3 a"</span>)
-<span class="fu"><a href="https://dplyr.tidyverse.org/reference/reexports.html">tibble</a></span>(<span class="kw">name</span><span class="kw">=</span><span class="no">lnks</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span>(),
-       <span class="kw">link</span><span class="kw">=</span><span class="no">lnks</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_attr</a></span>(<span class="st">"href"</span>))
+<span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(name=<span class="kw">lnks</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_text</a></span>(),
+       link=<span class="kw">lnks</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_attr</a></span>(<span class="st">"href"</span>))
 }
 
-<span class="no">df</span> <span class="kw">&lt;-</span> <span class="no">pages_df</span> <span class="kw">%&gt;%</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap_df</a></span>(<span class="no">get_cheese_page</span>)
-<span class="no">df</span>
+<span class="kw">df</span> <span class="op">&lt;-</span> <span class="kw">pages_df</span> <span class="op">%&gt;%</span> <span class="fu"><a href="https://purrr.tidyverse.org/reference/map2.html">pmap_df</a></span>(<span class="kw">get_cheese_page</span>)
+<span class="kw">df</span>
 <span class="co">#&gt; # A tibble: 516 x 2</span>
 <span class="co">#&gt;    name                      link                     </span>
 <span class="co">#&gt;    &lt;chr&gt;                     &lt;chr&gt;                    </span>
@@ -173,38 +182,41 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt;  8 "Abondance"               /abondance/              </span>
 <span class="co">#&gt;  9 "Acapella"                /acapella/               </span>
 <span class="co">#&gt; 10 "Accasciato "             /accasciato/             </span>
-<span class="co">#&gt; # … with 506 more rows</span></pre></div>
+<span class="co">#&gt; # … with 506 more rows</span>
+</pre></div>
 </div>
 <div id="another-example" class="section level2">
 <h2 class="hasAnchor">
 <a href="#another-example" class="anchor"></a>Another example</h2>
 <p>Bob Rudis is one the vocal proponents of an online etiquette in the R community. If you have never seen his robots.txt file, you should definitely <a href="https://rud.is/robots.txt">check it out</a>! Lets look at his <a href="https://rud.is/b/">blog</a>. We don’t know how many pages will the gallery return, so we keep going until there’s no more “Older posts” button. Note that I first <code>bow</code> to the host and then simply <code>nod</code> to the current scraping page inside the <code>while</code> loop.</p>
-<div class="sourceCode" id="cb6"><pre class="r">    <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">polite</span>)
-    <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">rvest</span>)
-
-    <span class="no">hrbrmstr_posts</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>()
-    <span class="no">url</span> <span class="kw">&lt;-</span> <span class="st">"https://rud.is/b/"</span>
-    <span class="no">session</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/bow.html">bow</a></span>(<span class="no">url</span>)
-
-    <span class="kw">while</span>(!<span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="no">url</span>)){
+<div class="sourceCode" id="cb6"><pre class="downlit">
+    <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/dmi3kno/polite">polite</a></span>)
+    <span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://rvest.tidyverse.org">rvest</a></span>)
+    
+    <span class="kw">hrbrmstr_posts</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>()
+    <span class="kw">url</span> <span class="op">&lt;-</span> <span class="st">"https://rud.is/b/"</span>
+    <span class="kw">session</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/bow.html">bow</a></span>(<span class="kw">url</span>)
+    
+    <span class="co">while</span>(<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NA.html">is.na</a></span>(<span class="kw">url</span>)){
       <span class="co"># make it verbose</span>
-      <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"Scraping "</span>, <span class="no">url</span>)
+      <span class="fu"><a href="https://rdrr.io/r/base/message.html">message</a></span>(<span class="st">"Scraping "</span>, <span class="kw">url</span>)
       <span class="co"># nod and scrape</span>
-      <span class="no">current_page</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/nod.html">nod</a></span>(<span class="no">session</span>, <span class="no">url</span>) <span class="kw">%&gt;%</span>
-        <span class="fu"><a href="reference/scrape.html">scrape</a></span>(<span class="kw">verbose</span><span class="kw">=</span><span class="fl">TRUE</span>)
+      <span class="kw">current_page</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/nod.html">nod</a></span>(<span class="kw">session</span>, <span class="kw">url</span>) <span class="op">%&gt;%</span> 
+        <span class="fu"><a href="reference/scrape.html">scrape</a></span>(verbose=<span class="fl">TRUE</span>)
       <span class="co"># extract post titles</span>
-      <span class="no">hrbrmstr_posts</span> <span class="kw">&lt;-</span> <span class="no">current_page</span> <span class="kw">%&gt;%</span>
-        <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="st">".entry-title a"</span>) <span class="kw">%&gt;%</span>
-        <span class="kw pkg">polite</span><span class="kw ns">::</span><span class="fu"><a href="reference/html_attrs_dfr.html">html_attrs_dfr</a></span>() <span class="kw">%&gt;%</span>
-        <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="no">hrbrmstr_posts</span>)
+      <span class="kw">hrbrmstr_posts</span> <span class="op">&lt;-</span> <span class="kw">current_page</span> <span class="op">%&gt;%</span> 
+        <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_nodes</a></span>(<span class="st">".entry-title a"</span>) <span class="op">%&gt;%</span> 
+        <span class="kw">polite</span>::<span class="fu"><a href="reference/html_attrs_dfr.html">html_attrs_dfr</a></span>() <span class="op">%&gt;%</span> 
+        <span class="fu"><a href="https://rdrr.io/r/base/cbind.html">rbind</a></span>(<span class="kw">hrbrmstr_posts</span>)
       <span class="co"># see if there's "Older posts" button</span>
-      <span class="no">url</span> <span class="kw">&lt;-</span> <span class="no">current_page</span> <span class="kw">%&gt;%</span>
-        <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_node</a></span>(<span class="st">".nav-previous a"</span>) <span class="kw">%&gt;%</span>
+      <span class="kw">url</span> <span class="op">&lt;-</span> <span class="kw">current_page</span> <span class="op">%&gt;%</span> 
+        <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_nodes.html">html_node</a></span>(<span class="st">".nav-previous a"</span>) <span class="op">%&gt;%</span> 
         <span class="fu"><a href="https://rvest.tidyverse.org/reference/html_text.html">html_attr</a></span>(<span class="st">"href"</span>)
     } <span class="co"># end while loop</span>
-
-    <span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="no">hrbrmstr_posts</span>)
-    <span class="co">#&gt; # A tibble: 578 x3</span></pre></div>
+    
+    <span class="kw">tibble</span>::<span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span>(<span class="kw">hrbrmstr_posts</span>)
+    <span class="co">#&gt; # A tibble: 578 x3</span>
+</pre></div>
 <p>We organize the data into the tidy format and append it to our empty data frame. At the end we will discover that Bob has written over 570 blog articles, which I very much recommend anyone to check out.</p>
 </div>
 <div id="polite-for-package-developers" class="section level2">
@@ -216,7 +228,9 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <a href="#polite-template" class="anchor"></a>Polite template</h3>
 <p>Just before its ascension to CRAN, the package acquired new functionality for helping package developers get started on creating polite web tools for the users. Any modern package developer is probably familiar with excellent <a href="https://github.com/r-lib/usethis"><code>usethis</code> package</a> by Rstudio team. <code>usethis</code> is a collection of scripts for automating package development workflow. Many <code>usethis</code> functions automating repetitive tasks start with prefix <code>use_</code> indicating that what followed will be adopted and “used” by the package user developes. For details about <code>use_</code> family of functions, see <a href="https://usethis.r-lib.org/reference/index.html">package documentation</a>.</p>
 <p><code>{polite}</code> has one usethis-like function called <code><a href="reference/use_manners.html">polite::use_manners()</a></code>.</p>
-<div class="sourceCode" id="cb7"><pre class="r"><span class="kw pkg">polite</span><span class="kw ns">::</span><span class="fu"><a href="reference/use_manners.html">use_manners</a></span>()</pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit">
+<span class="kw">polite</span>::<span class="fu"><a href="reference/use_manners.html">use_manners</a></span>()
+</pre></div>
 <p>When called within the analysis (or package) directory, it creates a new file called <code>R/polite-scrape.R</code> (creating <code>R</code> directory if necessary) and populates it with template functions for creating polite web-scraping session. The functions provided by <code><a href="reference/use_manners.html">polite::use_manners()</a></code> are drop-in replacements for two of the most popular tools in web-accessing R ecosystem: <code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html()</a></code> and <code><a href="https://rdrr.io/r/utils/download.file.html">download.file()</a></code>. The only difference is that these functions have <code>polite_</code> prefix. In all other respects they should have look and feel of the original, i.e. in most cases you should be able to simply replace calls to <code><a href="http://xml2.r-lib.org/reference/read_xml.html">read_html()</a></code> with <code>polite_read_html()</code> and <code>download.file</code> with <code>polite_download_file()</code> and your code should work (provided you scrape from a <code>url</code>, which it the first required argument in both functions).</p>
 </div>
 <div id="polite-backend" class="section level3">
@@ -228,22 +242,23 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 </blockquote>
 <p>Adverbs can be useful, when a user (package developer) wants to “delegate” polite session handling to external package, without modifying the existing code. The only thing user needs to do is wrap existing verb with <code><a href="reference/politely.html">politely()</a></code> and use the new function instead of the original.</p>
 <p>Let’s say you wanted to use <code><a href="https://httr.r-lib.org/reference/GET.html">httr::GET</a></code> for accessing certain API, such as <code>musicbrainz</code> and extract certain data from a deeply nested list, returned by the server. Your originally developed code looks like this:</p>
-<div class="sourceCode" id="cb8"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">magrittr</span>)
+<div class="sourceCode" id="cb8"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw">magrittr</span>)
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'magrittr'</span>
 <span class="co">#&gt; The following object is masked from 'package:purrr':</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt;     set_names</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">httr</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">xml2</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">purrr</span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://httr.r-lib.org">httr</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://xml2.r-lib.org">xml2</a></span>)
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="http://purrr.tidyverse.org">purrr</a></span>)
 
-<span class="no">beatles_res</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>(<span class="st">"https://musicbrainz.org/ws/2/artist/"</span>,
-                   <span class="kw">query</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">query</span><span class="kw">=</span><span class="st">"Beatles"</span>, <span class="kw">limit</span><span class="kw">=</span><span class="fl">10</span>),
-                   <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content_type.html">accept</a></span>(<span class="st">"application/json"</span>))
-<span class="kw">if</span>(!<span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(<span class="no">beatles_res</span>)) <span class="no">beatles_lst</span> <span class="kw">&lt;-</span> <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="no">beatles_res</span>, <span class="kw">type</span> <span class="kw">=</span> <span class="st">"application/json"</span>)
+<span class="kw">beatles_res</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>(<span class="st">"https://musicbrainz.org/ws/2/artist/"</span>, 
+                   query=<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(query=<span class="st">"Beatles"</span>, limit=<span class="fl">10</span>),
+                   <span class="kw">httr</span>::<span class="fu"><a href="https://httr.r-lib.org/reference/content_type.html">accept</a></span>(<span class="st">"application/json"</span>)) 
+<span class="co">if</span>(<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(<span class="kw">beatles_res</span>)) <span class="kw">beatles_lst</span> <span class="op">&lt;-</span> <span class="kw">httr</span>::<span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="kw">beatles_res</span>, type = <span class="st">"application/json"</span>)
 
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">beatles_lst</span>, <span class="kw">max.level</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">beatles_lst</span>, max.level = <span class="fl">2</span>)
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ created: chr "2020-06-14T16:51:08.730Z"</span>
 <span class="co">#&gt;  $ count  : int 129</span>
@@ -258,7 +273,8 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt;   ..$ :List of 11</span>
 <span class="co">#&gt;   ..$ :List of 11</span>
 <span class="co">#&gt;   ..$ :List of 10</span>
-<span class="co">#&gt;   ..$ :List of 10</span></pre></div>
+<span class="co">#&gt;   ..$ :List of 10</span>
+</pre></div>
 <p>This code does not comply with <code>polite</code> principles. It does not provide human-readable user-agent string, it does not consult <code>robots.txt</code> about permissions. It is possible to run this code in the loop and (accidentally) overwhelm the server with requests. It does not cache the results, so if this code is re-run again, data will be re-queried.</p>
 <p>You could write your own infastructure for handling useragent, robots.txt, rate limiting and memoisation, or you could simply use an adverb <code><a href="reference/politely.html">politely()</a></code> which does all of these things for you.</p>
 </div>
@@ -266,26 +282,29 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <h3 class="hasAnchor">
 <a href="#querying-colormind-io-with-polite-backend" class="anchor"></a>Querying colormind.io with polite backend</h3>
 <p>Here’s an example from using colormind.io API. We will need a couple of service functions to convert colors between HEX and RGB and to prepare a json <a href="http://colormind.io/api-access/">required by the service</a>.</p>
-<div class="sourceCode" id="cb9"><pre class="r"><span class="no">rgba2hex</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">r</span>,<span class="no">g</span>,<span class="no">b</span>,<span class="no">a</span>) {<span class="kw pkg">grDevices</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(<span class="no">r</span>, <span class="no">g</span>, <span class="no">b</span>, <span class="no">a</span>, <span class="kw">maxColorValue</span> <span class="kw">=</span> <span class="fl">255</span>)}
+<div class="sourceCode" id="cb9"><pre class="downlit">
+<span class="kw">rgba2hex</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">r</span>,<span class="kw">g</span>,<span class="kw">b</span>,<span class="kw">a</span>) {<span class="kw">grDevices</span>::<span class="fu"><a href="https://rdrr.io/r/grDevices/rgb.html">rgb</a></span>(<span class="kw">r</span>, <span class="kw">g</span>, <span class="kw">b</span>, <span class="kw">a</span>, maxColorValue = <span class="fl">255</span>)}
 
-<span class="no">hex2rgba</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>, <span class="no">alpha</span><span class="kw">=</span><span class="fl">TRUE</span>){<span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="kw pkg">grDevices</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/grDevices/col2rgb.html">col2rgb</a></span>(<span class="no">x</span>, <span class="kw">alpha</span> <span class="kw">=</span> <span class="no">alpha</span>))}
+<span class="kw">hex2rgba</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">x</span>, <span class="kw">alpha</span>=<span class="fl">TRUE</span>){<span class="fu"><a href="https://rdrr.io/r/base/t.html">t</a></span>(<span class="kw">grDevices</span>::<span class="fu"><a href="https://rdrr.io/r/grDevices/col2rgb.html">col2rgb</a></span>(<span class="kw">x</span>, alpha = <span class="kw">alpha</span>))}
 
-<span class="no">prepare_colormind_query</span> <span class="kw">&lt;-</span> <span class="kw">function</span>(<span class="no">x</span>, <span class="no">model</span>){
-  <span class="no">lst</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">model</span><span class="kw">=</span><span class="no">model</span>)
+<span class="kw">prepare_colormind_query</span> <span class="op">&lt;-</span> <span class="fu">function</span>(<span class="kw">x</span>, <span class="kw">model</span>){
+  <span class="kw">lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(model=<span class="kw">model</span>)
 
-  <span class="kw">if</span>(!<span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(<span class="no">x</span>)){
-    <span class="no">x</span> <span class="kw">&lt;-</span> <span class="kw pkg">utils</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="no">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA_character_</span>, <span class="kw">times</span><span class="kw">=</span><span class="fl">4</span>)), <span class="fl">5</span>) <span class="co"># pad it with NAs</span>
-    <span class="no">x_mat</span> <span class="kw">&lt;-</span> <span class="fu">hex2rgba</span>(<span class="no">x</span>)
-    <span class="no">x_lst</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="no">x_mat</span>)), <span class="kw">function</span>(<span class="no">i</span>) <span class="kw">if</span>(<span class="no">x_mat</span>[<span class="no">i</span>,<span class="fl">4</span>]<span class="kw">==</span><span class="fl">0</span>) <span class="st">"N"</span> <span class="kw">else</span> <span class="no">x_mat</span>[<span class="no">i</span>,<span class="fl">1</span>:<span class="fl">3</span>])
-    <span class="no">lst</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">input</span><span class="kw">=</span><span class="no">x_lst</span>), <span class="no">lst</span>)
+  <span class="co">if</span>(<span class="op">!</span><span class="fu"><a href="https://rdrr.io/r/base/NULL.html">is.null</a></span>(<span class="kw">x</span>)){
+    <span class="kw">x</span> <span class="op">&lt;-</span> <span class="kw">utils</span>::<span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">x</span>, <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fl">NA_character_</span>, times=<span class="fl">4</span>)), <span class="fl">5</span>) <span class="co"># pad it with NAs</span>
+    <span class="kw">x_mat</span> <span class="op">&lt;-</span> <span class="fu">hex2rgba</span>(<span class="kw">x</span>)
+    <span class="kw">x_lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq_len</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/nrow.html">nrow</a></span>(<span class="kw">x_mat</span>)), <span class="fu">function</span>(<span class="kw">i</span>) <span class="co">if</span>(<span class="kw">x_mat</span>[<span class="kw">i</span>,<span class="fl">4</span>]<span class="op">==</span><span class="fl">0</span>) <span class="st">"N"</span> <span class="co">else</span> <span class="kw">x_mat</span>[<span class="kw">i</span>,<span class="fl">1</span><span class="op">:</span><span class="fl">3</span>])
+    <span class="kw">lst</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(input=<span class="kw">x_lst</span>), <span class="kw">lst</span>)
   }
-  <span class="kw pkg">jsonlite</span><span class="kw ns">::</span><span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">toJSON</a></span>(<span class="no">lst</span>, <span class="kw">auto_unbox</span> <span class="kw">=</span> <span class="fl">TRUE</span>)
-}</pre></div>
+  <span class="kw">jsonlite</span>::<span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">toJSON</a></span>(<span class="kw">lst</span>, auto_unbox = <span class="fl">TRUE</span>)
+}
+</pre></div>
 <p>Now all we have to do is to “wrap” existing function in the <code>politely</code> adverb. Then call the new function insted of original. You dont need to change anything other than a function name.</p>
-<div class="sourceCode" id="cb10"><pre class="r"><span class="no">polite_GET</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/politely.html">politely</a></span>(<span class="kw pkg">httr</span><span class="kw ns">::</span><span class="no"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>, <span class="kw">verbose</span><span class="kw">=</span><span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb10"><pre class="downlit">
+<span class="kw">polite_GET</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/politely.html">politely</a></span>(<span class="kw">httr</span>::<span class="kw"><a href="https://httr.r-lib.org/reference/GET.html">GET</a></span>, verbose=<span class="fl">TRUE</span>) 
 
 <span class="co">#res &lt;- httr::GET("http://colormind.io/list") # was</span>
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu">polite_GET</span>(<span class="st">"http://colormind.io/list"</span>) <span class="co"># now</span>
+<span class="kw">res</span> <span class="op">&lt;-</span> <span class="fu">polite_GET</span>(<span class="st">"http://colormind.io/list"</span>) <span class="co"># now</span>
 <span class="co">#&gt; Fetching robots.txt</span>
 <span class="co">#&gt; rt_robotstxt_http_getter: normal http get</span>
 <span class="co">#&gt; Warning in request_handler_handler(request = request, handler = on_not_found, :</span>
@@ -300,18 +319,20 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt; Your rate will be set to 1 request every 5 second(s).</span>
 <span class="co">#&gt; Pausing...</span>
 <span class="co">#&gt; Scraping: http://colormind.io/list</span>
-<span class="kw pkg">jsonlite</span><span class="kw ns">::</span><span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">fromJSON</a></span>(<span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="no">res</span>, <span class="kw">as</span> <span class="kw">=</span> <span class="st">"text"</span>))$<span class="no">result</span>
+<span class="kw">jsonlite</span>::<span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">fromJSON</a></span>(<span class="kw">httr</span>::<span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="kw">res</span>, as = <span class="st">"text"</span>))<span class="op">$</span><span class="kw">result</span>
 <span class="co">#&gt; [1] "ui"                "default"           "kaguya_film"      </span>
-<span class="co">#&gt; [4] "the_fall"          "only_god_forgives" "paper_mario"</span></pre></div>
+<span class="co">#&gt; [4] "the_fall"          "only_god_forgives" "paper_mario"</span>
+</pre></div>
 <p>The backend functionality of <code>polite</code> can be used for <em>any</em> function as long as it has <code>url</code> argument (or the first argument is a url). Here’s an example of polite POST created with adverb <code>politely</code>.</p>
-<div class="sourceCode" id="cb11"><pre class="r"><span class="no">polite_POST</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/politely.html">politely</a></span>(<span class="no">POST</span>, <span class="kw">verbose</span><span class="kw">=</span><span class="fl">TRUE</span>)
+<div class="sourceCode" id="cb11"><pre class="downlit">
+<span class="kw">polite_POST</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/politely.html">politely</a></span>(<span class="kw">POST</span>, verbose=<span class="fl">TRUE</span>) 
 
-<span class="no">clue_colors</span> <span class="kw">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">NA</span>, <span class="st">"lightseagreen"</span>, <span class="fl">NA</span>, <span class="st">"coral"</span>, <span class="fl">NA</span>)
+<span class="kw">clue_colors</span> <span class="op">&lt;-</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">NA</span>, <span class="st">"lightseagreen"</span>, <span class="fl">NA</span>, <span class="st">"coral"</span>, <span class="fl">NA</span>)
 
-<span class="no">req</span> <span class="kw">&lt;-</span> <span class="fu">prepare_colormind_query</span>(<span class="no">clue_colors</span>, <span class="st">"default"</span>)
+<span class="kw">req</span> <span class="op">&lt;-</span> <span class="fu">prepare_colormind_query</span>(<span class="kw">clue_colors</span>, <span class="st">"default"</span>)
 
 <span class="co">#res &lt;- httr::POST(url='http://colormind.io/api/', body = req) #was</span>
-<span class="no">res</span> <span class="kw">&lt;-</span> <span class="fu">polite_POST</span>(<span class="kw">url</span><span class="kw">=</span><span class="st">'http://colormind.io/api/'</span>, <span class="kw">body</span> <span class="kw">=</span> <span class="no">req</span>) <span class="co">#now</span>
+<span class="kw">res</span> <span class="op">&lt;-</span> <span class="fu">polite_POST</span>(url=<span class="st">'http://colormind.io/api/'</span>, body = <span class="kw">req</span>) <span class="co">#now</span>
 <span class="co">#&gt; Fetching robots.txt</span>
 <span class="co">#&gt; rt_robotstxt_http_getter: cached http get</span>
 <span class="co">#&gt; Warning in request_handler_handler(request = request, handler = on_not_found, :</span>
@@ -326,26 +347,28 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt; Your rate will be set to 1 request every 5 second(s).</span>
 <span class="co">#&gt; Pausing...</span>
 <span class="co">#&gt; Scraping: http://colormind.io/api/</span>
-<span class="no">res_json</span> <span class="kw">&lt;-</span> <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="no">res</span>, <span class="kw">as</span> <span class="kw">=</span> <span class="st">"text"</span>)
-<span class="no">res_mcol</span> <span class="kw">&lt;-</span> <span class="kw pkg">jsonlite</span><span class="kw ns">::</span><span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">fromJSON</a></span>(<span class="no">res_json</span>)$<span class="no">result</span>
-<span class="no">colrs</span> <span class="kw">&lt;-</span> <span class="fu">rgba2hex</span>(<span class="no">res_mcol</span>)
-<span class="kw pkg">scales</span><span class="kw ns">::</span><span class="fu">show_col</span>(<span class="no">colrs</span>, <span class="kw">ncol</span> <span class="kw">=</span> <span class="fl">5</span>)</pre></div>
+<span class="kw">res_json</span> <span class="op">&lt;-</span> <span class="kw">httr</span>::<span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="kw">res</span>, as = <span class="st">"text"</span>)
+<span class="kw">res_mcol</span> <span class="op">&lt;-</span> <span class="kw">jsonlite</span>::<span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">fromJSON</a></span>(<span class="kw">res_json</span>)<span class="op">$</span><span class="kw">result</span>
+<span class="kw">colrs</span> <span class="op">&lt;-</span> <span class="fu">rgba2hex</span>(<span class="kw">res_mcol</span>)
+<span class="kw">scales</span>::<span class="fu">show_col</span>(<span class="kw">colrs</span>, ncol = <span class="fl">5</span>)
+</pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-10-1.png" width="100%"></p>
 </div>
 <div id="querying-musicbrainz-api-with-polite-backend" class="section level3">
 <h3 class="hasAnchor">
 <a href="#querying-musicbrainz-api-with-polite-backend" class="anchor"></a>Querying musicbrainz API with polite backend</h3>
 <p><a href="https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2">Musicbrainz API</a> allows querying data on artists, releases, labels and all things music. API endpoint, unfortunately, is Disallowed in <code>robots.txt</code>, but it is completely legal to access for small size requests. Mass querying is easier using a datadump, with musicbrainz published periodically. We can create polite GET and turn off <code>robots.txt</code> validation.</p>
-<div class="sourceCode" id="cb12"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">polite</span>)
-<span class="no">polite_GET_nrt</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/politely.html">politely</a></span>(<span class="no">GET</span>, <span class="kw">verbose</span><span class="kw">=</span><span class="fl">TRUE</span>, <span class="kw">robots</span> <span class="kw">=</span> <span class="fl">FALSE</span>) <span class="co"># turn off robotstxt checking</span>
+<div class="sourceCode" id="cb12"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="kw"><a href="https://github.com/dmi3kno/polite">polite</a></span>)
+<span class="kw">polite_GET_nrt</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/politely.html">politely</a></span>(<span class="kw">GET</span>, verbose=<span class="fl">TRUE</span>, robots = <span class="fl">FALSE</span>) <span class="co"># turn off robotstxt checking</span>
 
-<span class="no">beatles_lst</span> <span class="kw">&lt;-</span> <span class="fu">polite_GET_nrt</span>(<span class="st">"https://musicbrainz.org/ws/2/artist/"</span>,
-                   <span class="kw">query</span><span class="kw">=</span><span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(<span class="kw">query</span><span class="kw">=</span><span class="st">"Beatles"</span>, <span class="kw">limit</span><span class="kw">=</span><span class="fl">10</span>),
-                   <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content_type.html">accept</a></span>(<span class="st">"application/json"</span>)) <span class="kw">%&gt;%</span>
-  <span class="kw pkg">httr</span><span class="kw ns">::</span><span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="kw">type</span> <span class="kw">=</span> <span class="st">"application/json"</span>)
+<span class="kw">beatles_lst</span> <span class="op">&lt;-</span> <span class="fu">polite_GET_nrt</span>(<span class="st">"https://musicbrainz.org/ws/2/artist/"</span>, 
+                   query=<span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span>(query=<span class="st">"Beatles"</span>, limit=<span class="fl">10</span>),
+                   <span class="kw">httr</span>::<span class="fu"><a href="https://httr.r-lib.org/reference/content_type.html">accept</a></span>(<span class="st">"application/json"</span>)) <span class="op">%&gt;%</span> 
+  <span class="kw">httr</span>::<span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(type = <span class="st">"application/json"</span>)
 <span class="co">#&gt; Pausing...</span>
 <span class="co">#&gt; Scraping: https://musicbrainz.org/ws/2/artist/</span>
-<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="no">beatles_lst</span>, <span class="kw">max.level</span> <span class="kw">=</span> <span class="fl">2</span>)
+<span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">beatles_lst</span>, max.level = <span class="fl">2</span>)
 <span class="co">#&gt; List of 4</span>
 <span class="co">#&gt;  $ created: chr "2020-06-14T16:51:08.730Z"</span>
 <span class="co">#&gt;  $ count  : int 129</span>
@@ -360,23 +383,26 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt;   ..$ :List of 11</span>
 <span class="co">#&gt;   ..$ :List of 11</span>
 <span class="co">#&gt;   ..$ :List of 10</span>
-<span class="co">#&gt;   ..$ :List of 10</span></pre></div>
+<span class="co">#&gt;   ..$ :List of 10</span>
+</pre></div>
 <p>Lets parse the response</p>
-<div class="sourceCode" id="cb13"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(<span class="kw">knitr.kable.NA</span> <span class="kw">=</span> <span class="st">''</span>)
-<span class="no">beatles_lst</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://rdrr.io/pkg/magrittr/man/aliases.html">extract2</a></span>(<span class="st">"artists"</span>) <span class="kw">%&gt;%</span>
-  {<span class="kw pkg">tibble</span><span class="kw ns">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="kw">id</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>,<span class="st">"id"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
-                  <span class="kw">match_pct</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_int</a></span>(<span class="no">.</span>,<span class="st">"score"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
-                  <span class="kw">type</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>,<span class="st">"type"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
-                  <span class="kw">name</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>, <span class="st">"name"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
-                  <span class="kw">country</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>, <span class="st">"country"</span>, <span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
-                  <span class="kw">lifespan_begin</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"life-span"</span>, <span class="st">"begin"</span>),<span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>),
-                  <span class="kw">lifespan_end</span><span class="kw">=</span><span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="no">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"life-span"</span>, <span class="st">"end"</span>),<span class="kw">.default</span><span class="kw">=</span><span class="fl">NA_character_</span>)
+<div class="sourceCode" id="cb13"><pre class="downlit">
+<span class="fu"><a href="https://rdrr.io/r/base/options.html">options</a></span>(knitr.kable.NA = <span class="st">''</span>)
+<span class="kw">beatles_lst</span> <span class="op">%&gt;%</span>   
+  <span class="fu"><a href="https://rdrr.io/pkg/magrittr/man/aliases.html">extract2</a></span>(<span class="st">"artists"</span>) <span class="op">%&gt;%</span> 
+  {<span class="kw">tibble</span>::<span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(id=<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="kw">.</span>,<span class="st">"id"</span>, .default=<span class="fl">NA_character_</span>),
+                  match_pct=<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_int</a></span>(<span class="kw">.</span>,<span class="st">"score"</span>, .default=<span class="fl">NA_character_</span>),
+                  type=<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="kw">.</span>,<span class="st">"type"</span>, .default=<span class="fl">NA_character_</span>),
+                  name=<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="kw">.</span>, <span class="st">"name"</span>, .default=<span class="fl">NA_character_</span>),
+                  country=<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="kw">.</span>, <span class="st">"country"</span>, .default=<span class="fl">NA_character_</span>),
+                  lifespan_begin=<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="kw">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"life-span"</span>, <span class="st">"begin"</span>),.default=<span class="fl">NA_character_</span>),
+                  lifespan_end=<span class="fu"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(<span class="kw">.</span>, <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">"life-span"</span>, <span class="st">"end"</span>),.default=<span class="fl">NA_character_</span>)
                   )
-    } <span class="kw">%&gt;%</span> <span class="kw pkg">knitr</span><span class="kw ns">::</span><span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(<span class="kw">col.names</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="kw">id</span><span class="kw">=</span><span class="st">"Musicbrainz ID"</span>, <span class="kw">match_pct</span><span class="kw">=</span><span class="st">"Match, %"</span>,
-                                     <span class="kw">type</span><span class="kw">=</span><span class="st">"Type"</span>, <span class="kw">name</span><span class="kw">=</span><span class="st">"Name of artist"</span>,
-                                     <span class="kw">country</span><span class="kw">=</span><span class="st">"Country"</span>, <span class="kw">lifespan_begin</span><span class="kw">=</span><span class="st">"Career begun"</span>,
-                                     <span class="kw">lifespan_end</span><span class="kw">=</span><span class="st">"Career ended"</span>))</pre></div>
+    } <span class="op">%&gt;%</span> <span class="kw">knitr</span>::<span class="fu"><a href="https://rdrr.io/pkg/knitr/man/kable.html">kable</a></span>(col.names = <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(id=<span class="st">"Musicbrainz ID"</span>, match_pct=<span class="st">"Match, %"</span>, 
+                                     type=<span class="st">"Type"</span>, name=<span class="st">"Name of artist"</span>,
+                                     country=<span class="st">"Country"</span>, lifespan_begin=<span class="st">"Career begun"</span>,
+                                     lifespan_end=<span class="st">"Career ended"</span>)) 
+</pre></div>
 <table class="table">
 <colgroup>
 <col width="36%">

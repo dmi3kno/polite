@@ -6,7 +6,7 @@
 \usage{
 politely(
   fun,
-  user_agent = paste0("polite ", getOption("HTTPUserAgent"), "bot"),
+  user_agent = paste0("polite ", getOption("HTTPUserAgent"), " bot"),
   robots = TRUE,
   force = FALSE,
   delay = 5,
@@ -38,5 +38,4 @@ Give your web-scraping function good manners polite
 \examples{
 
 polite_GET <- politely(httr::GET)
-
 }

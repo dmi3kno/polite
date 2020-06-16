@@ -18,7 +18,10 @@ fetch_rtxt <-function(domain, user_agent, delay, force, verbose){
   rt$cached <- attr(rt_txt, "cached")
 
   if(verbose){
-    message("\nSuccess! robots.txt was found at: ", rt$received_from)
+    if(rt$cached)
+      message("\nFound the cached version of robots.txt for ", rt$received_from)
+      else
+      message("\nNew copy robots.txt was fetched from ", rt$received_from)
     message("Total of ", nrow(rt_delay_df), " crawl delay rule(s) defined for this host.")
     message("Your rate will be set to 1 request every ", rt$delay_rate, " second(s).")}
 
@@ -42,8 +45,8 @@ fetch_rtxt <-function(domain, user_agent, delay, force, verbose){
 #' @examples
 #'
 #' polite_GET <- politely(httr::GET)
-#'
-politely <- function(fun, user_agent=paste0("polite ", getOption("HTTPUserAgent"), "bot"),
+#' @importFrom memoise memoise has_cache cache_memory
+politely <- function(fun, user_agent=paste0("polite ", getOption("HTTPUserAgent"), " bot"),
                      robots=TRUE, force=FALSE, delay=5, verbose=FALSE, cache=memoise::cache_memory()){
   f_formals <- formals(args(fun))
   mem_fun <- memoise::memoise(fun, cache=cache)
@@ -60,29 +63,33 @@ politely <- function(fun, user_agent=paste0("polite ", getOption("HTTPUserAgent"
       if(is_url(af[[1]])){
         url <- af[[1]]
       } else {
-        stop("I can't find an argument containing url. Aborting", call. = FALSE)
+        stop("I can't find an argument containing url. Aborting.", call. = FALSE)
         return(NULL)
       }
     }
 
-
-    if(robots){
-
+    if(robots && !memoise::has_cache(mem_fun)(...)){
       if(verbose) message("Fetching robots.txt")
             hst <- extract_domain(url)
       rtxt <- fetch_rtxt(domain=hst, user_agent = user_agent, delay=delay, force=force, verbose = verbose)
       delay <- rtxt$delay_rate
 
       if(!is_scrapable_rt(rtxt, url, user_agent)){
-        warning("Unfortunately, robots.txt indicates that this path is NOT scrapable for your user agent", call. = FALSE)
+        warning("Unfortunately, robots.txt indicates that this path is NOT scrapable for your user agent.", call. = FALSE)
         return(NULL)
       }
     }
-    if(verbose) message("Pausing... ")
-    Sys.sleep(delay)
 
-    if(verbose) message("Scraping: ", url)
-    old_ua <-  getOption("HTTPUserAgent")
+    if(!memoise::has_cache(mem_fun)(...)){
+      if(verbose) message("Pausing... ")
+      Sys.sleep(delay)
+      if(verbose) message("Scraping: ", url)
+    } else {
+      if (verbose) message("Cached results are found! Retrieving results for ", url)
+    }
+
+    if(verbose) message("Setting useragent: ", user_agent)
+    old_ua <- getOption("HTTPUserAgent")
     options("HTTPUserAgent"= user_agent)
     res <- mem_fun(...)
     options("HTTPUserAgent"= old_ua)

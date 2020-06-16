@@ -260,7 +260,7 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">beatles_lst</span>, max.level = <span class="fl">2</span>)
 <span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ created: chr "2020-06-14T16:51:08.730Z"</span>
+<span class="co">#&gt;  $ created: chr "2020-06-16T13:27:09.252Z"</span>
 <span class="co">#&gt;  $ count  : int 129</span>
 <span class="co">#&gt;  $ offset : int 0</span>
 <span class="co">#&gt;  $ artists:List of 10</span>
@@ -314,14 +314,15 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt; Warning in request_handler_handler(request = request, handler =</span>
 <span class="co">#&gt; on_suspect_content, : Event: on_suspect_content</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Success! robots.txt was found at: http://colormind.io/robots.txt</span>
+<span class="co">#&gt; New copy robots.txt was fetched from http://colormind.io/robots.txt</span>
 <span class="co">#&gt; Total of 0 crawl delay rule(s) defined for this host.</span>
 <span class="co">#&gt; Your rate will be set to 1 request every 5 second(s).</span>
 <span class="co">#&gt; Pausing...</span>
 <span class="co">#&gt; Scraping: http://colormind.io/list</span>
+<span class="co">#&gt; Setting useragent: polite R (3.6.3 x86_64-pc-linux-gnu x86_64 linux-gnu) bot</span>
 <span class="kw">jsonlite</span>::<span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">fromJSON</a></span>(<span class="kw">httr</span>::<span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="kw">res</span>, as = <span class="st">"text"</span>))<span class="op">$</span><span class="kw">result</span>
-<span class="co">#&gt; [1] "ui"                "default"           "kaguya_film"      </span>
-<span class="co">#&gt; [4] "the_fall"          "only_god_forgives" "paper_mario"</span>
+<span class="co">#&gt; [1] "ui"                 "default"            "city_photography"  </span>
+<span class="co">#&gt; [4] "makoto_shinkai"     "sunset_photography" "only_god_forgives"</span>
 </pre></div>
 <p>The backend functionality of <code>polite</code> can be used for <em>any</em> function as long as it has <code>url</code> argument (or the first argument is a url). Here’s an example of polite POST created with adverb <code>politely</code>.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit">
@@ -342,11 +343,12 @@ Source: <em>Wiktionary, The free dictionary</em></p>
 <span class="co">#&gt; Warning in request_handler_handler(request = request, handler =</span>
 <span class="co">#&gt; on_suspect_content, : Event: on_suspect_content</span>
 <span class="co">#&gt; </span>
-<span class="co">#&gt; Success! robots.txt was found at: http://colormind.io/robots.txt</span>
+<span class="co">#&gt; Found the cached version of robots.txt for http://colormind.io/robots.txt</span>
 <span class="co">#&gt; Total of 0 crawl delay rule(s) defined for this host.</span>
 <span class="co">#&gt; Your rate will be set to 1 request every 5 second(s).</span>
 <span class="co">#&gt; Pausing...</span>
 <span class="co">#&gt; Scraping: http://colormind.io/api/</span>
+<span class="co">#&gt; Setting useragent: polite R (3.6.3 x86_64-pc-linux-gnu x86_64 linux-gnu) bot</span>
 <span class="kw">res_json</span> <span class="op">&lt;-</span> <span class="kw">httr</span>::<span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(<span class="kw">res</span>, as = <span class="st">"text"</span>)
 <span class="kw">res_mcol</span> <span class="op">&lt;-</span> <span class="kw">jsonlite</span>::<span class="fu"><a href="https://jeroen.cran.dev/jsonlite/reference/fromJSON.html">fromJSON</a></span>(<span class="kw">res_json</span>)<span class="op">$</span><span class="kw">result</span>
 <span class="kw">colrs</span> <span class="op">&lt;-</span> <span class="fu">rgba2hex</span>(<span class="kw">res_mcol</span>)
@@ -368,9 +370,10 @@ Source: <em>Wiktionary, The free dictionary</em></p>
   <span class="kw">httr</span>::<span class="fu"><a href="https://httr.r-lib.org/reference/content.html">content</a></span>(type = <span class="st">"application/json"</span>)
 <span class="co">#&gt; Pausing...</span>
 <span class="co">#&gt; Scraping: https://musicbrainz.org/ws/2/artist/</span>
+<span class="co">#&gt; Setting useragent: polite R (3.6.3 x86_64-pc-linux-gnu x86_64 linux-gnu) bot</span>
 <span class="fu"><a href="https://rdrr.io/r/utils/str.html">str</a></span>(<span class="kw">beatles_lst</span>, max.level = <span class="fl">2</span>)
 <span class="co">#&gt; List of 4</span>
-<span class="co">#&gt;  $ created: chr "2020-06-14T16:51:08.730Z"</span>
+<span class="co">#&gt;  $ created: chr "2020-06-16T13:27:09.252Z"</span>
 <span class="co">#&gt;  $ count  : int 129</span>
 <span class="co">#&gt;  $ offset : int 0</span>
 <span class="co">#&gt;  $ artists:List of 10</span>

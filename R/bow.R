@@ -26,7 +26,7 @@
 #' @importFrom utils download.file
 #' @export
 bow <- function(url,
-                user_agent = "polite R package - https://github.com/dmi3kno/polite",
+                user_agent = "polite R package",
                 delay = 5,
                 force = FALSE, verbose=FALSE,
                 ...){

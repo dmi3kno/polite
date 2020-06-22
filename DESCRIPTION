@@ -23,4 +23,5 @@ Imports:
 Suggests: 
     dplyr,
     testthat,
-    covr
+    covr,
+    webmockr

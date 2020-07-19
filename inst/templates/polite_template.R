@@ -144,6 +144,7 @@ polite_download_file <- memoise::memoise(
   }
 
   old_ua <-  getOption("HTTPUserAgent")
+  on.exit(options("HTTPUserAgent"= old_ua))
   options("HTTPUserAgent"= user_agent)
   if(verbose) message("Scraping: ", url)
   utils::download.file(url=url, destfile=destfile, quiet=quiet, mode=mode, ...)

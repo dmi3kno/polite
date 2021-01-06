@@ -34,7 +34,7 @@ The goal of `polite` is to promote responsible web etiquette.
 
 The package's two main functions `bow` and `scrape` define and realize a web harvesting session. `bow` is used to introduce the client to the host and ask for permission to scrape (by inquiring against the host's `robots.txt` file), while `scrape` is the main function for retrieving data from the remote server. Once the connection is established, there's no need to `bow` again. Rather, in order to adjust a scraping URL the user can simply `nod` to the new path, which updates the session's URL, making sure that the new location can be negotiated against `robots.txt`.
 
-The three pillars of a `polite session` are **seeking permission, taking slowly and never asking twice**.
+The three pillars of a `polite session` are **seeking permission, talking slowly and never asking twice**.
 
 The package builds on awesome toolkits for defining and managing http sessions (`httr` and `rvest`), declaring the user agent string and investigating site policies (`robotstxt`), and utilizing rate-limiting and response caching (`ratelimitr` and `memoise`).
 

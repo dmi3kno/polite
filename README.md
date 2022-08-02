@@ -5,8 +5,6 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.org/dmi3kno/polite.svg?branch=master)](https://travis-ci.org/dmi3kno/polite)
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/dmi3kno/polite?branch=master&svg=true)](https://ci.appveyor.com/project/dmi3kno/polite)
 [![Codecov test
@@ -15,6 +13,7 @@ coverage](https://codecov.io/gh/dmi3kno/polite/branch/master/graph/badge.svg)](h
 status](https://www.r-pkg.org/badges/version/polite)](https://CRAN.R-project.org/package=polite)
 [![Lifecycle:
 maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
+[![R-CMD-check](https://github.com/dmi3kno/polite/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dmi3kno/polite/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of `polite` is to promote responsible web etiquette.
@@ -281,7 +280,7 @@ if(!is.null(beatles_res)) beatles_lst <- httr::content(beatles_res, type = "appl
 
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2022-08-02T17:06:37.573Z"
+#>  $ created: chr "2022-08-02T19:01:58.299Z"
 #>  $ count  : int 169
 #>  $ offset : int 0
 #>  $ artists:List of 10
@@ -418,7 +417,7 @@ beatles_lst <- polite_GET_nrt("https://musicbrainz.org/ws/2/artist/",
 #> Setting useragent: polite R (4.2.1 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2022-08-02T17:06:37.573Z"
+#>  $ created: chr "2022-08-02T19:01:58.299Z"
 #>  $ count  : int 169
 #>  $ offset : int 0
 #>  $ artists:List of 10

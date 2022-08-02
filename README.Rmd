@@ -14,11 +14,11 @@ knitr::opts_chunk$set(
 ```
 # polite <img src="man/figures/logo.png" align="right" />
 <!-- badges: start -->
-[![Travis build status](https://travis-ci.org/dmi3kno/polite.svg?branch=master)](https://travis-ci.org/dmi3kno/polite)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/dmi3kno/polite?branch=master&svg=true)](https://ci.appveyor.com/project/dmi3kno/polite)
 [![Codecov test coverage](https://codecov.io/gh/dmi3kno/polite/branch/master/graph/badge.svg)](https://app.codecov.io/gh/dmi3kno/polite?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/polite)](https://CRAN.R-project.org/package=polite)
 [![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
+[![R-CMD-check](https://github.com/dmi3kno/polite/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/dmi3kno/polite/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 

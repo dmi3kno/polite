@@ -16,9 +16,9 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 [![Travis build status](https://travis-ci.org/dmi3kno/polite.svg?branch=master)](https://travis-ci.org/dmi3kno/polite)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/dmi3kno/polite?branch=master&svg=true)](https://ci.appveyor.com/project/dmi3kno/polite)
-[![Codecov test coverage](https://codecov.io/gh/dmi3kno/polite/branch/master/graph/badge.svg)](https://codecov.io/gh/dmi3kno/polite?branch=master)
+[![Codecov test coverage](https://codecov.io/gh/dmi3kno/polite/branch/master/graph/badge.svg)](https://app.codecov.io/gh/dmi3kno/polite?branch=master)
 [![CRAN status](https://www.r-pkg.org/badges/version/polite)](https://CRAN.R-project.org/package=polite)
-[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+[![Lifecycle: maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 <!-- badges: end -->
 
 
@@ -46,7 +46,7 @@ You can install `polite` from [CRAN](https://cran.r-project.org/) with:
 install.packages("polite")
 ```
 
-Development version of the package can be installed from [Github](https://www.github.com/dmi3kno/polite) with:
+Development version of the package can be installed from [Github](https://github.com/dmi3kno/polite) with:
 
 ```{r, eval=FALSE}
 install.packages("remotes")
@@ -241,7 +241,7 @@ scales::show_col(colrs, ncol = 5)
 
 ### Querying musicbrainz API with polite backend
 
-[Musicbrainz API](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2) allows querying data on artists, releases, labels and all things music. API endpoint, unfortunately, is Disallowed in `robots.txt`, but it is completely legal to access for small size requests. Mass querying is easier using a datadump, with musicbrainz published periodically. We can create polite GET and turn off `robots.txt` validation. 
+[Musicbrainz API](https://musicbrainz.org/doc/MusicBrainz_API) allows querying data on artists, releases, labels and all things music. API endpoint, unfortunately, is Disallowed in `robots.txt`, but it is completely legal to access for small size requests. Mass querying is easier using a datadump, with musicbrainz published periodically. We can create polite GET and turn off `robots.txt` validation. 
 
 ```{r}
 library(polite)

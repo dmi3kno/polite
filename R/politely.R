@@ -90,7 +90,7 @@ politely <- function(fun, user_agent=paste0("polite ", getOption("HTTPUserAgent"
 
     if(verbose) message("Setting useragent: ", user_agent)
     old_ua <- getOption("HTTPUserAgent")
-    on.exit(options("HTTPUserAgent"= old_ua))
+    on.exit(options("HTTPUserAgent"= old_ua), add = TRUE)
     options("HTTPUserAgent"= user_agent)
     res <- mem_fun(...)
     options("HTTPUserAgent"= old_ua)

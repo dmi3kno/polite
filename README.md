@@ -10,21 +10,21 @@ status](https://travis-ci.org/dmi3kno/polite.svg?branch=master)](https://travis-
 [![AppVeyor build
 status](https://ci.appveyor.com/api/projects/status/github/dmi3kno/polite?branch=master&svg=true)](https://ci.appveyor.com/project/dmi3kno/polite)
 [![Codecov test
-coverage](https://codecov.io/gh/dmi3kno/polite/branch/master/graph/badge.svg)](https://codecov.io/gh/dmi3kno/polite?branch=master)
+coverage](https://codecov.io/gh/dmi3kno/polite/branch/master/graph/badge.svg)](https://app.codecov.io/gh/dmi3kno/polite?branch=master)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/polite)](https://CRAN.R-project.org/package=polite)
 [![Lifecycle:
-maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://www.tidyverse.org/lifecycle/#maturing)
+maturing](https://img.shields.io/badge/lifecycle-maturing-blue.svg)](https://lifecycle.r-lib.org/articles/stages.html#maturing)
 <!-- badges: end -->
 
 The goal of `polite` is to promote responsible web etiquette.
 
 > **“bow and scrape” (verb):**
-> 
+>
 > 1)  To make a deep bow with the right leg drawn back (thus scraping
 >     the floor), left hand pressed across the abdomen, right arm held
 >     aside.
-> 
+>
 > 2)  *(idiomatic, by extension)* To behave in a servile, obsequious, or
 >     excessively polite manner. \[1\]  
 >     Source: *Wiktionary, The free dictionary*
@@ -56,7 +56,7 @@ install.packages("polite")
 ```
 
 Development version of the package can be installed from
-[Github](https://www.github.com/dmi3kno/polite) with:
+[Github](https://github.com/dmi3kno/polite) with:
 
 ``` r
 install.packages("remotes")
@@ -92,9 +92,9 @@ head(result)
 You can build your own functions that incorporate `bow`, `scrape` (and,
 if required, `nod`). Here we will extend our inquiry into cheeses and
 will download all cheese names and URLs to their information pages.
-Let’s retrieve the number of pages per letter in the alphabetical
-list, keeping the number of results per page to 100 to minimize number
-of web requests.
+Let’s retrieve the number of pages per letter in the alphabetical list,
+keeping the number of results per page to 100 to minimize number of web
+requests.
 
 ``` r
 library(polite)
@@ -116,7 +116,7 @@ results <- map(responses, ~html_nodes(.x, "#id_page li") %>%
 pages_df <- tibble(letter = rep.int(letters, times=unlist(results)),
                    pages = unlist(map(results, ~seq.int(from=1, to=.x))))
 pages_df
-#> # A tibble: 6 x 2
+#> # A tibble: 6 × 2
 #>   letter pages
 #>   <chr>  <int>
 #> 1 a          1
@@ -144,27 +144,27 @@ tibble(name=lnks %>% html_text(),
 
 df <- pages_df %>% pmap_df(get_cheese_page)
 df
-#> # A tibble: 516 x 2
-#>    name                      link                     
-#>    <chr>                     <chr>                    
-#>  1 "Abbaye de Belloc"        /abbaye-de-belloc/       
-#>  2 "Abbaye de Belval"        /abbaye-de-belval/       
-#>  3 "Abbaye de Citeaux"       /abbaye-de-citeaux/      
-#>  4 "Abbaye de Timadeuc"      /abbaye-de-timadeuc/     
-#>  5 "Abbaye du Mont des Cats" /abbaye-du-mont-des-cats/
-#>  6 "Abbot’s Gold"            /abbots-gold/            
-#>  7 "Abertam"                 /abertam/                
-#>  8 "Abondance"               /abondance/              
-#>  9 "Acapella"                /acapella/               
-#> 10 "Accasciato "             /accasciato/             
-#> # … with 506 more rows
+#> # A tibble: 518 × 2
+#>    name                    link                     
+#>    <chr>                   <chr>                    
+#>  1 Abbaye de Belloc        /abbaye-de-belloc/       
+#>  2 Abbaye de Belval        /abbaye-de-belval/       
+#>  3 Abbaye de Citeaux       /abbaye-de-citeaux/      
+#>  4 Abbaye de Tamié         /tamie/                  
+#>  5 Abbaye de Timadeuc      /abbaye-de-timadeuc/     
+#>  6 Abbaye du Mont des Cats /abbaye-du-mont-des-cats/
+#>  7 Abbot’s Gold            /abbots-gold/            
+#>  8 Abertam                 /abertam/                
+#>  9 Abondance               /abondance/              
+#> 10 Acapella                /acapella/               
+#> # … with 508 more rows
 ```
 
 ## Another example
 
 Bob Rudis is one the vocal proponents of an online etiquette in the R
 community. If you have never seen his robots.txt file, you should
-definitely [check it out](https://rud.is/robots.txt)\! Lets look at his
+definitely [check it out](https://rud.is/robots.txt)! Lets look at his
 [blog](https://rud.is/b/). We don’t know how many pages will the gallery
 return, so we keep going until there’s no more “Older posts” button.
 Note that I first `bow` to the host and then simply `nod` to the current
@@ -281,20 +281,20 @@ if(!is.null(beatles_res)) beatles_lst <- httr::content(beatles_res, type = "appl
 
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2020-06-16T13:27:09.252Z"
-#>  $ count  : int 129
+#>  $ created: chr "2022-08-02T17:06:37.573Z"
+#>  $ count  : int 169
 #>  $ offset : int 0
 #>  $ artists:List of 10
-#>   ..$ :List of 13
 #>   ..$ :List of 12
-#>   ..$ :List of 8
+#>   ..$ :List of 12
 #>   ..$ :List of 10
+#>   ..$ :List of 7
+#>   ..$ :List of 8
+#>   ..$ :List of 6
 #>   ..$ :List of 9
 #>   ..$ :List of 5
-#>   ..$ :List of 11
-#>   ..$ :List of 11
-#>   ..$ :List of 10
-#>   ..$ :List of 10
+#>   ..$ :List of 6
+#>   ..$ :List of 6
 ```
 
 This code does not comply with `polite` principles. It does not provide
@@ -354,10 +354,10 @@ res <- polite_GET("http://colormind.io/list") # now
 #> Your rate will be set to 1 request every 5 second(s).
 #> Pausing...
 #> Scraping: http://colormind.io/list
-#> Setting useragent: polite R (3.6.3 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
+#> Setting useragent: polite R (4.2.1 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
 jsonlite::fromJSON(httr::content(res, as = "text"))$result
-#> [1] "ui"                 "default"            "city_photography"  
-#> [4] "makoto_shinkai"     "sunset_photography" "only_god_forgives"
+#> [1] "ui"                  "default"             "the_wind_rises"     
+#> [4] "lego_movie"          "stellar_photography" "game_of_thrones"
 ```
 
 The backend functionality of `polite` can be used for *any* function as
@@ -387,7 +387,7 @@ res <- polite_POST(url='http://colormind.io/api/', body = req) #now
 #> Your rate will be set to 1 request every 5 second(s).
 #> Pausing...
 #> Scraping: http://colormind.io/api/
-#> Setting useragent: polite R (3.6.3 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
+#> Setting useragent: polite R (4.2.1 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
 res_json <- httr::content(res, as = "text")
 res_mcol <- jsonlite::fromJSON(res_json)$result
 colrs <- rgba2hex(res_mcol)
@@ -398,10 +398,9 @@ scales::show_col(colrs, ncol = 5)
 
 ### Querying musicbrainz API with polite backend
 
-[Musicbrainz
-API](https://musicbrainz.org/doc/Development/XML_Web_Service/Version_2)
-allows querying data on artists, releases, labels and all things music.
-API endpoint, unfortunately, is Disallowed in `robots.txt`, but it is
+[Musicbrainz API](https://musicbrainz.org/doc/MusicBrainz_API) allows
+querying data on artists, releases, labels and all things music. API
+endpoint, unfortunately, is Disallowed in `robots.txt`, but it is
 completely legal to access for small size requests. Mass querying is
 easier using a datadump, with musicbrainz published periodically. We can
 create polite GET and turn off `robots.txt` validation.
@@ -416,23 +415,23 @@ beatles_lst <- polite_GET_nrt("https://musicbrainz.org/ws/2/artist/",
   httr::content(type = "application/json")
 #> Pausing...
 #> Scraping: https://musicbrainz.org/ws/2/artist/
-#> Setting useragent: polite R (3.6.3 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
+#> Setting useragent: polite R (4.2.1 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2020-06-16T13:27:09.252Z"
-#>  $ count  : int 129
+#>  $ created: chr "2022-08-02T17:06:37.573Z"
+#>  $ count  : int 169
 #>  $ offset : int 0
 #>  $ artists:List of 10
-#>   ..$ :List of 13
 #>   ..$ :List of 12
-#>   ..$ :List of 8
+#>   ..$ :List of 12
 #>   ..$ :List of 10
+#>   ..$ :List of 7
+#>   ..$ :List of 8
+#>   ..$ :List of 6
 #>   ..$ :List of 9
 #>   ..$ :List of 5
-#>   ..$ :List of 11
-#>   ..$ :List of 11
-#>   ..$ :List of 10
-#>   ..$ :List of 10
+#>   ..$ :List of 6
+#>   ..$ :List of 6
 ```
 
 Lets parse the response
@@ -455,18 +454,18 @@ beatles_lst %>%
                                      lifespan_end="Career ended")) 
 ```
 
-| Musicbrainz ID                       | Match, % | Type  | Name of artist      | Country | Career begun | Career ended |
-| :----------------------------------- | -------: | :---- | :------------------ | :------ | :----------- | :----------- |
-| b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d |      100 | Group | The Beatles         | GB      | 1957-03      | 1970-04-10   |
-| 5e685f9e-83bb-423c-acfa-487e34f15ffd |       76 | Group | The Tape-beatles    | US      | 1986-12      |              |
-| e897e5fc-2707-49c8-8605-be82b4664dc5 |       75 | Group | Sex Beatles         |         |              |              |
-| 1019b551-eba7-4e7c-bc7d-eb427ef54df2 |       75 | Group | Blues Beatles       | BR      |              |              |
-| bc569a61-dd62-4758-86c6-e99dcb1fdda6 |       74 |       | Tokyo Beatles       | JP      |              |              |
-| 3133aeb8-9982-4e11-a8ff-5477996a80bf |       74 |       | Beatles Chillout    |         |              |              |
-| 35574687-3a4d-4b30-a01a-43fea73b3430 |       74 | Group | Them Beatles        | GB      |              |              |
-| de0769fa-7c32-4706-9c8c-03631c90f208 |       74 | Group | Shitty Beatles      |         | 2005         | 2015-04-19   |
-| ad60d963-44f1-4b41-b785-8284edcaaffe |       74 | Group | Counterfeit Beatles | GB      |              |              |
-| 7cac6d47-ef4e-4347-8835-63ed3f2e74a7 |       74 | Group | Beatles Back2Back   | AU      | 2011         |              |
+| Musicbrainz ID                       | Match, % | Type  | Name of artist       | Country | Career begun | Career ended |
+|:-------------------------------------|---------:|:------|:---------------------|:--------|:-------------|:-------------|
+| b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d |      100 | Group | The Beatles          |         | 1957-03      | 1970-04-10   |
+| 5e685f9e-83bb-423c-acfa-487e34f15ffd |       78 | Group | The Tape-beatles     | US      | 1986-12      |              |
+| 1019b551-eba7-4e7c-bc7d-eb427ef54df2 |       75 | Group | Blues Beatles        | BR      |              |              |
+| 5a45e8c5-e8e5-4f05-9429-6dd00f0ab50b |       75 | Group | Instrumental Beatles |         |              |              |
+| e897e5fc-2707-49c8-8605-be82b4664dc5 |       74 | Group | Sex Beatles          |         |              |              |
+| 74e70126-def2-4b76-a001-ed3b96080e24 |       74 |       | Powdered Beatles     |         |              |              |
+| bc569a61-dd62-4758-86c6-e99dcb1fdda6 |       74 |       | Tokyo Beatles        | JP      |              |              |
+| 3133aeb8-9982-4e11-a8ff-5477996a80bf |       74 |       | Beatles Chillout     |         |              |              |
+| 5d25dbfb-7558-45dc-83dd-6d1176090974 |       74 |       | Daft Beatles         |         |              |              |
+| bdf09e36-2b82-44ef-8402-35c1250d81e0 |       74 |       | Zyklon Beatles       |         |              |              |
 
 ## Learn more
 

@@ -3,6 +3,7 @@
 #' @param url URL
 #' @param user_agent character value passed to user agent string
 #' @param delay desired delay between scraping attempts. Final value will be the maximum of desired and mandated delay, as stipulated by `robots.txt` for relevant user agent
+#' @param times number of times to attempt scraping. Default is 3.
 #' @param force refresh all memoised functions. Clears up `robotstxt` and `scrape` caches. Default is `FALSE`
 #' @param verbose TRUE/FALSE
 #' @param ... other curl parameters wrapped into `httr::config` function
@@ -28,12 +29,16 @@
 bow <- function(url,
                 user_agent = "polite R package",
                 delay = 5,
+                times = 3,
                 force = FALSE, verbose=FALSE,
                 ...){
 
-  stopifnot(is.character(user_agent), length(user_agent) == 1) # write meaningful error ref Lionel talk
-  stopifnot(is.character(url), length(url) == 1) # write meaningful error ref Lionel talk
-
+  stopifnot("Character user agent is required"=is.character(user_agent))
+  stopifnot("Single user agent is required. Please provide character vector of length 1"=(length(user_agent) == 1)) # write meaningful error ref Lionel talk
+  stopifnot("Character URL is required"=is.character(url))
+  stopifnot("Single URL should be provided. Please provide character vector of length 1"=(length(url) == 1)) # write meaningful error ref Lionel talk
+  stopifnot("Number of times to attempt scraping should be numeric"=is.numeric(times))
+  stopifnot("Number of times to attempt scraping should be positive"=(times>0))
   if(force) memoise::forget(scrape)
 
   url_parsed <- httr::parse_url(url)
@@ -60,7 +65,8 @@ bow <- function(url,
       user_agent = user_agent,
       domain   =  url_subdomain,
       robotstxt= rt,
-      delay  = max(delay_rt, delay)
+      delay  = max(delay_rt, delay),
+      times = times
     ),
     class = c("polite", "session")
   )

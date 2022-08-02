@@ -34,12 +34,12 @@ is_scrapable_rt <- function(rtxt, url, user_agent){
 }
 
 #' @importFrom httr GET
-httr_get <- function(url, config, handle, verbose){
+httr_get <- function(url, config, handle, times, verbose){
   httr::RETRY(verb="GET",
     url = url,
     config = config,
     handle = handle,
-    times = 3,
+    times = times,
     pause_base = 5,
     quiet=!verbose
   )

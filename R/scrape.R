@@ -29,7 +29,7 @@ m_scrape <- function(bow, query=NULL, params=NULL, accept="html", content=NULL, 
   accept_type <- httr::accept(accept)
   bow$config <- c(bow$config, accept_type)
 
-  response <- httr_get_ltd(bow$url, bow$config, bow$handle, verbose)
+  response <- httr_get_ltd(bow$url, bow$config, bow$handle, bow$times, verbose)
 
   if(httr::http_error(response)){
     warning(httr::http_status(response)$message, " ", bow$url, call. = FALSE)

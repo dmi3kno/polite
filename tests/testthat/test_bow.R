@@ -20,9 +20,11 @@ webmockr::stub_request("get", "https://httpbin.org/robots.txt") %>%
 
 test_that("Argument assurances in bow work", {
   expect_error(bow("https://httpbin.org/get", user_agent = c("polite", "R", "package")), regexp = "length")
-  expect_error(bow("https://httpbin.org/get", user_agent =42L), regexp = "is.character")
-  expect_error(bow(url=42L, user_agent ="polite R package"), regexp = "is.character")
+  expect_error(bow("https://httpbin.org/get", user_agent =42L), regexp = "Character")
+  expect_error(bow(url=42L, user_agent ="polite R package"), regexp = "Character")
   expect_error(bow(url = c("https://httpbin.org/get", "https://httpbin.org/post")), regexp = "length")
+  expect_error(bow("https://httpbin.org/get", times=0), regexp = "times")
+  expect_error(bow("https://httpbin.org/get", times="five"), regexp = "times")
   })
 
 webmockr::stub_registry_clear()

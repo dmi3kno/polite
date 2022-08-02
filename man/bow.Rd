@@ -9,6 +9,7 @@ bow(
   url,
   user_agent = "polite R package",
   delay = 5,
+  times = 3,
   force = FALSE,
   verbose = FALSE,
   ...
@@ -22,6 +23,8 @@ is.polite(x)
 \item{user_agent}{character value passed to user agent string}
 
 \item{delay}{desired delay between scraping attempts. Final value will be the maximum of desired and mandated delay, as stipulated by \code{robots.txt} for relevant user agent}
+
+\item{times}{number of times to attempt scraping. Default is 3.}
 
 \item{force}{refresh all memoised functions. Clears up \code{robotstxt} and \code{scrape} caches. Default is \code{FALSE}}
 

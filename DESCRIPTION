@@ -10,7 +10,7 @@ ByteCompile: true
 URL: https://github.com/dmi3kno/polite
 BugReports: https://github.com/dmi3kno/polite/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.2
 Imports: 
     httr,
     magrittr,

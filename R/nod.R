@@ -26,7 +26,8 @@ nod <- function(bow, path, verbose=FALSE){
     url_parsed <- httr::parse_url(path)
     url_subdomain <- paste0(url_parsed$scheme, "://", url_parsed$hostname)
     if(url_subdomain!=bow$domain)
-      bow <- bow(url = path, user_agent = bow$user_agent, delay=bow$delay, bow$config)
+      bow <- bow(url = path, user_agent = bow$user_agent, delay=bow$delay, times=bow$times,
+                 force=FALSE, verbose=verbose, bow$config)
     path <- url_parsed$path
   }
 

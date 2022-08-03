@@ -1,8 +1,16 @@
 # polite (development version)
 
+# polite 0.1.2 (Release date: 2022-08-03)
+
+* Released on CRAN. Initial release v0.1.2
+
 # polite 0.1.1.9020 (Release date: 2020-06-12)
 
 * Added `politely` adverb
+* Fixed bug related to incorrect calling of bow() inside the nod() function #31
+* Added `times` argument to `bow()` to control default number of retries #36
+* Fixed a bug on.exit() restoring the user-agent #29
+* Switched to webmockr for testing infrastructure
 
 # polite 0.1.1.9010 (Release date: 2020-03-29)
 

@@ -1,5 +1,5 @@
 Package: polite
-Version: 0.1.1.9020
+Version: 0.1.2
 Title: Be Nice on the Web
 Description: Be responsible when scraping data from websites by following polite principles: introduce yourself, ask for permission, take slowly and never ask twice. 
 Authors@R: person("Dmytro", "Perepolkin", email = "dperepolkin@gmail.com", role = c("aut", "cre"), comment = structure("0000-0001-8558-6183", .Names = "ORCID"))
@@ -7,10 +7,10 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 ByteCompile: true
-URL: https://github.com/dmi3kno/polite
+URL: https://github.com/dmi3kno/polite, https://dmi3kno.github.io/polite/
 BugReports: https://github.com/dmi3kno/polite/issues
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.1.2
 Imports: 
     httr,
     magrittr,
@@ -23,4 +23,5 @@ Imports:
 Suggests: 
     dplyr,
     testthat,
-    covr
+    covr,
+    webmockr

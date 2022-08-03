@@ -280,7 +280,7 @@ if(!is.null(beatles_res)) beatles_lst <- httr::content(beatles_res, type = "appl
 
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2022-08-02T19:01:58.299Z"
+#>  $ created: chr "2022-08-03T01:25:54.433Z"
 #>  $ count  : int 169
 #>  $ offset : int 0
 #>  $ artists:List of 10
@@ -417,7 +417,7 @@ beatles_lst <- polite_GET_nrt("https://musicbrainz.org/ws/2/artist/",
 #> Setting useragent: polite R (4.2.1 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2022-08-02T19:01:58.299Z"
+#>  $ created: chr "2022-08-03T01:25:54.433Z"
 #>  $ count  : int 169
 #>  $ offset : int 0
 #>  $ artists:List of 10

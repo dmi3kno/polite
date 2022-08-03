@@ -1,3 +1,23 @@
+# Second submission
+
+* This is an update for an existing CRAN package.
+
+## Test environments
+- R-hub windows-x86_64-devel (r-devel)
+- R-hub ubuntu-gcc-release (r-release)
+- R-hub fedora-clang-devel (r-devel)
+
+## R CMD check results
+
+0 errors | 0 warnings | 0 notes
+
+## revdepcheck results
+
+We checked 2 reverse dependencies (1 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
+
+ * We saw 0 new problems
+ * We failed to check 0 packages
+
 # Resubmission 2
 CRAN team - 
 This is a second resubmission of a new package responding to feedback from Martina Schmirl on Resubmission 1 below.

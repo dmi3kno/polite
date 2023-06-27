@@ -1,3 +1,24 @@
+# Third submission
+
+* This is an update for an existing CRAN package.
+* No errors were found, when checking  on R-hub, except for missing tidy HTML package on Linux. It appears that tidy HTML library is not installed in Rhub infrastructure.
+
+## Test environments
+- R-hub windows-x86_64-devel (r-devel)
+- R-hub ubuntu-gcc-release (r-release)
+- R-hub fedora-clang-devel (r-devel)
+
+## R CMD check results
+
+0 errors | 0 warnings | 1 note
+
+On Ubuntu Linux 20.04 1 LTS, R-release, GCC and
+On Fedora Linux, R-devel, clang, gfortran
+
+* checking HTML version of manual ... NOTE
+Skipping checking HTML validation: no command 'tidy' found
+
+
 # Second submission
 
 * This is an update for an existing CRAN package.

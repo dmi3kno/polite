@@ -8,6 +8,6 @@
 lhs \%otherwise\% rhs
 }
 \description{
-See \code{purrr::\link[purrr]{\%||\%}} for details.
+Null coalescing operator
 }
 \keyword{internal}

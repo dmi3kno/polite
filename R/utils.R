@@ -1,6 +1,5 @@
 #' Null coalescing operator
 #'
-#' See \code{purrr::\link[purrr]{\%||\%}} for details.
 #'
 #' @name null-coalesce
 #' @rdname nullcoalesce

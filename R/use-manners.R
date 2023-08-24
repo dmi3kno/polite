@@ -8,6 +8,10 @@
 #' @export
 use_manners <- function(save_as="R/polite-scrape.R", open = TRUE) {
 
+  save_as_directory = dirname(save_as)
+  if (! dir.exists(save_as_directory)) {
+    dir.create(save_as_directory)
+  }
   usethis::use_template("polite_template.R", save_as = save_as,
                       open = open, package = "polite")
   invisible()

@@ -1,3 +1,18 @@
+# Fourth submission
+
+* This is an update for an existing CRAN package responding to notes.
+* Removed the unsafe `structure()` function in DESCRIPTION file
+* Updated documentation in one function. No changes otherwise.
+* No errors were found, when checking  on R-hub v2.
+
+## Test environments
+- R-hub ubuntu latest on GitHub
+- R-hub windows-latest on GitHub
+
+## R CMD check results
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
 # Third submission
 
 * This is an update for an existing CRAN package.
@@ -10,8 +25,7 @@
 
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
-
+0 errors ✔ | 0 warnings ✔ | 1 note ✔
 On Ubuntu Linux 20.04 1 LTS, R-release, GCC and
 On Fedora Linux, R-devel, clang, gfortran
 
@@ -40,14 +54,14 @@ We checked 2 reverse dependencies (1 from CRAN + 1 from Bioconductor), comparing
  * We failed to check 0 packages
 
 # Resubmission 2
-CRAN team - 
+CRAN team -
 This is a second resubmission of a new package responding to feedback from Martina Schmirl on Resubmission 1 below.
 
 #> \dontrun{} should be only used if the example really cannot be executed
 #> (e.g. because of missing additional software, missing API keys, ...) by
 #> the user. That's why wrapping examples in \dontrun{} adds the comment
 #> ("# Not run:") as a warning for the user.
-#> Does not seem necessary, please replace with \donttest or explain. 
+#> Does not seem necessary, please replace with \donttest or explain.
 
 Agreed. Provided more realistic examples and replaced \dontrun{} with \donttest{}
 
@@ -66,7 +80,7 @@ This is a first resubmission of a new package, responding to feedback from Marti
 #> object. Instead of print()/cat() rather use message()/warning() if you
 #> really have to write text to the console.
 
-Removed all mentions of cat()/print() in the package, other than in print method 
+Removed all mentions of cat()/print() in the package, other than in print method
 of the `polite` class. Simplified print method by removing dependency on `crayon`.
 
 #> 2. When creating the examples please keep in mind that the structure
@@ -94,7 +108,7 @@ of the `polite` class. Simplified print method by removing dependency on `crayon
 #>     }
 #> }
 
-Removed redundant  \dontrun statements in `scrape()` function and controlled that all 
+Removed redundant  \dontrun statements in `scrape()` function and controlled that all
 documentation section use consistent formatting for examples.
 
 #> 3. Please ensure that your functions do not write by default or in your

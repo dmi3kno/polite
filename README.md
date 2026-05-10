@@ -25,8 +25,8 @@ The goal of `polite` is to promote responsible web etiquette.
 >     aside.
 >
 > 2)  *(idiomatic, by extension)* To behave in a servile, obsequious, or
->     excessively polite manner. \[1\]  
->     Source: *Wiktionary, The free dictionary*
+>     excessively polite manner. \[1\] Source: *Wiktionary, The free
+>     dictionary*
 
 The package’s two main functions `bow` and `scrape` define and realize a
 web harvesting session. `bow` is used to introduce the client to the
@@ -77,13 +77,12 @@ library(rvest)
 
 session <- bow("https://www.cheese.com/by_type", force = TRUE)
 result <- scrape(session, query=list(t="semi-soft", per_page=100)) %>%
-  html_node("#main-body") %>% 
-  html_nodes("h3") %>% 
+  html_node("#main-body") %>%
+  html_nodes("h3") %>%
   html_text()
 head(result)
-#> [1] "3-Cheese Italian Blend"  "Abbaye de Citeaux"      
-#> [3] "Abbaye du Mont des Cats" "Adelost"                
-#> [5] "ADL Brick Cheese"        "Ailsa Craig"
+#> [1] "American Cheese"     "Mozzarella"          "Taleggio"           
+#> [4] "Fontina Val d'Aosta" "Blue Cheese"         "Jarlsberg"
 ```
 
 ## Extended Example
@@ -107,23 +106,20 @@ session <- bow("https://www.cheese.com/alphabetical")
 letters <- letters[1:3] # delete this line to scrape all letters
 
 responses <- map(letters, ~scrape(session, query = list(per_page=100,i=.x)) )
-results <- map(responses, ~html_nodes(.x, "#id_page li") %>% 
-                           html_text(trim = TRUE) %>% 
+results <- map(responses, ~html_nodes(.x, "#id_page li") %>%
+                           html_text(trim = TRUE) %>%
                            as.numeric() %>%
-                           tail(1) ) %>% 
+                           tail(1) ) %>%
            map(~pluck(.x, 1, .default=1))
 pages_df <- tibble(letter = rep.int(letters, times=unlist(results)),
                    pages = unlist(map(results, ~seq.int(from=1, to=.x))))
 pages_df
-#> # A tibble: 6 × 2
+#> # A tibble: 3 × 2
 #>   letter pages
 #>   <chr>  <int>
 #> 1 a          1
 #> 2 b          1
-#> 3 b          2
-#> 4 c          1
-#> 5 c          2
-#> 6 c          3
+#> 3 c          1
 ```
 
 Now that we know how many pages to retrieve from each letter page, let’s
@@ -135,7 +131,7 @@ missing from `scrape` function).
 
 ``` r
 get_cheese_page <- function(letter, pages){
- lnks <- scrape(session, query=list(per_page=100,i=letter,page=pages)) %>% 
+ lnks <- scrape(session, query=list(per_page=100,i=letter,page=pages)) %>%
     html_nodes("h3 a")
 tibble(name=lnks %>% html_text(),
        link=lnks %>% html_attr("href"))
@@ -143,20 +139,20 @@ tibble(name=lnks %>% html_text(),
 
 df <- pages_df %>% pmap_df(get_cheese_page)
 df
-#> # A tibble: 518 × 2
+#> # A tibble: 60 × 2
 #>    name                    link                     
 #>    <chr>                   <chr>                    
-#>  1 Abbaye de Belloc        /abbaye-de-belloc/       
-#>  2 Abbaye de Belval        /abbaye-de-belval/       
-#>  3 Abbaye de Citeaux       /abbaye-de-citeaux/      
-#>  4 Abbaye de Tamié         /tamie/                  
-#>  5 Abbaye de Timadeuc      /abbaye-de-timadeuc/     
-#>  6 Abbaye du Mont des Cats /abbaye-du-mont-des-cats/
-#>  7 Abbot’s Gold            /abbots-gold/            
-#>  8 Abertam                 /abertam/                
-#>  9 Abondance               /abondance/              
-#> 10 Acapella                /acapella/               
-#> # … with 508 more rows
+#>  1 Aarewasser              /aarewasser/             
+#>  2 Abbaye de Belloc        /abbaye-de-belloc/       
+#>  3 Abbaye de Belval        /abbaye-de-belval/       
+#>  4 Abbaye de Citeaux       /abbaye-de-citeaux/      
+#>  5 Abbaye de Tamié         /tamie/                  
+#>  6 Abbaye de Timadeuc      /abbaye-de-timadeuc/     
+#>  7 Abbaye du Mont des Cats /abbaye-du-mont-des-cats/
+#>  8 Abbot’s Gold            /abbots-gold/            
+#>  9 Abertam                 /abertam/                
+#> 10 Abondance               /abondance/              
+#> # ℹ 50 more rows
 ```
 
 ## Another example
@@ -172,28 +168,28 @@ scraping page inside the `while` loop.
 ``` r
     library(polite)
     library(rvest)
-    
+
     hrbrmstr_posts <- data.frame()
     url <- "https://rud.is/b/"
     session <- bow(url)
-    
+
     while(!is.na(url)){
       # make it verbose
       message("Scraping ", url)
       # nod and scrape
-      current_page <- nod(session, url) %>% 
+      current_page <- nod(session, url) %>%
         scrape(verbose=TRUE)
       # extract post titles
-      hrbrmstr_posts <- current_page %>% 
-        html_nodes(".entry-title a") %>% 
-        polite::html_attrs_dfr() %>% 
+      hrbrmstr_posts <- current_page %>%
+        html_nodes(".entry-title a") %>%
+        polite::html_attrs_dfr() %>%
         rbind(hrbrmstr_posts)
       # see if there's "Older posts" button
-      url <- current_page %>% 
-        html_node(".nav-previous a") %>% 
+      url <- current_page %>%
+        html_node(".nav-previous a") %>%
         html_attr("href")
     } # end while loop
-    
+
     tibble::as_tibble(hrbrmstr_posts)
     #> # A tibble: 578 x3
 ```
@@ -273,27 +269,27 @@ library(httr)
 library(xml2)
 library(purrr)
 
-beatles_res <- GET("https://musicbrainz.org/ws/2/artist/", 
+beatles_res <- GET("https://musicbrainz.org/ws/2/artist/",
                    query=list(query="Beatles", limit=10),
-                   httr::accept("application/json")) 
+                   httr::accept("application/json"))
 if(!is.null(beatles_res)) beatles_lst <- httr::content(beatles_res, type = "application/json")
 
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2022-08-03T01:25:54.433Z"
-#>  $ count  : int 169
+#>  $ created: chr "2026-05-10T19:33:09.681Z"
+#>  $ count  : int 274
 #>  $ offset : int 0
 #>  $ artists:List of 10
+#>   ..$ :List of 14
+#>   ..$ :List of 18
+#>   ..$ :List of 17
 #>   ..$ :List of 12
-#>   ..$ :List of 12
-#>   ..$ :List of 10
-#>   ..$ :List of 7
+#>   ..$ :List of 13
+#>   ..$ :List of 18
+#>   ..$ :List of 11
 #>   ..$ :List of 8
-#>   ..$ :List of 6
-#>   ..$ :List of 9
 #>   ..$ :List of 5
-#>   ..$ :List of 6
-#>   ..$ :List of 6
+#>   ..$ :List of 7
 ```
 
 This code does not comply with `polite` principles. It does not provide
@@ -335,7 +331,7 @@ adverb. Then call the new function insted of original. You dont need to
 change anything other than a function name.
 
 ``` r
-polite_GET <- politely(httr::GET, verbose=TRUE) 
+polite_GET <- politely(httr::GET, verbose=TRUE)
 
 #res <- httr::GET("http://colormind.io/list") # was
 res <- polite_GET("http://colormind.io/list") # now
@@ -353,10 +349,10 @@ res <- polite_GET("http://colormind.io/list") # now
 #> Your rate will be set to 1 request every 5 second(s).
 #> Pausing...
 #> Scraping: http://colormind.io/list
-#> Setting useragent: polite R (4.2.1 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
+#> Setting useragent: polite R (4.6.0 x86_64-w64-mingw32 x86_64 mingw32) bot
 jsonlite::fromJSON(httr::content(res, as = "text"))$result
-#> [1] "ui"                  "default"             "the_wind_rises"     
-#> [4] "lego_movie"          "stellar_photography" "game_of_thrones"
+#> [1] "ui"                    "default"               "pokemon_gold_silver"  
+#> [4] "flower_photography"    "raise_the_red_lantern" "kaguya_film"
 ```
 
 The backend functionality of `polite` can be used for *any* function as
@@ -364,7 +360,7 @@ long as it has `url` argument (or the first argument is a url). Here’s
 an example of polite POST created with adverb `politely`.
 
 ``` r
-polite_POST <- politely(POST, verbose=TRUE) 
+polite_POST <- politely(POST, verbose=TRUE)
 
 clue_colors <-c(NA, "lightseagreen", NA, "coral", NA)
 
@@ -386,14 +382,14 @@ res <- polite_POST(url='http://colormind.io/api/', body = req) #now
 #> Your rate will be set to 1 request every 5 second(s).
 #> Pausing...
 #> Scraping: http://colormind.io/api/
-#> Setting useragent: polite R (4.2.1 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
+#> Setting useragent: polite R (4.6.0 x86_64-w64-mingw32 x86_64 mingw32) bot
 res_json <- httr::content(res, as = "text")
 res_mcol <- jsonlite::fromJSON(res_json)$result
 colrs <- rgba2hex(res_mcol)
 scales::show_col(colrs, ncol = 5)
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-10-1.png" alt="" width="100%" />
 
 ### Querying musicbrainz API with polite backend
 
@@ -408,37 +404,37 @@ create polite GET and turn off `robots.txt` validation.
 library(polite)
 polite_GET_nrt <- politely(GET, verbose=TRUE, robots = FALSE) # turn off robotstxt checking
 
-beatles_lst <- polite_GET_nrt("https://musicbrainz.org/ws/2/artist/", 
+beatles_lst <- polite_GET_nrt("https://musicbrainz.org/ws/2/artist/",
                    query=list(query="Beatles", limit=10),
-                   httr::accept("application/json")) %>% 
+                   httr::accept("application/json")) %>%
   httr::content(type = "application/json")
 #> Pausing...
 #> Scraping: https://musicbrainz.org/ws/2/artist/
-#> Setting useragent: polite R (4.2.1 x86_64-pc-linux-gnu x86_64 linux-gnu) bot
+#> Setting useragent: polite R (4.6.0 x86_64-w64-mingw32 x86_64 mingw32) bot
 str(beatles_lst, max.level = 2)
 #> List of 4
-#>  $ created: chr "2022-08-03T01:25:54.433Z"
-#>  $ count  : int 169
+#>  $ created: chr "2026-05-10T19:33:09.681Z"
+#>  $ count  : int 274
 #>  $ offset : int 0
 #>  $ artists:List of 10
+#>   ..$ :List of 14
+#>   ..$ :List of 18
+#>   ..$ :List of 17
 #>   ..$ :List of 12
-#>   ..$ :List of 12
-#>   ..$ :List of 10
-#>   ..$ :List of 7
+#>   ..$ :List of 13
+#>   ..$ :List of 18
+#>   ..$ :List of 11
 #>   ..$ :List of 8
-#>   ..$ :List of 6
-#>   ..$ :List of 9
 #>   ..$ :List of 5
-#>   ..$ :List of 6
-#>   ..$ :List of 6
+#>   ..$ :List of 7
 ```
 
 Lets parse the response
 
 ``` r
 options(knitr.kable.NA = '')
-beatles_lst %>%   
-  extract2("artists") %>% 
+beatles_lst %>%
+  extract2("artists") %>%
   {tibble::tibble(id=map_chr(.,"id", .default=NA_character_),
                   match_pct=map_int(.,"score", .default=NA_character_),
                   type=map_chr(.,"type", .default=NA_character_),
@@ -447,29 +443,29 @@ beatles_lst %>%
                   lifespan_begin=map_chr(., c("life-span", "begin"),.default=NA_character_),
                   lifespan_end=map_chr(., c("life-span", "end"),.default=NA_character_)
                   )
-    } %>% knitr::kable(col.names = c(id="Musicbrainz ID", match_pct="Match, %", 
+    } %>% knitr::kable(col.names = c(id="Musicbrainz ID", match_pct="Match, %",
                                      type="Type", name="Name of artist",
                                      country="Country", lifespan_begin="Career begun",
-                                     lifespan_end="Career ended")) 
+                                     lifespan_end="Career ended"))
 ```
 
-| Musicbrainz ID                       | Match, % | Type  | Name of artist       | Country | Career begun | Career ended |
-|:-------------------------------------|---------:|:------|:---------------------|:--------|:-------------|:-------------|
-| b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d |      100 | Group | The Beatles          |         | 1957-03      | 1970-04-10   |
-| 5e685f9e-83bb-423c-acfa-487e34f15ffd |       78 | Group | The Tape-beatles     | US      | 1986-12      |              |
-| 1019b551-eba7-4e7c-bc7d-eb427ef54df2 |       75 | Group | Blues Beatles        | BR      |              |              |
-| 5a45e8c5-e8e5-4f05-9429-6dd00f0ab50b |       75 | Group | Instrumental Beatles |         |              |              |
-| e897e5fc-2707-49c8-8605-be82b4664dc5 |       74 | Group | Sex Beatles          |         |              |              |
-| 74e70126-def2-4b76-a001-ed3b96080e24 |       74 |       | Powdered Beatles     |         |              |              |
-| bc569a61-dd62-4758-86c6-e99dcb1fdda6 |       74 |       | Tokyo Beatles        | JP      |              |              |
-| 3133aeb8-9982-4e11-a8ff-5477996a80bf |       74 |       | Beatles Chillout     |         |              |              |
-| 5d25dbfb-7558-45dc-83dd-6d1176090974 |       74 |       | Daft Beatles         |         |              |              |
-| bdf09e36-2b82-44ef-8402-35c1250d81e0 |       74 |       | Zyklon Beatles       |         |              |              |
+| Musicbrainz ID | Match, % | Type | Name of artist | Country | Career begun | Career ended |
+|:---|---:|:---|:---|:---|:---|:---|
+| b10bbbfc-cf9e-42e0-be17-e2c3e1d2600d | 100 | Group | The Beatles | GB | 1960 | 1970-04-10 |
+| 4d5447d7-c61c-4120-ba1b-d7f471d385b9 | 72 | Person | John Lennon | GB | 1940-10-09 | 1980-12-08 |
+| ba550d0e-adac-4864-b88b-407cab5e76af | 72 | Person | Paul McCartney | GB | 1942-06-18 |  |
+| 5e685f9e-83bb-423c-acfa-487e34f15ffd | 69 | Group | The Tape-beatles | US | 1986-12 |  |
+| 0f697bc6-6df7-41c9-b550-39981e520d70 | 68 | Group | The Beatles Revival Band | DE | 1976 |  |
+| 42a8f507-8412-4611-854f-926571049fa0 | 67 | Person | George Harrison | GB | 1943-02-24 | 2001-11-29 |
+| 1019b551-eba7-4e7c-bc7d-eb427ef54df2 | 64 | Group | Blues Beatles | BR | 2010 |  |
+| 9d953ee6-4ea6-4b0e-aea6-7268d380bef1 | 64 | Group | The Beatles |  |  |  |
+| 3f944209-cab5-4c54-98ff-7efd34463434 | 63 |  | D-Beatles |  |  |  |
+| 5a45e8c5-e8e5-4f05-9429-6dd00f0ab50b | 63 | Group | Instrumental Beatles |  |  |  |
 
 ## Learn more
 
 [Ethical webscraper
-manifesto](https://towardsdatascience.com/ethics-in-web-scraping-b96b18136f01)
+manifesto](https://medium.com/data-science/ethics-in-web-scraping-b96b18136f01)
 
 Package logo uses elements of a free image by
 [pngtree.com](https://pngtree.com)

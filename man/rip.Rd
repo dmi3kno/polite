@@ -35,8 +35,8 @@ Polite file download
 }
 \examples{
 \donttest{
-bow("https://www.cheese.com/") \%>\%
- nod("media/img/sub-page-slide2.jpg") \%>\%
+bow("https://en.wikipedia.org/") \%>\%
+ nod("wiki/Flag_of_the_United_States#/media/File:Flag_of_the_United_States.svg") \%>\%
  rip()
 }
 }

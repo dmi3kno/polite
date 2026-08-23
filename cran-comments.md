@@ -1,3 +1,13 @@
+# Fifth submission
+
+* This is an update for an existing CRAN package responding to donttest notes.
+* Removed the example involving the discontinued website. No changes otherwise.
+
+## R CMD check results
+
+0 errors ✔ | 0 warnings ✔ | 0 notes ✔
+
+
 # Fourth submission
 
 * This is an update for an existing CRAN package responding to notes.

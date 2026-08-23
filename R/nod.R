@@ -9,9 +9,9 @@
 #' \donttest{
 #'  library(polite)
 #'
-#'  host <- "https://www.cheese.com"
+#'  host <- "https://www.wikipedia.org"
 #'  session <- bow(host) %>%
-#'               nod(path="by_type")
+#'               nod(path="wiki")
 #'  session
 #' }
 #' @importFrom httr parse_url modify_url

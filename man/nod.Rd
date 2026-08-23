@@ -23,9 +23,9 @@ Agree modification of session path with the host
 \donttest{
  library(polite)
 
- host <- "https://www.cheese.com"
+ host <- "https://www.wikipedia.org"
  session <- bow(host) \%>\%
-              nod(path="by_type")
+              nod(path="wiki")
  session
 }
 }

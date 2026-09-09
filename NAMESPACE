@@ -13,31 +13,41 @@ export(scrape)
 export(set_rip_delay)
 export(set_scrape_delay)
 export(use_manners)
-importFrom(httr,GET)
-importFrom(httr,HEAD)
-importFrom(httr,add_headers)
-importFrom(httr,config)
-importFrom(httr,content)
-importFrom(httr,handle)
-importFrom(httr,headers)
-importFrom(httr,http_error)
-importFrom(httr,modify_url)
-importFrom(httr,parse_url)
+importFrom(httr,
+  GET,
+  HEAD,
+  add_headers,
+  config,
+  content,
+  handle,
+  headers,
+  http_error,
+  modify_url,
+  parse_url
+)
 importFrom(magrittr,"%>%")
-importFrom(memoise,cache_memory)
-importFrom(memoise,forget)
-importFrom(memoise,has_cache)
-importFrom(memoise,memoise)
-importFrom(ratelimitr,UPDATE_RATE)
-importFrom(ratelimitr,get_rates)
-importFrom(ratelimitr,limit_rate)
-importFrom(ratelimitr,rate)
+importFrom(memoise,
+  cache_memory,
+  forget,
+  has_cache,
+  memoise
+)
+importFrom(ratelimitr,
+  UPDATE_RATE,
+  get_rates,
+  limit_rate,
+  rate
+)
 importFrom(robotstxt,robotstxt)
-importFrom(rvest,html_attr)
-importFrom(rvest,html_attrs)
-importFrom(rvest,html_text)
-importFrom(stats,na.omit)
-importFrom(stats,setNames)
+importFrom(rvest,
+  html_attr,
+  html_attrs,
+  html_text
+)
+importFrom(stats,
+  na.omit,
+  setNames
+)
 importFrom(tools,file_ext)
 importFrom(usethis,use_template)
 importFrom(utils,download.file)

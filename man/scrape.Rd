@@ -23,7 +23,8 @@ scrape(
 \item{accept}{character value of expected data type to be returned by host (e.g. \code{html}, \code{json}, \code{xml}, \code{csv}, \code{txt}, etc.)}
 
 \item{content}{MIME type (aka internet media type) used to override the content type returned by the server.
-See http://en.wikipedia.org/wiki/Internet_media_type for a list of common types. You can add the \code{charset} parameter to override the server's default encoding}
+See http://en.wikipedia.org/wiki/Internet_media_type for a list of common types. You can add the \code{charset} parameter to override the server's default encoding
+For example, you could write \code{content="text/html; charset=UTF-8"}}
 
 \item{verbose}{extra feedback from the function. Defaults to \code{FALSE}}
 }

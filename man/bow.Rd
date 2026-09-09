@@ -44,7 +44,7 @@ Introduce yourself to the host
 \donttest{
  library(polite)
 
- host <- "https://www.cheese.com"
+ host <- "https://www.wikipedia.org"
  session <- bow(host)
  session
 }
